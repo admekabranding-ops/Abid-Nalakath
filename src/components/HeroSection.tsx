@@ -248,13 +248,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onExploreWork, onNavig
           </div>
 
           {/* ================= CENTER OVERLAPPING PORTRAIT (DESKTOP) ================= */}
-          <div className="absolute inset-y-0 left-[53%] xl:left-[52%] -translate-x-1/2 z-20 flex flex-col items-center justify-end pointer-events-none w-[460px] xl:w-[520px]">
+          <div className="absolute inset-y-0 left-[53%] xl:left-[51%] -translate-x-1/2 z-20 flex flex-col items-center justify-end pointer-events-none w-[540px] xl:w-[620px] 2xl:w-[680px]">
             {/* Cutout Portrait Image of Abid */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full h-[88%] max-h-[640px] flex items-end justify-center"
+              className="relative w-full h-[92%] xl:h-[95%] max-h-[670px] flex items-end justify-center"
             >
               <img
                 src="/assets/abid-hero.png"
@@ -365,11 +365,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onExploreWork, onNavig
 
           {/* Central Portrait on Mobile with Smooth Transition */}
           <div className="relative bg-gradient-to-b from-[#C63D08] via-[#651B0D] to-[#151515] pt-4 flex flex-col items-center justify-end overflow-hidden">
-            <div className="relative w-full max-w-sm flex items-end justify-center px-4">
+            <div className="relative w-full max-w-md flex items-end justify-center px-4">
               <img
                 src="/assets/abid-hero.png"
                 alt="Abid Nalakath"
-                className="max-h-[380px] w-auto object-contain object-bottom drop-shadow-2xl"
+                className="max-h-[420px] w-auto object-contain object-bottom drop-shadow-2xl"
               />
 
               {/* Mobile Social Buttons */}
