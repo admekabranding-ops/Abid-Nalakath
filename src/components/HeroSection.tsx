@@ -248,7 +248,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onExploreWork, onNavig
           </div>
 
           {/* ================= CENTER OVERLAPPING PORTRAIT (DESKTOP) ================= */}
-          <div className="absolute inset-y-0 left-[53%] xl:left-[51%] -translate-x-1/2 z-20 flex flex-col items-center justify-end pointer-events-none w-[560px] xl:w-[650px] 2xl:w-[720px]">
+          <div className="absolute inset-y-0 left-[53%] xl:left-[51%] -translate-x-1/2 z-20 flex flex-col items-center justify-end pointer-events-none w-[490px] xl:w-[560px] 2xl:w-[610px]">
             {/* Cutout Portrait Image of Abid */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
@@ -259,7 +259,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onExploreWork, onNavig
               <img
                 src="/assets/abid-hero.png"
                 alt="Abid Nalakath — Creative Designer"
-                className="w-full h-auto object-contain object-bottom drop-shadow-[0_20px_35px_rgba(0,0,0,0.5)] select-none scale-105 xl:scale-115 origin-bottom"
+                className="w-full h-auto max-h-[580px] xl:max-h-[630px] object-contain object-bottom drop-shadow-[0_20px_35px_rgba(0,0,0,0.5)] select-none origin-bottom"
               />
 
               {/* Bottom Center Social Media Icons overlapping chest/waist */}
@@ -365,11 +365,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onExploreWork, onNavig
 
           {/* Central Portrait on Mobile with Smooth Transition */}
           <div className="relative bg-gradient-to-b from-[#C63D08] via-[#651B0D] to-[#151515] pt-6 pb-2 flex flex-col items-center justify-end overflow-hidden">
-            <div className="relative w-full max-w-sm sm:max-w-md flex items-end justify-center px-4">
+            <div className="relative w-full max-w-xs sm:max-w-sm flex items-end justify-center px-4">
               <img
                 src="/assets/abid-hero.png"
                 alt="Abid Nalakath"
-                className="w-full max-w-[340px] sm:max-w-[400px] h-auto object-contain object-bottom drop-shadow-2xl scale-110 origin-bottom"
+                className="w-full max-w-[280px] sm:max-w-[330px] h-auto object-contain object-bottom drop-shadow-2xl origin-bottom"
               />
 
               {/* Mobile Social Buttons */}
