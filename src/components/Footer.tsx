@@ -1,8 +1,16 @@
-import { ArrowUp } from 'lucide-react';
+import { ArrowUp, Shield } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { InstagramIcon, LinkedinIcon, DribbbleIcon } from './SocialIcons';
 import { personalInfo } from '../data/portfolioData';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  contactContent?: any;
+  socialsContent?: any;
+}
+
+export const Footer: React.FC<FooterProps> = ({ contactContent, socialsContent }) => {
+  const email = contactContent?.email || personalInfo.email;
+  const socials = socialsContent || contactContent?.socials || personalInfo.socials;
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -36,7 +44,7 @@ export const Footer: React.FC = () => {
 
             <div className="flex items-center gap-3 pt-2">
               <a
-                href={personalInfo.socials.instagram}
+                href={socials.instagram || personalInfo.socials.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
@@ -45,7 +53,7 @@ export const Footer: React.FC = () => {
                 <InstagramIcon className="w-4 h-4" />
               </a>
               <a
-                href={personalInfo.socials.linkedin}
+                href={socials.linkedin || personalInfo.socials.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
@@ -54,7 +62,7 @@ export const Footer: React.FC = () => {
                 <LinkedinIcon className="w-4 h-4" />
               </a>
               <a
-                href={personalInfo.socials.dribbble}
+                href={socials.dribbble || personalInfo.socials.dribbble}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Dribbble"
@@ -90,7 +98,7 @@ export const Footer: React.FC = () => {
               Project Inquiries
             </h4>
             <p className="text-sm text-white font-medium">
-              {personalInfo.email}
+              {email}
             </p>
             <p className="text-xs text-neutral-400">
               Open for selective brand identity collaborations, art direction, and digital creative commissions.
@@ -110,15 +118,26 @@ export const Footer: React.FC = () => {
             &copy; {new Date().getFullYear()} Abid Nalakath. All rights reserved. Built with precision.
           </div>
 
-          <button
-            onClick={scrollToTop}
-            className="flex items-center gap-2 text-neutral-300 hover:text-[#FF9D00] transition-colors py-1 group"
-          >
-            <span>Back to top</span>
-            <div className="w-7 h-7 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-[#F4510B] group-hover:text-white transition-all">
-              <ArrowUp className="w-3.5 h-3.5" />
-            </div>
-          </button>
+          <div className="flex items-center gap-6">
+            <Link
+              to="/admin"
+              className="inline-flex items-center gap-1.5 text-neutral-500 hover:text-[#FF9D00] transition-colors"
+              title="Local Admin Control Panel"
+            >
+              <Shield className="w-3.5 h-3.5 text-[#F4510B]" />
+              <span>Admin Portal</span>
+            </Link>
+
+            <button
+              onClick={scrollToTop}
+              className="flex items-center gap-2 text-neutral-300 hover:text-[#FF9D00] transition-colors py-1 group"
+            >
+              <span>Back to top</span>
+              <div className="w-7 h-7 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-[#F4510B] group-hover:text-white transition-all">
+                <ArrowUp className="w-3.5 h-3.5" />
+              </div>
+            </button>
+          </div>
         </div>
       </div>
     </footer>

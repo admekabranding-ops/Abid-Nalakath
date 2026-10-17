@@ -3,7 +3,22 @@ import { motion } from 'framer-motion';
 import { Sparkles, Compass, Award, Palette } from 'lucide-react';
 import { processSteps, skillsList, toolsMastered } from '../data/portfolioData';
 
-export const AboutSection: React.FC = () => {
+interface AboutSectionProps {
+  aboutContent?: any;
+}
+
+export const AboutSection: React.FC<AboutSectionProps> = ({ aboutContent }) => {
+  const heading = aboutContent?.heading || "Design With Purpose.";
+  const story = aboutContent?.story || "I’m Abid Nalakath, a creative designer passionate about transforming bold ideas into clear, engaging and visually distinctive experiences. With a deep respect for minimalism, deliberate typography, and high-energy color systems, I help companies build timeless visual authority.";
+  const philosophyTitle = aboutContent?.philosophyTitle || "Where Strategy Meets Pure Visual Artistry";
+  const philosophyDesc = aboutContent?.philosophyDesc || "Great design is never just decoration. It is visual problem solving that bridges emotion and business outcomes. Every color gradient, kerning choice, and spatial composition is engineered to provoke curiosity, communicate trust, and solidify brand recognition.";
+  const focus = aboutContent?.focus || "Identity & High-Impact Campaigns";
+  const philosophyText = aboutContent?.philosophyText || "Obsessive Simplicity & Raw Energy";
+  const experienceYears = aboutContent?.experienceYears || "6+ Years Crafting Global Brand Narratives";
+  const skills = aboutContent?.skills && aboutContent.skills.length > 0 ? aboutContent.skills : skillsList;
+  const steps = aboutContent?.processSteps && aboutContent.processSteps.length > 0 ? aboutContent.processSteps : processSteps;
+  const tools = aboutContent?.tools && aboutContent.tools.length > 0 ? aboutContent.tools : toolsMastered;
+
   return (
     <section id="about" className="relative py-24 sm:py-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       {/* Decorative Warm Ambient Glow */}
@@ -30,7 +45,13 @@ export const AboutSection: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-6"
         >
-          Design With <span className="text-[#F4510B]">Purpose.</span>
+          {heading.includes('Purpose.') ? (
+            <>
+              {heading.replace('Purpose.', '')}<span className="text-[#F4510B]">Purpose.</span>
+            </>
+          ) : (
+            heading
+          )}
         </motion.h2>
 
         <motion.p
@@ -40,7 +61,7 @@ export const AboutSection: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-base sm:text-lg text-neutral-300 font-normal leading-relaxed"
         >
-          I’m <span className="text-white font-semibold">Abid Nalakath</span>, a creative designer passionate about transforming bold ideas into clear, engaging and visually distinctive experiences. With a deep respect for minimalism, deliberate typography, and high-energy color systems, I help companies build timeless visual authority.
+          {story}
         </motion.p>
       </div>
 
@@ -60,11 +81,11 @@ export const AboutSection: React.FC = () => {
             </div>
 
             <h3 className="text-2xl sm:text-3xl font-display font-bold text-white mb-4">
-              Where Strategy Meets Pure Visual Artistry
+              {philosophyTitle}
             </h3>
 
             <p className="text-sm sm:text-base text-neutral-300 leading-relaxed mb-6">
-              Great design is never just decoration. It is visual problem solving that bridges emotion and business outcomes. Every color gradient, kerning choice, and spatial composition is engineered to provoke curiosity, communicate trust, and solidify brand recognition.
+              {philosophyDesc}
             </p>
 
             <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/10">
@@ -73,7 +94,7 @@ export const AboutSection: React.FC = () => {
                   Focus
                 </div>
                 <div className="text-white text-sm font-medium">
-                  Identity &amp; High-Impact Campaigns
+                  {focus}
                 </div>
               </div>
               <div>
@@ -81,7 +102,7 @@ export const AboutSection: React.FC = () => {
                   Philosophy
                 </div>
                 <div className="text-white text-sm font-medium">
-                  Obsessive Simplicity &amp; Raw Energy
+                  {philosophyText}
                 </div>
               </div>
             </div>
@@ -107,7 +128,7 @@ export const AboutSection: React.FC = () => {
             </div>
 
             <div className="space-y-4">
-              {skillsList.map((skill, index) => (
+              {skills.map((skill: any, index: number) => (
                 <div key={index} className="space-y-1.5">
                   <div className="flex justify-between text-xs font-medium">
                     <span className="text-neutral-200">{skill.name}</span>
@@ -131,7 +152,7 @@ export const AboutSection: React.FC = () => {
           <div className="mt-8 pt-4 border-t border-white/10 flex items-center gap-3">
             <Award className="w-5 h-5 text-[#FF9D00]" />
             <span className="text-xs text-neutral-400">
-              6+ Years Crafting Global Brand Narratives
+              {experienceYears}
             </span>
           </div>
         </motion.div>
@@ -149,7 +170,7 @@ export const AboutSection: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {processSteps.map((step, idx) => (
+          {steps.map((step: any, idx: number) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, y: 20 }}
@@ -182,7 +203,7 @@ export const AboutSection: React.FC = () => {
         </p>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-          {toolsMastered.map((tool, i) => (
+          {tools.map((tool: any, i: number) => (
             <div
               key={i}
               className="p-4 rounded-xl bg-white/5 border border-white/5 hover:border-[#F4510B]/40 hover:bg-[#F4510B]/10 transition-all text-center group"

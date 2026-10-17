@@ -7,9 +7,20 @@ import { personalInfo } from '../data/portfolioData';
 
 interface ContactSectionProps {
   preselectedService?: string;
+  contactContent?: any;
+  socialsContent?: any;
 }
 
-export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedService }) => {
+export const ContactSection: React.FC<ContactSectionProps> = ({
+  preselectedService,
+  contactContent,
+  socialsContent,
+}) => {
+  const email = contactContent?.email || personalInfo.email;
+  const location = contactContent?.location || personalInfo.location;
+  const responseTime = contactContent?.responseTime || 'Within 24 Hours';
+  const socials = socialsContent || contactContent?.socials || personalInfo.socials;
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -42,7 +53,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
   ];
 
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText(personalInfo.email);
+    navigator.clipboard.writeText(email);
     setCopiedEmail(true);
     setTimeout(() => setCopiedEmail(false), 2500);
   };
@@ -62,14 +73,24 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
     return Object.keys(errs).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
     setSubmitting(true);
 
-    // Simulate API processing
-    setTimeout(() => {
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) {
+        console.warn('API submission failed status:', res.status);
+      }
+    } catch (err) {
+      console.warn('Network issue saving message:', err);
+    } finally {
       setSubmitting(false);
       setSubmitted(true);
 
@@ -84,7 +105,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
       } catch (err) {
         console.log('Confetti error:', err);
       }
-    }, 1200);
+    }
   };
 
   return (
@@ -119,7 +140,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
                 Direct Inquiries
               </div>
               <div className="text-lg sm:text-xl font-bold text-white mb-4">
-                {personalInfo.email}
+                {email}
               </div>
 
               <button
@@ -146,13 +167,13 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
               <div className="bg-[#140a07] border border-white/10 rounded-2xl p-5 shadow-lg">
                 <Clock className="w-5 h-5 text-[#FF9D00] mb-2" />
                 <div className="text-xs text-neutral-400 font-semibold uppercase">Response Time</div>
-                <div className="text-sm font-bold text-white mt-1">Within 24 Hours</div>
+                <div className="text-sm font-bold text-white mt-1">{responseTime}</div>
               </div>
 
               <div className="bg-[#140a07] border border-white/10 rounded-2xl p-5 shadow-lg">
                 <MapPin className="w-5 h-5 text-[#FF9D00] mb-2" />
                 <div className="text-xs text-neutral-400 font-semibold uppercase">Availability</div>
-                <div className="text-sm font-bold text-white mt-1">Worldwide Remote</div>
+                <div className="text-sm font-bold text-white mt-1">{location}</div>
               </div>
             </div>
           </div>
@@ -164,7 +185,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
             </div>
             <div className="flex items-center gap-3">
               <a
-                href={personalInfo.socials.instagram}
+                href={socials.instagram || personalInfo.socials.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/80 hover:text-white hover:bg-[#F4510B]/30 hover:border-[#F4510B] transition-all"
@@ -173,7 +194,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
                 <InstagramIcon className="w-5 h-5" />
               </a>
               <a
-                href={personalInfo.socials.linkedin}
+                href={socials.linkedin || personalInfo.socials.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/80 hover:text-white hover:bg-[#F4510B]/30 hover:border-[#F4510B] transition-all"
@@ -182,7 +203,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
                 <LinkedinIcon className="w-5 h-5" />
               </a>
               <a
-                href={personalInfo.socials.dribbble}
+                href={socials.dribbble || personalInfo.socials.dribbble}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/80 hover:text-white hover:bg-[#F4510B]/30 hover:border-[#F4510B] transition-all"

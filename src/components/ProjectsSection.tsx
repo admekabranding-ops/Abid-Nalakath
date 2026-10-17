@@ -6,16 +6,19 @@ import type { Project } from '../types';
 
 interface ProjectsSectionProps {
   onOpenProject: (project: Project) => void;
+  projects?: Project[];
 }
 
-export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onOpenProject }) => {
+export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onOpenProject, projects }) => {
   const [activeCategory, setActiveCategory] = useState<string>('All');
 
   const categories = ['All', 'Branding', 'Social Media', 'Posters', 'Digital Art', 'Packaging'];
 
+  const projectList = projects && projects.length > 0 ? projects : projectsData;
+
   const filteredProjects = activeCategory === 'All'
-    ? projectsData
-    : projectsData.filter((p) => p.category === activeCategory);
+    ? projectList
+    : projectList.filter((p) => p.category === activeCategory);
 
   return (
     <section id="projects" className="relative py-24 sm:py-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">

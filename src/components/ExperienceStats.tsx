@@ -3,7 +3,12 @@ import { motion } from 'framer-motion';
 import { TrendingUp, Clock, Award, Users } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
-export const ExperienceStats: React.FC = () => {
+interface ExperienceStatsProps {
+  statsContent?: any[];
+}
+
+export const ExperienceStats: React.FC<ExperienceStatsProps> = ({ statsContent }) => {
+  const displayStats = statsContent && statsContent.length > 0 ? statsContent : personalInfo.stats;
   const statIcons = [
     <TrendingUp className="w-5 h-5 text-[#FF9D00]" />,
     <Clock className="w-5 h-5 text-[#FF9D00]" />,
@@ -18,7 +23,7 @@ export const ExperienceStats: React.FC = () => {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-32 bg-[#F4510B]/10 blur-[80px] pointer-events-none" />
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 relative z-10 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
-          {personalInfo.stats.map((stat, idx) => (
+          {displayStats.map((stat, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, y: 20 }}

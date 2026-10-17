@@ -2,12 +2,15 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Palette, Share2, Megaphone, TrendingUp, Layout, Check, ArrowRight, Sparkles, Clock } from 'lucide-react';
 import { servicesData } from '../data/portfolioData';
+import type { Service } from '../types';
 
 interface ServicesSectionProps {
   onSelectService: (serviceTitle: string) => void;
+  services?: Service[];
 }
 
-export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectService }) => {
+export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectService, services }) => {
+  const displayServices = services && services.length > 0 ? services : servicesData;
   const getIcon = (name: string) => {
     switch (name) {
       case 'Palette':
@@ -45,7 +48,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
 
       {/* Services Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {servicesData.map((service, idx) => (
+        {displayServices.map((service, idx) => (
           <motion.div
             key={service.id}
             initial={{ opacity: 0, y: 30 }}
@@ -83,7 +86,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
                 <div className="text-[11px] font-semibold uppercase tracking-wider text-[#FF9D00] mb-2">
                   What You Receive
                 </div>
-                {service.deliverables.map((item, dIdx) => (
+                {service.deliverables.map((item: string, dIdx: number) => (
                   <div key={dIdx} className="flex items-start gap-2 text-xs text-neutral-300">
                     <Check className="w-3.5 h-3.5 text-[#F4510B] flex-shrink-0 mt-0.5" />
                     <span>{item}</span>
