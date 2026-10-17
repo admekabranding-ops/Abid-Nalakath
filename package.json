@@ -1,10 +1,13 @@
 {
-  "name": "abid",
+  "name": "abid-nalakath-portfolio",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Abid Nalakath — Creative Designer Portfolio with Local Admin Panel & Visual Canvas Editor",
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "server": "node server/index.js",
+    "start": "node server/index.js",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview"
