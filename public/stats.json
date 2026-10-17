@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "label": "Projects Built",
+    "value": "100+",
+    "detail": "Completed with precision",
+    "sort_order": 1
+  },
+  {
+    "id": 2,
+    "label": "Client Support",
+    "value": "24/7",
+    "detail": "Dedicated creative output",
+    "sort_order": 2
+  },
+  {
+    "id": 3,
+    "label": "Years Experience",
+    "value": "6+",
+    "detail": "Industry experience",
+    "sort_order": 3
+  },
+  {
+    "id": 4,
+    "label": "Satisfied Clients",
+    "value": "40+",
+    "detail": "Global collaborations",
+    "sort_order": 4
+  }
+]

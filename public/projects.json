@@ -1,0 +1,218 @@
+[
+  {
+    "id": "aura-botanicals",
+    "title": "Aura Botanicals",
+    "subtitle": "Organic Luxury Skincare & Fragrance Packaging",
+    "category": "Branding",
+    "categoryLabel": "Brand Identity + Packaging",
+    "image": "/assets/projects/project-1.jpg",
+    "client": "Aura Botanicals Lab",
+    "year": "2025",
+    "role": "Lead Creative Designer",
+    "challenge": "Develop an earthy yet ultra-luxurious brand identity and sustainable packaging system for an organic botanical skincare line entering global retail.",
+    "solution": "Crafted a bespoke serif monogram paired with warm earthen tones (#C63D08, #FF9D00) and tactile packaging textures that communicate purity and prestige.",
+    "deliverables": [
+      "Brand Identity System",
+      "Custom Typography & Monogram",
+      "Packaging & Label Mockups",
+      "Print Production Guides",
+      "Digital Brand Guidelines"
+    ],
+    "colors": [
+      "#16120F",
+      "#3B1E12",
+      "#C63D08",
+      "#FF9D00",
+      "#FAF8F5"
+    ],
+    "tags": [
+      "Brand Identity",
+      "Luxury Packaging",
+      "Art Direction",
+      "Print Production"
+    ],
+    "description": "Comprehensive visual identity and packaging architecture for Aura Botanicals, emphasizing organic sustainability through modern minimalist typography and warm amber accents.",
+    "gallery": [],
+    "featured": true
+  },
+  {
+    "id": "nova-sound-festival",
+    "title": "Nova Sound Festival",
+    "subtitle": "High-Energy Music & Arts Festival Campaign",
+    "category": "Posters",
+    "categoryLabel": "Advertising + Poster Design",
+    "image": "/assets/projects/project-2.jpg",
+    "client": "Nova Entertainment Co.",
+    "year": "2025",
+    "role": "Visual Designer & Art Director",
+    "challenge": "Produce an electric, dynamic poster and billboard visual system that captures the sonic pulse of an international music festival.",
+    "solution": "Used rhythmic geometric soundwave patterns, intense fluorescent-orange chromatic contrast, and bold kinetic type layouts across physical and digital billboards.",
+    "deliverables": [
+      "Festival Key Visuals",
+      "Transit Billboards (OOH)",
+      "Merchandise Design",
+      "Motion Poster Animation",
+      "Social Media Rollout Assets"
+    ],
+    "colors": [
+      "#0C0714",
+      "#261138",
+      "#F4510B",
+      "#FF6B00",
+      "#FFFFFF"
+    ],
+    "tags": [
+      "Poster Design",
+      "Advertising",
+      "Typography",
+      "Motion Graphics"
+    ],
+    "description": "A high-octane advertising and poster design campaign featuring kinetic typography, vivid neon gradients, and layered soundwave motifs for Nova Sound.",
+    "gallery": [],
+    "featured": true
+  },
+  {
+    "id": "kroma-creative-suite",
+    "title": "Kroma Creative Suite",
+    "subtitle": "Multi-Platform Social Media Campaign",
+    "category": "Social Media",
+    "categoryLabel": "Social Media Campaign",
+    "image": "/assets/projects/project-3.jpg",
+    "client": "Kroma Tech Interactive",
+    "year": "2024",
+    "role": "Creative Campaign Lead",
+    "challenge": "Create a cohesive, viral social media campaign for the launch of a new AI-powered design assistant for creative professionals.",
+    "solution": "Engineered high-converting Instagram carousels, animated reels templates, and punchy promotional stories with crisp 3D geometric accents.",
+    "deliverables": [
+      "30+ Social Feed Templates",
+      "Animated Reels & Story System",
+      "Interactive Ad Visuals",
+      "Design Asset Kit",
+      "Social Brand Book"
+    ],
+    "colors": [
+      "#0B0D18",
+      "#112038",
+      "#FF9D00",
+      "#F4510B",
+      "#F7F6F4"
+    ],
+    "tags": [
+      "Social Media",
+      "Digital Marketing",
+      "Content Strategy",
+      "Creative Ads"
+    ],
+    "description": "Dynamic social media graphics and advertising templates that drove 340% increase in app store pre-registrations for Kroma Creative Suite.",
+    "gallery": [],
+    "featured": true
+  },
+  {
+    "id": "solstice-kinetic-studio",
+    "title": "Solstice Kinetic Studio",
+    "subtitle": "Abstract 3D Visual Art & Brand Identity",
+    "category": "Digital Art",
+    "categoryLabel": "Creative Artwork + 3D Visuals",
+    "image": "/assets/projects/project-4.jpg",
+    "client": "Solstice Architecture & Design",
+    "year": "2024",
+    "role": "Visual Concept Artist",
+    "challenge": "Develop an avant-garde visual language for an architecture and kinetic installation studio.",
+    "solution": "Combined tactile 3D orb compositions, metallic orange sheen, and mathematical grid overlays to reflect physical craftsmanship and spatial innovation.",
+    "deliverables": [
+      "Visual Key Artworks",
+      "Spatial Monogram",
+      "Exhibition Catalogue",
+      "Web Visual Assets",
+      "Architectural Signage"
+    ],
+    "colors": [
+      "#1A0C08",
+      "#4A1A0C",
+      "#F4510B",
+      "#FFA500",
+      "#FFFFFF"
+    ],
+    "tags": [
+      "3D Artwork",
+      "Visual Identity",
+      "Generative Art",
+      "Exhibition"
+    ],
+    "description": "An evocative visual identity featuring custom 3D fluid sculptures and mathematical geometry tailored for Solstice Kinetic Studio.",
+    "gallery": [],
+    "featured": false
+  },
+  {
+    "id": "vortex-motion-lab",
+    "title": "Vortex Motion Lab",
+    "subtitle": "Digital Marketing Visuals & Brand System",
+    "category": "Branding",
+    "categoryLabel": "Digital Marketing Visuals",
+    "image": "/assets/projects/project-5.jpg",
+    "client": "Vortex Studio",
+    "year": "2024",
+    "role": "Senior Visual Designer",
+    "challenge": "Rebrand a high-end visual effects and animation agency for global enterprise clients.",
+    "solution": "Designed a dark-mode editorial identity highlighted with burnt orange accents, sharp typographic rhythm, and fluid organic shapes.",
+    "deliverables": [
+      "Full Brand System",
+      "Sales Deck & Pitch Decks",
+      "Web Visual Design",
+      "Digital Marketing Banners",
+      "Merch Collection"
+    ],
+    "colors": [
+      "#0A0A0E",
+      "#201322",
+      "#C63D08",
+      "#FF8400",
+      "#E8E8E8"
+    ],
+    "tags": [
+      "Brand System",
+      "Digital Marketing",
+      "Visual Identity",
+      "Art Direction"
+    ],
+    "description": "A dark-mode brand identity system created for Vortex Motion Lab with high-impact editorial layouts and luminous orange visual markers.",
+    "gallery": [],
+    "featured": false
+  },
+  {
+    "id": "elysian-luxe-collective",
+    "title": "Elysian Luxe Collective",
+    "subtitle": "Promotional Creatives & Premium Unboxing",
+    "category": "Packaging",
+    "categoryLabel": "Promotional + Packaging System",
+    "image": "/assets/projects/project-6.jpg",
+    "client": "Elysian Lifestyle Group",
+    "year": "2023",
+    "role": "Packaging & Creative Designer",
+    "challenge": "Establish a luxury visual identity and unboxing experience for an artisan specialty coffee and lifestyle brand.",
+    "solution": "Structured gold-embossed typography, custom seal monograms, and warm earthy tones that celebrate heritage craftsmanship.",
+    "deliverables": [
+      "Custom Monogram Seal",
+      "Coffee Bag Packaging",
+      "Promotional Gift Boxes",
+      "Direct-to-Consumer Cards",
+      "Retail POS Collateral"
+    ],
+    "colors": [
+      "#140E0A",
+      "#33160D",
+      "#FF9D00",
+      "#F4510B",
+      "#FAF7F2"
+    ],
+    "tags": [
+      "Packaging Design",
+      "Promotional Creatives",
+      "Luxury",
+      "Print Production"
+    ],
+    "description": "Bespoke unboxing packaging and promotional creatives for Elysian Luxe, winning accolades for sustainable luxury presentation.",
+    "gallery": [],
+    "featured": true
+  }
+]

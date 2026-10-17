@@ -8,6 +8,7 @@ export const personalInfo = {
   phone: "+91 98765 43210", // Configurable placeholder
   location: "Kerala, India • Available Worldwide",
   status: "Available for Projects",
+  heroImage: "/assets/abid-hero.png",
   heroHeadingLines: [
     "Creative",
     "Designs",

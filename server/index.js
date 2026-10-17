@@ -7,6 +7,7 @@ import crypto from 'crypto';
 import { fileURLToPath } from 'url';
 import { createRequire } from 'module';
 import { db, initDb, hashPassword, verifyPassword } from './db.js';
+import { syncToPublic } from './sync.js';
 
 const require = createRequire(import.meta.url);
 const archiver = require('archiver');
@@ -19,6 +20,7 @@ const UPLOADS_DIR = path.join(DATA_DIR, 'uploads');
 const BACKUPS_DIR = path.join(DATA_DIR, 'backups');
 
 initDb();
+syncToPublic(db);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -322,6 +324,8 @@ app.put('/api/admin/content/:key', requireAuth, (req, res) => {
       ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = excluded.updated_at
     `).run(key, valueStr, now);
 
+    syncToPublic(db);
+
     res.json({ success: true, message: `Updated ${key} successfully` });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -406,6 +410,8 @@ app.post('/api/admin/visual-layout/publish', requireAuth, (req, res) => {
       ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = excluded.updated_at
     `).run(val, now);
 
+    syncToPublic(db);
+
     res.json({ success: true, message: 'Visual layout published live to the public portfolio!' });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -416,6 +422,7 @@ app.post('/api/admin/visual-layout/publish', requireAuth, (req, res) => {
 app.post('/api/admin/visual-layout/reset', requireAuth, (req, res) => {
   try {
     db.prepare("DELETE FROM site_content WHERE key IN ('visual_layout', 'visual_layout_published', 'visual_layout_draft')").run();
+    syncToPublic(db);
     res.json({ success: true, message: 'Visual layout reset to original design template' });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -720,6 +727,8 @@ app.post('/api/admin/media/upload', requireAuth, upload.single('file'), (req, re
       fileUrl,
       new Date().toISOString()
     );
+
+    syncToPublic(db);
 
     res.json({
       success: true,

@@ -1,0 +1,67 @@
+[
+  {
+    "id": "brand-identity",
+    "title": "Brand Identity & Logo Design",
+    "features": [],
+    "deliverables": [
+      "Primary & Secondary Logo Marks",
+      "Comprehensive Brand Guidelines",
+      "Typography & Color System",
+      "Brand Collateral (Stationery, Decks)",
+      "Vector Source Files (AI, SVG, PDF, PNG)"
+    ],
+    "timeline": "2 - 3 Weeks"
+  },
+  {
+    "id": "social-media-design",
+    "title": "Social Media Design",
+    "features": [],
+    "deliverables": [
+      "Curated Feed & Carousel Templates",
+      "Animated Story & Reel Cover Kits",
+      "Platform-Optimized Formats",
+      "Figma / Photoshop Master Templates",
+      "Visual Content Style Guide"
+    ],
+    "timeline": "1 - 2 Weeks"
+  },
+  {
+    "id": "advertising-promotional",
+    "title": "Ai Videos",
+    "features": [],
+    "deliverables": [
+      "Print Billboards & Poster Series",
+      "Digital Display Ads & Google Banners",
+      "Event & Festival Key Visuals",
+      "Retargeting Ad Creative Sets",
+      "High-Res Print-Ready Production Files"
+    ],
+    "timeline": "1 - 2 Weeks"
+  },
+  {
+    "id": "marketing-visuals",
+    "title": "Marketing Campaign Visuals",
+    "features": [],
+    "deliverables": [
+      "Campaign Concept & Moodboards",
+      "High-Stakes Pitch Decks & Keynotes",
+      "Landing Page Art Direction & Graphics",
+      "Email Marketing Visual Templates",
+      "Digital Marketing Collateral"
+    ],
+    "timeline": "2 - 3 Weeks"
+  },
+  {
+    "id": "digital-creative-design",
+    "title": "Digital Creative Design",
+    "features": [],
+    "deliverables": [
+      "Website Hero Visuals & Concepts",
+      "Custom 3D / Vector Illustrations",
+      "Interactive UI Component Styling",
+      "App Store Showcase Graphics",
+      "Exported Web-Ready SVG & WebP Assets"
+    ],
+    "timeline": "2 - 4 Weeks"
+  }
+]

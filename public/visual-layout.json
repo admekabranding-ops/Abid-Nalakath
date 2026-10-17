@@ -1,0 +1,717 @@
+{
+  "version": 1,
+  "lastUpdated": "2026-10-17T11:37:59.940Z",
+  "elements": {
+    "hero.artboard": {
+      "id": "hero.artboard",
+      "name": "Hero Artboard Frame",
+      "section": "hero",
+      "type": "container",
+      "locked": false,
+      "hidden": false,
+      "styles": {
+        "borderRadius": "36px",
+        "borderColor": "#F4510B66",
+        "borderWidth": "1px",
+        "borderStyle": "solid",
+        "backgroundColor": "#0e0705",
+        "boxShadow": "0 20px 70px rgba(0,0,0,0.6)",
+        "paddingTop": "0px",
+        "paddingBottom": "0px",
+        "paddingLeft": "0px",
+        "paddingRight": "0px",
+        "minHeight": "660px",
+        "width": "100%",
+        "positionMode": "relative"
+      },
+      "content": {
+        "text": "Main rounded editorial container with warm orange border"
+      }
+    },
+    "hero.orange_canvas": {
+      "id": "hero.orange_canvas",
+      "name": "Left Hero Background (Orange)",
+      "section": "hero",
+      "type": "container",
+      "locked": false,
+      "hidden": false,
+      "styles": {
+        "backgroundGradient": "linear-gradient(135deg, #3A160F 0%, #651B0D 25%, #C63D08 60%, #F4510B 85%, #FF9D00 100%)",
+        "paddingTop": "40px",
+        "paddingBottom": "40px",
+        "paddingLeft": "40px",
+        "paddingRight": "40px",
+        "borderRadius": "36px 0 0 36px"
+      },
+      "content": {
+        "text": "Signature rich orange, burnt-orange, and golden radial background"
+      }
+    },
+    "hero.logo": {
+      "id": "hero.logo",
+      "name": "Monogram Brand Logo",
+      "section": "hero",
+      "type": "image",
+      "locked": false,
+      "hidden": false,
+      "styles": {
+        "width": "38px",
+        "height": "32px",
+        "color": "#FFFFFF",
+        "marginBottom": "20px"
+      },
+      "content": {
+        "text": "Abid Monogram Logo SVG"
+      }
+    },
+    "hero.badge": {
+      "id": "hero.badge",
+      "name": "Outlined Pill Badge",
+      "section": "hero",
+      "type": "badge",
+      "locked": false,
+      "hidden": true,
+      "styles": {
+        "fontSize": "12px",
+        "fontWeight": "500",
+        "color": "#FFFFFF",
+        "backgroundColor": "rgba(255, 255, 255, 0.1)",
+        "borderColor": "rgba(255, 255, 255, 0.25)",
+        "borderWidth": "1px",
+        "borderStyle": "solid",
+        "borderRadius": "9999px",
+        "paddingTop": "5px",
+        "paddingBottom": "5px",
+        "paddingLeft": "14px",
+        "paddingRight": "14px",
+        "marginBottom": "24px",
+        "display": "inline-block",
+        "x": 8,
+        "y": 12
+      },
+      "content": {
+        "text": "Creative Designer",
+        "badgeText": "Creative Designer • Digital Artist"
+      }
+    },
+    "hero.heading": {
+      "id": "hero.heading",
+      "name": "Main Headline",
+      "section": "hero",
+      "type": "heading",
+      "locked": false,
+      "hidden": false,
+      "styles": {
+        "fontSize": "52px",
+        "fontWeight": "300",
+        "fontFamily": "Outfit, sans-serif",
+        "color": "#FFFFFF",
+        "lineHeight": "1.08",
+        "letterSpacing": "-0.03em",
+        "textAlign": "left",
+        "marginBottom": "28px",
+        "maxWidth": "520px"
+      },
+      "content": {
+        "text": "Creative\nDesigns\nThat Make\nBrands Stand Out."
+      }
+    },
+    "hero.cta_button": {
+      "id": "hero.cta_button",
+      "name": "White Pill CTA Button",
+      "section": "hero",
+      "type": "button",
+      "locked": false,
+      "hidden": false,
+      "styles": {
+        "fontSize": "14px",
+        "fontWeight": "600",
+        "color": "#151515",
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": "9999px",
+        "paddingTop": "12px",
+        "paddingBottom": "12px",
+        "paddingLeft": "28px",
+        "paddingRight": "28px",
+        "boxShadow": "0 8px 30px rgba(244, 81, 11, 0.35)",
+        "display": "inline-block",
+        "x": -4,
+        "y": -16
+      },
+      "content": {
+        "text": "View My Work",
+        "linkUrl": "#projects"
+      }
+    },
+    "hero.stat_card_1": {
+      "id": "hero.stat_card_1",
+      "name": "Projects Built Stat Card",
+      "section": "hero",
+      "type": "stat",
+      "locked": false,
+      "hidden": false,
+      "styles": {
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": "18px",
+        "paddingTop": "16px",
+        "paddingBottom": "16px",
+        "paddingLeft": "18px",
+        "paddingRight": "18px",
+        "boxShadow": "0 10px 25px rgba(0,0,0,0.15)",
+        "width": "135px"
+      },
+      "content": {
+        "statValue": "100+",
+        "statLabel": "Projects Built"
+      }
+    },
+    "hero.stat_card_2": {
+      "id": "hero.stat_card_2",
+      "name": "Client Support Stat Card",
+      "section": "hero",
+      "type": "stat",
+      "locked": false,
+      "hidden": false,
+      "styles": {
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": "18px",
+        "paddingTop": "16px",
+        "paddingBottom": "16px",
+        "paddingLeft": "18px",
+        "paddingRight": "18px",
+        "boxShadow": "0 10px 25px rgba(0,0,0,0.15)",
+        "width": "135px",
+        "opacity": 1
+      },
+      "content": {
+        "statValue": "24/7",
+        "statLabel": "Client Support"
+      }
+    },
+    "hero.portrait": {
+      "id": "hero.portrait",
+      "name": "Center Cutout Portrait",
+      "section": "hero",
+      "type": "image",
+      "locked": false,
+      "hidden": false,
+      "styles": {
+        "width": "858px",
+        "height": "865px",
+        "x": -436,
+        "y": 180,
+        "positionMode": "relative",
+        "filter": "drop-shadow(0 15px 35px rgba(0,0,0,0.5))",
+        "opacity": 1
+      },
+      "content": {
+        "imageSrc": "/uploads/Relaxed-Office-Portrait-in-Gray-Space-1792210347588-427628595.png",
+        "altText": "Abid Nalakath — Creative Designer"
+      }
+    },
+    "hero.social_icons": {
+      "id": "hero.social_icons",
+      "name": "Circular Social Buttons",
+      "section": "hero",
+      "type": "social_group",
+      "locked": false,
+      "hidden": false,
+      "styles": {
+        "display": "flex",
+        "gap": "10px",
+        "justifyContent": "center"
+      },
+      "content": {
+        "instagram": "https://instagram.com",
+        "linkedin": "https://linkedin.com",
+        "dribbble": "https://dribbble.com"
+      }
+    },
+    "hero.white_panel": {
+      "id": "hero.white_panel",
+      "name": "Right Panel (Off-White Merged)",
+      "section": "hero",
+      "type": "container",
+      "locked": false,
+      "hidden": false,
+      "styles": {
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": "40px 0 0 0",
+        "paddingTop": "48px",
+        "paddingBottom": "48px",
+        "paddingLeft": "48px",
+        "paddingRight": "48px"
+      },
+      "content": {
+        "text": "Clean off-white right side seamlessly merged into the hero container"
+      }
+    },
+    "hero.available_pill": {
+      "id": "hero.available_pill",
+      "name": "Available Status Badge",
+      "section": "hero",
+      "type": "badge",
+      "locked": false,
+      "hidden": false,
+      "styles": {
+        "fontSize": "11px",
+        "fontWeight": "600",
+        "color": "#374151",
+        "backgroundColor": "#F9FAFB",
+        "borderColor": "#E5E7EB",
+        "borderWidth": "1px",
+        "borderStyle": "solid",
+        "borderRadius": "9999px",
+        "paddingTop": "4px",
+        "paddingBottom": "4px",
+        "paddingLeft": "12px",
+        "paddingRight": "12px",
+        "display": "inline-block",
+        "marginBottom": "18px"
+      },
+      "content": {
+        "text": "Available for Projects"
+      }
+    },
+    "hero.intro_statement": {
+      "id": "hero.intro_statement",
+      "name": "Introduction Statement",
+      "section": "hero",
+      "type": "heading",
+      "locked": false,
+      "hidden": false,
+      "styles": {
+        "fontSize": "24px",
+        "fontWeight": "400",
+        "color": "#151515",
+        "lineHeight": "1.34",
+        "letterSpacing": "-0.02em",
+        "marginBottom": "16px"
+      },
+      "content": {
+        "text": "Hi, I’m Abid.\nI build modern, bold visuals for brands, businesses & creators."
+      }
+    },
+    "hero.intro_lines": {
+      "id": "hero.intro_lines",
+      "name": "3 Short Supporting Lines",
+      "section": "hero",
+      "type": "text",
+      "locked": false,
+      "hidden": false,
+      "styles": {
+        "fontSize": "13px",
+        "fontWeight": "400",
+        "color": "#686868",
+        "lineHeight": "1.6"
+      },
+      "content": {
+        "text": "Clean design.\nSmooth animations.\nDistinctive branding."
+      }
+    },
+    "hero.quote_card": {
+      "id": "hero.quote_card",
+      "name": "Floating Quote Card",
+      "section": "hero",
+      "type": "card",
+      "locked": false,
+      "hidden": false,
+      "styles": {
+        "backgroundColor": "#FAF9F6",
+        "borderRadius": "18px",
+        "borderColor": "rgba(0,0,0,0.06)",
+        "borderWidth": "1px",
+        "borderStyle": "solid",
+        "paddingTop": "16px",
+        "paddingBottom": "16px",
+        "paddingLeft": "18px",
+        "paddingRight": "18px",
+        "boxShadow": "0 4px 20px rgba(0,0,0,0.04)",
+        "maxWidth": "300px"
+      },
+      "content": {
+        "text": "“I create premium designs that look clean and convert.”",
+        "author": "Abid",
+        "role": "Creative Designer",
+        "imageSrc": "/assets/abid-avatar.jpg"
+      }
+    },
+    "stats.container": {
+      "id": "stats.container",
+      "name": "Experience Stats Bar",
+      "section": "stats",
+      "type": "container",
+      "locked": false,
+      "hidden": false,
+      "styles": {
+        "backgroundGradient": "linear-gradient(90deg, #200d07 0%, #33140b 50%, #200d07 100%)",
+        "borderColor": "rgba(244, 81, 11, 0.3)",
+        "borderWidth": "1px",
+        "borderStyle": "solid",
+        "borderRadius": "24px",
+        "paddingTop": "36px",
+        "paddingBottom": "36px",
+        "paddingLeft": "32px",
+        "paddingRight": "32px"
+      },
+      "content": {
+        "text": "4-Column metric highlights: 100+ Projects, 24/7 Focus, 6+ Years, 40+ Clients"
+      }
+    },
+    "about.header": {
+      "id": "about.header",
+      "name": "About Section Headline",
+      "section": "about",
+      "type": "heading",
+      "locked": false,
+      "hidden": false,
+      "styles": {
+        "fontSize": "44px",
+        "fontWeight": "700",
+        "color": "#FFFFFF",
+        "textAlign": "center",
+        "marginBottom": "20px"
+      },
+      "content": {
+        "text": "Design With Purpose."
+      }
+    },
+    "about.philosophy_card": {
+      "id": "about.philosophy_card",
+      "name": "Creative Philosophy Card",
+      "section": "about",
+      "type": "card",
+      "locked": false,
+      "hidden": false,
+      "styles": {
+        "backgroundColor": "#140a07",
+        "borderColor": "rgba(244, 81, 11, 0.2)",
+        "borderWidth": "1px",
+        "borderStyle": "solid",
+        "borderRadius": "24px",
+        "paddingTop": "36px",
+        "paddingBottom": "36px",
+        "paddingLeft": "36px",
+        "paddingRight": "36px",
+        "boxShadow": "0 20px 50px rgba(0,0,0,0.5)"
+      },
+      "content": {
+        "title": "Where Strategy Meets Pure Visual Artistry",
+        "text": "Great design is never just decoration. It is visual problem solving that bridges emotion and business outcomes. Every color gradient, kerning choice, and spatial composition is engineered to provoke curiosity, communicate trust, and solidify brand recognition."
+      }
+    },
+    "about.skills_matrix": {
+      "id": "about.skills_matrix",
+      "name": "Core Competencies (Skills)",
+      "section": "about",
+      "type": "container",
+      "locked": false,
+      "hidden": false,
+      "styles": {
+        "backgroundColor": "#140a07",
+        "borderColor": "rgba(244, 81, 11, 0.2)",
+        "borderWidth": "1px",
+        "borderStyle": "solid",
+        "borderRadius": "24px",
+        "paddingTop": "36px",
+        "paddingBottom": "36px",
+        "paddingLeft": "36px",
+        "paddingRight": "36px"
+      },
+      "content": {
+        "text": "Interactive proficiency progress meters across branding, typography, packaging, and digital 3D."
+      }
+    },
+    "about.process_steps": {
+      "id": "about.process_steps",
+      "name": "The Creative Process (4 Steps)",
+      "section": "about",
+      "type": "container",
+      "locked": false,
+      "hidden": false,
+      "styles": {
+        "paddingTop": "32px",
+        "paddingBottom": "32px"
+      },
+      "content": {
+        "text": "01 Discovery -> 02 Direction -> 03 Craft -> 04 Delivery"
+      }
+    },
+    "about.tools_grid": {
+      "id": "about.tools_grid",
+      "name": "Software Arsenal (Tools Grid)",
+      "section": "about",
+      "type": "container",
+      "locked": false,
+      "hidden": false,
+      "styles": {
+        "backgroundColor": "#140a07",
+        "borderColor": "rgba(244, 81, 11, 0.2)",
+        "borderWidth": "1px",
+        "borderStyle": "solid",
+        "borderRadius": "24px",
+        "paddingTop": "36px",
+        "paddingBottom": "36px",
+        "paddingLeft": "32px",
+        "paddingRight": "32px"
+      },
+      "content": {
+        "text": "Illustrator, Photoshop, Figma, InDesign, After Effects, Blender"
+      }
+    },
+    "projects.header": {
+      "id": "projects.header",
+      "name": "Projects Section Header",
+      "section": "projects",
+      "type": "heading",
+      "locked": false,
+      "hidden": false,
+      "styles": {
+        "fontSize": "44px",
+        "fontWeight": "700",
+        "color": "#FFFFFF",
+        "marginBottom": "12px"
+      },
+      "content": {
+        "text": "Featured Case Studies"
+      }
+    },
+    "projects.grid": {
+      "id": "projects.grid",
+      "name": "Curated Projects Grid",
+      "section": "projects",
+      "type": "container",
+      "locked": false,
+      "hidden": false,
+      "styles": {
+        "gap": "32px",
+        "paddingTop": "16px",
+        "paddingBottom": "16px"
+      },
+      "content": {
+        "text": "Responsive 3-column gallery of curated brand identity and advertising case studies"
+      }
+    },
+    "services.header": {
+      "id": "services.header",
+      "name": "Services Section Header",
+      "section": "services",
+      "type": "heading",
+      "locked": false,
+      "hidden": false,
+      "styles": {
+        "fontSize": "44px",
+        "fontWeight": "700",
+        "color": "#FFFFFF",
+        "textAlign": "center",
+        "marginBottom": "16px"
+      },
+      "content": {
+        "text": "Bespoke Creative Solutions"
+      }
+    },
+    "services.grid": {
+      "id": "services.grid",
+      "name": "Services Cards Grid",
+      "section": "services",
+      "type": "container",
+      "locked": false,
+      "hidden": false,
+      "styles": {
+        "gap": "32px",
+        "paddingTop": "20px",
+        "paddingBottom": "20px"
+      },
+      "content": {
+        "text": "Specialized packages with timelines and deliverables"
+      }
+    },
+    "contact.header": {
+      "id": "contact.header",
+      "name": "Contact Section Header",
+      "section": "contact",
+      "type": "heading",
+      "locked": false,
+      "hidden": false,
+      "styles": {
+        "fontSize": "44px",
+        "fontWeight": "700",
+        "color": "#FFFFFF",
+        "textAlign": "center",
+        "marginBottom": "16px"
+      },
+      "content": {
+        "text": "Let’s Create Something Extraordinary"
+      }
+    },
+    "contact.info_cards": {
+      "id": "contact.info_cards",
+      "name": "Contact Info Cards",
+      "section": "contact",
+      "type": "container",
+      "locked": false,
+      "hidden": false,
+      "styles": {
+        "gap": "24px"
+      },
+      "content": {
+        "text": "Direct Email, Response Time, and Location Information"
+      }
+    },
+    "contact.form": {
+      "id": "contact.form",
+      "name": "Interactive Inquiries Form",
+      "section": "contact",
+      "type": "card",
+      "locked": false,
+      "hidden": false,
+      "styles": {
+        "backgroundColor": "#140a07",
+        "borderColor": "rgba(244, 81, 11, 0.25)",
+        "borderWidth": "1px",
+        "borderStyle": "solid",
+        "borderRadius": "28px",
+        "paddingTop": "40px",
+        "paddingBottom": "40px",
+        "paddingLeft": "40px",
+        "paddingRight": "40px",
+        "boxShadow": "0 25px 60px rgba(0,0,0,0.5)"
+      },
+      "content": {
+        "text": "Interactive project inquiry form with local SQLite submission"
+      }
+    },
+    "footer.container": {
+      "id": "footer.container",
+      "name": "Footer Block",
+      "section": "footer",
+      "type": "container",
+      "locked": false,
+      "hidden": false,
+      "styles": {
+        "backgroundColor": "#0a0503",
+        "borderColor": "rgba(244, 81, 11, 0.2)",
+        "borderWidth": "1px",
+        "borderStyle": "solid",
+        "paddingTop": "48px",
+        "paddingBottom": "40px",
+        "paddingLeft": "32px",
+        "paddingRight": "32px"
+      },
+      "content": {
+        "text": "Brand monogram, navigation directory, copyright and admin access"
+      }
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "name": "Hero Section (Editorial Canvas)",
+      "iconName": "Sparkles",
+      "elementIds": [
+        "hero.artboard",
+        "hero.orange_canvas",
+        "hero.logo",
+        "hero.badge",
+        "hero.heading",
+        "hero.cta_button",
+        "hero.stat_card_1",
+        "hero.stat_card_2",
+        "hero.portrait",
+        "hero.social_icons",
+        "hero.white_panel",
+        "hero.available_pill",
+        "hero.intro_statement",
+        "hero.intro_lines",
+        "hero.quote_card"
+      ]
+    },
+    {
+      "id": "stats",
+      "name": "Experience Metrics Bar",
+      "iconName": "TrendingUp",
+      "elementIds": [
+        "stats.container"
+      ]
+    },
+    {
+      "id": "about",
+      "name": "About & Practice",
+      "iconName": "User",
+      "elementIds": [
+        "about.header",
+        "about.philosophy_card",
+        "about.skills_matrix",
+        "about.process_steps",
+        "about.tools_grid"
+      ]
+    },
+    {
+      "id": "projects",
+      "name": "Curated Case Studies",
+      "iconName": "FolderKanban",
+      "elementIds": [
+        "projects.header",
+        "projects.grid"
+      ]
+    },
+    {
+      "id": "services",
+      "name": "Bespoke Services",
+      "iconName": "Briefcase",
+      "elementIds": [
+        "services.header",
+        "services.grid"
+      ]
+    },
+    {
+      "id": "contact",
+      "name": "Contact & Inquiries",
+      "iconName": "Mail",
+      "elementIds": [
+        "contact.header",
+        "contact.info_cards",
+        "contact.form"
+      ]
+    },
+    {
+      "id": "footer",
+      "name": "Footer & Credits",
+      "iconName": "Layout",
+      "elementIds": [
+        "footer.container"
+      ]
+    }
+  ],
+  "order": [
+    "hero.artboard",
+    "hero.orange_canvas",
+    "hero.logo",
+    "hero.badge",
+    "hero.heading",
+    "hero.cta_button",
+    "hero.stat_card_1",
+    "hero.stat_card_2",
+    "hero.portrait",
+    "hero.social_icons",
+    "hero.white_panel",
+    "hero.available_pill",
+    "hero.intro_statement",
+    "hero.intro_lines",
+    "hero.quote_card",
+    "stats.container",
+    "about.header",
+    "about.philosophy_card",
+    "about.skills_matrix",
+    "about.process_steps",
+    "about.tools_grid",
+    "projects.header",
+    "projects.grid",
+    "services.header",
+    "services.grid",
+    "contact.header",
+    "contact.info_cards",
+    "contact.form",
+    "footer.container"
+  ]
+}

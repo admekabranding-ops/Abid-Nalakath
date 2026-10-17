@@ -1,0 +1,128 @@
+{
+  "hero": {
+    "name": "Abid Nalakath",
+    "title": "Creative Designer",
+    "subtitle": "Creative Designer • Digital Artist",
+    "heroHeadingLines": [
+      "Creative",
+      "Designs",
+      "That Make",
+      "Brands Stand Out."
+    ],
+    "heroImage": "/uploads/Relaxed-Office-Portrait-in-Gray-Space-1792210347588-427628595.png",
+    "ctaText": "View My Work",
+    "ctaLink": "#projects",
+    "availableStatus": "Available for Projects",
+    "introGreeting": "Hi, I'm",
+    "introName": "Abid",
+    "introStatement": "I build modern, bold visuals for brands, businesses & creators.",
+    "introLines": [
+      "Clean design.",
+      "Smooth animations.",
+      "Distinctive branding."
+    ],
+    "quoteCard": {
+      "avatar": "/assets/abid-avatar.jpg",
+      "name": "Abid",
+      "role": "Creative Designer",
+      "quote": "“I create premium designs that look clean and convert.”"
+    }
+  },
+  "about": {
+    "heading": "Design With Purpose.",
+    "highlight": "Purpose.",
+    "story": "I’m Abid Nalakath, a creative designer passionate about transforming bold ideas into clear, engaging and visually distinctive experiences. With a deep respect for minimalism, deliberate typography, and high-energy color systems, I help companies build timeless visual authority.",
+    "philosophyTitle": "Where Strategy Meets Pure Visual Artistry",
+    "philosophyDesc": "Great design is never just decoration. It is visual problem solving that bridges emotion and business outcomes. Every color gradient, kerning choice, and spatial composition is engineered to provoke curiosity, communicate trust, and solidify brand recognition.",
+    "focus": "Identity & High-Impact Campaigns",
+    "philosophyText": "Obsessive Simplicity & Raw Energy",
+    "experienceYears": "6+ Years Crafting Global Brand Narratives",
+    "processSteps": [
+      {
+        "step": "01",
+        "title": "Discovery & Strategy",
+        "desc": "Deep dive into your brand mission, target demographic, competitive space, and core creative ambitions to formulate a bulletproof design brief."
+      },
+      {
+        "step": "02",
+        "title": "Visual Direction & Moodboard",
+        "desc": "Exploration of visual territories, color palettes, typographic pairings, and atmospheric textures to align on the perfect aesthetic direction."
+      },
+      {
+        "step": "03",
+        "title": "High-Fidelity Craft",
+        "desc": "Detailed execution of logos, marketing assets, and design systems with obsessive attention to proportion, contrast, and visual rhythm."
+      },
+      {
+        "step": "04",
+        "title": "Delivery & Guidelines",
+        "desc": "Providing organized production files in all modern formats along with crystal-clear brand documentation so your team can deploy with total confidence."
+      }
+    ],
+    "skills": [
+      {
+        "name": "Brand Identity",
+        "level": 98
+      },
+      {
+        "name": "Visual Art Direction",
+        "level": 96
+      },
+      {
+        "name": "Editorial Typography",
+        "level": 95
+      },
+      {
+        "name": "Packaging Design",
+        "level": 92
+      },
+      {
+        "name": "Social Media Campaigns",
+        "level": 96
+      },
+      {
+        "name": "3D & Digital Graphics",
+        "level": 90
+      }
+    ],
+    "tools": [
+      {
+        "name": "Adobe Illustrator",
+        "category": "Vector & Logos"
+      },
+      {
+        "name": "Adobe Photoshop",
+        "category": "Retouching & Key Art"
+      },
+      {
+        "name": "Figma",
+        "category": "UI & Layout Systems"
+      },
+      {
+        "name": "Adobe InDesign",
+        "category": "Editorial & Print"
+      },
+      {
+        "name": "Adobe After Effects",
+        "category": "Motion Graphics"
+      },
+      {
+        "name": "Blender / C4D",
+        "category": "3D Visuals"
+      }
+    ]
+  },
+  "contact": {
+    "email": "hello@abidnalakath.design",
+    "phone": "+91 98765 43210",
+    "location": "Kerala, India • Available Worldwide",
+    "responseTime": "Within 24 Hours",
+    "statusText": "Taking Q1 / Q2 Projects",
+    "socials": {
+      "instagram": "https://instagram.com",
+      "linkedin": "https://linkedin.com",
+      "dribbble": "https://dribbble.com",
+      "behance": "https://behance.net"
+    }
+  }
+}

@@ -12,6 +12,29 @@ import { ProjectModal } from '../components/ProjectModal';
 import type { Project, Service } from '../types';
 import { personalInfo, projectsData, servicesData } from '../data/portfolioData';
 
+// Helper with static JSON fallback for static hosts like Vercel
+const fetchWithFallback = async <T,>(apiUrl: string, staticUrl: string): Promise<T | null> => {
+  try {
+    const res = await fetch(apiUrl);
+    const contentType = res.headers.get('content-type') || '';
+    if (res.ok && contentType.includes('application/json')) {
+      return (await res.json()) as T;
+    }
+  } catch {
+    // API endpoint unavailable
+  }
+  try {
+    const staticRes = await fetch(staticUrl);
+    const contentType = staticRes.headers.get('content-type') || '';
+    if (staticRes.ok && (contentType.includes('application/json') || staticUrl.endsWith('.json'))) {
+      return (await staticRes.json()) as T;
+    }
+  } catch {
+    // Static fallback unavailable
+  }
+  return null;
+};
+
 export const PublicPortfolio: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [selectedServiceForContact, setSelectedServiceForContact] = useState<string>('');
@@ -24,78 +47,42 @@ export const PublicPortfolio: React.FC = () => {
   const [visualLayout, setVisualLayout] = useState<any>(null);
 
   useEffect(() => {
-    // 1. Fetch site content
-    fetch('/api/content')
-      .then((res) => {
-        if (res.ok) return res.json();
-        throw new Error('Failed to fetch content');
-      })
-      .then((data) => {
-        if (data) setContent(data);
-      })
-      .catch(() => {
-        // Keeps default state
-      });
+    // 1. Fetch site content (local API or static content.json on Vercel)
+    fetchWithFallback<any>('/api/content', '/content.json').then((data) => {
+      if (data) setContent(data);
+    });
 
     // 2. Fetch published projects
-    fetch('/api/projects')
-      .then((res) => {
-        if (res.ok) return res.json();
-        throw new Error('Failed to fetch projects');
-      })
-      .then((data: Project[]) => {
-        if (Array.isArray(data) && data.length > 0) {
-          setProjects(data);
-        }
-      })
-      .catch(() => {
-        // Keeps default projectsData
-      });
+    fetchWithFallback<Project[]>('/api/projects', '/projects.json').then((data) => {
+      if (Array.isArray(data) && data.length > 0) {
+        setProjects(data);
+      }
+    });
 
     // 3. Fetch services
-    fetch('/api/services')
-      .then((res) => {
-        if (res.ok) return res.json();
-        throw new Error('Failed to fetch services');
-      })
-      .then((data: Service[]) => {
-        if (Array.isArray(data) && data.length > 0) {
-          setServices(data);
-        }
-      })
-      .catch(() => {
-        // Keeps default servicesData
-      });
+    fetchWithFallback<Service[]>('/api/services', '/services.json').then((data) => {
+      if (Array.isArray(data) && data.length > 0) {
+        setServices(data);
+      }
+    });
 
     // 4. Fetch stats
-    fetch('/api/stats')
-      .then((res) => {
-        if (res.ok) return res.json();
-        throw new Error('Failed to fetch stats');
-      })
-      .then((data: any[]) => {
-        if (Array.isArray(data) && data.length > 0) {
-          setStats(data);
-        }
-      })
-      .catch(() => {
-        // Keeps default stats
-      });
+    fetchWithFallback<any[]>('/api/stats', '/stats.json').then((data) => {
+      if (Array.isArray(data) && data.length > 0) {
+        setStats(data);
+      }
+    });
 
     // 5. Fetch published visual layout overrides
-    fetch('/api/visual-layout')
-      .then((res) => {
-        if (res.ok) return res.json();
-        throw new Error('Failed to fetch visual layout');
-      })
-      .then((data) => {
-        if (data && data.exists && data.layout) {
+    fetchWithFallback<any>('/api/visual-layout', '/visual-layout.json').then((data) => {
+      if (data) {
+        if (data.exists && data.layout) {
           setVisualLayout(data.layout);
+        } else if (data.elements) {
+          setVisualLayout(data);
         }
-      })
-      .catch(() => {
-        // Keeps default layout
-      });
+      }
+    });
   }, []);
 
   const scrollTo = (id: string) => {
@@ -136,7 +123,9 @@ export const PublicPortfolio: React.FC = () => {
     if (styles.boxShadow) res.boxShadow = styles.boxShadow;
     if (styles.opacity !== undefined) res.opacity = styles.opacity;
     if (styles.width) res.width = styles.width;
+    if (styles.maxWidth) res.maxWidth = styles.maxWidth;
     if (styles.height) res.height = styles.height;
+    if (styles.filter) res.filter = styles.filter;
     return res;
   };
 

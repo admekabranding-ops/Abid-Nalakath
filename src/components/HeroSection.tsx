@@ -263,7 +263,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
           {/* ================= CENTER PORTRAIT (DESKTOP) ================= */}
           {/* Overlapping the boundary between orange and white seamlessly, rising cleanly from the bottom! */}
-          <div style={portraitStyles} className="absolute bottom-0 left-[49%] xl:left-[49%] -translate-x-1/2 z-20 flex flex-col items-center justify-end pointer-events-none w-[520px] xl:w-[580px] 2xl:w-[620px]">
+          <div style={portraitStyles} className="absolute bottom-0 left-[49%] xl:left-[49%] -translate-x-1/2 z-20 flex flex-col items-center justify-end pointer-events-none w-[580px] xl:w-[660px] 2xl:w-[720px]">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -273,6 +273,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <img
                 src={heroImage}
                 alt={`${heroContent?.name || "Abid Nalakath"} — Creative Designer`}
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = '/assets/abid-hero.png';
+                }}
                 className="w-full h-auto object-contain object-bottom drop-shadow-[0_15px_30px_rgba(0,0,0,0.45)] select-none"
               />
 
@@ -378,11 +381,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
           {/* Central Portrait on Mobile */}
           <div className="relative bg-gradient-to-b from-[#C63D08] via-[#651B0D] to-[#151515] pt-6 pb-2 flex flex-col items-center justify-end overflow-hidden">
-            <div className="relative w-full max-w-xs sm:max-w-sm flex items-end justify-center px-4">
+            <div className="relative w-full max-w-sm sm:max-w-md flex items-end justify-center px-4">
               <img
                 src={heroImage}
                 alt={`${heroContent?.name || "Abid Nalakath"}`}
-                className="w-full max-w-[290px] sm:max-w-[340px] h-auto object-contain object-bottom drop-shadow-2xl"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = '/assets/abid-hero.png';
+                }}
+                className="w-full max-w-[340px] sm:max-w-[400px] h-auto object-contain object-bottom drop-shadow-2xl"
               />
 
               {/* Mobile Social Buttons */}
