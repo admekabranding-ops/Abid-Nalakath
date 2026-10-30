@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Lenis from 'lenis';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { CapabilitiesSection } from './components/CapabilitiesSection';
@@ -20,7 +21,58 @@ export function App() {
   const [videoModalTitle, setVideoModalTitle] = useState('AI Motion Cinema');
   const [contactInitialService, setContactInitialService] = useState('Graphic Designing');
 
-  // Intersection observer for section tracking
+  // Initialize Lenis Ultra-Smooth Scrolling
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 1.1,
+    });
+
+    let rafId: number;
+    function raf(time: number) {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    }
+    rafId = requestAnimationFrame(raf);
+
+    // Smooth navigation anchor click handler
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const anchor = target.closest('a');
+      if (anchor && anchor.hash && anchor.origin === window.location.origin) {
+        const targetElement = document.querySelector(anchor.hash);
+        if (targetElement) {
+          e.preventDefault();
+          lenis.scrollTo(targetElement as HTMLElement, { offset: 0, duration: 1.2 });
+        }
+      }
+    };
+
+    document.addEventListener('click', handleAnchorClick);
+
+    // Pause scroll when modal is open
+    if (selectedProject || isVideoModalOpen) {
+      lenis.stop();
+    } else {
+      lenis.start();
+    }
+
+    return () => {
+      document.removeEventListener('click', handleAnchorClick);
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+    };
+  }, [selectedProject, isVideoModalOpen]);
+
+  // Section Tracking for Navbar
   useEffect(() => {
     const sectionIds = ['home', 'about', 'services', 'projects', 'process', 'contact'];
     const handleScroll = () => {
