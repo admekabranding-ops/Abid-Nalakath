@@ -168,7 +168,7 @@ export const HeroSection: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
             className="inline-flex items-center gap-2 mb-2 sm:mb-3"
           >
             <span className="w-2 h-2 rounded-full bg-[#FF5A1F] shadow-[0_0_10px_#FF5A1F] animate-pulse" />
@@ -179,9 +179,9 @@ export const HeroSection: React.FC = () => {
 
           {/* Main Heading: "Creative" and "Designer" on Separate Lines */}
           <motion.h1
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-[3rem] xl:text-[3.6rem] 2xl:text-[4.2rem] font-black leading-[0.92] tracking-tighter text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)] select-none"
           >
             Creative <br />
@@ -190,19 +190,19 @@ export const HeroSection: React.FC = () => {
 
           {/* Supporting Text */}
           <motion.p
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
             className="text-xs sm:text-sm lg:text-[14px] xl:text-base text-white/90 font-medium max-w-[280px] sm:max-w-[320px] xl:max-w-[350px] mt-3 sm:mt-4 leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]"
           >
             {personalInfo.heroSupporting}
           </motion.p>
 
-          {/* Layer 5: Interactive CTA Buttons with Refined Directional Response */}
+          {/* Layer 5: Interactive CTA Buttons */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
             className="mt-6 flex flex-col sm:flex-row lg:flex-col xl:flex-row items-stretch sm:items-center lg:items-stretch xl:items-center gap-3 w-full sm:w-auto"
           >
             {/* Primary CTA: VIEW MY WORK */}
@@ -251,25 +251,21 @@ export const HeroSection: React.FC = () => {
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, delay: 0.2 }}
-            className="text-[10px] font-mono uppercase tracking-[0.25em] text-white/50 mb-3 lg:mb-5 font-semibold"
+            transition={{ duration: 0.3 }}
+            className="text-[10px] font-mono uppercase tracking-[0.25em] text-white/60 mb-3 lg:mb-5 font-semibold"
           >
             Core Services
           </motion.p>
 
           {/* Vertical Stack: #01, #02, #03, #04 */}
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-1 gap-4 sm:gap-6 lg:gap-5 xl:gap-6 w-full">
-            {heroServiceHighlights.map((highlight, index) => (
+            {heroServiceHighlights.map((highlight) => (
               <motion.a
                 key={highlight.number}
                 href={highlight.href}
-                initial={{ opacity: 0, x: 10 }}
+                initial={{ opacity: 0, x: 8 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{
-                  duration: 0.4,
-                  delay: 0.28 + index * 0.06,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
                 className="group flex flex-col text-left transition-all duration-300 cursor-pointer"
               >
                 {/* Small Orange Service Number */}
@@ -278,7 +274,7 @@ export const HeroSection: React.FC = () => {
                 </span>
 
                 {/* White Service Name with restrained hover interaction */}
-                <span className="text-xs sm:text-sm lg:text-[14px] xl:text-[15px] font-extrabold text-white/95 group-hover:text-[#FF5A1F] group-hover:translate-x-1.5 transition-all duration-300 tracking-tight flex items-center gap-1.5 mt-0.5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
+                <span className="text-xs sm:text-sm lg:text-[14px] xl:text-[15px] font-extrabold text-white group-hover:text-[#FF5A1F] group-hover:translate-x-1.5 transition-all duration-300 tracking-tight flex items-center gap-1.5 mt-0.5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
                   <span>{highlight.title}</span>
                   <ArrowUpRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 translate-y-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 text-[#FF5A1F] transition-all duration-300 shrink-0" />
                 </span>
