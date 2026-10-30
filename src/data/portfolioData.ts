@@ -58,7 +58,7 @@ export const aboutShowcaseCards = [
     category: 'BRAND IDENTITY',
     title: 'Monolithic Form & Minimalist Apparel',
     subtitle: 'Tactile Materials & Visual Structure',
-    image: 'https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=800&q=80',
+    image: '/images/editorial-jacket.png',
     accentColor: '#FF5A1F',
   },
   {
@@ -66,7 +66,7 @@ export const aboutShowcaseCards = [
     category: 'AUDIO & TECH HARDWARE',
     title: 'Studio Acoustics & Audio Ergonomics',
     subtitle: 'Human-Centered Design & Premium Finish',
-    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80',
+    image: '/images/editorial-headphones.png',
     accentColor: '#FF6A00',
   },
   {
@@ -74,7 +74,7 @@ export const aboutShowcaseCards = [
     category: 'BOTANICAL APOTHECARY',
     title: 'Elemental Skincare & Organic Geometry',
     subtitle: 'Sustainable Packaging & Luxury Typography',
-    image: 'https://images.unsplash.com/photo-1608248597359-59754593450e?auto=format&fit=crop&w=800&q=80',
+    image: '/images/editorial-bottle.png',
     accentColor: '#F52E36',
   },
 ];
