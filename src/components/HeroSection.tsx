@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import { personalInfo, heroServiceHighlights } from '../data/portfolioData';
+import { AnimatedHeroPortrait } from './AnimatedHeroPortrait';
 import { ArrowUpRight, ArrowDown } from 'lucide-react';
 
 export const HeroSection: React.FC = () => {
@@ -16,11 +17,14 @@ export const HeroSection: React.FC = () => {
   const smoothX = useSpring(mouseX, springConfig);
   const smoothY = useSpring(mouseY, springConfig);
 
-  // Scroll parallax
+  // Scroll parallax & Subject-Only Scroll Zoom
   const { scrollY } = useScroll();
   const scrollPortraitY = useTransform(scrollY, [0, 800], [0, 80]);
   const contentY = useTransform(scrollY, [0, 600], [0, 40]);
   const contentOpacity = useTransform(scrollY, [0, 450], [1, 0.2]);
+
+  // Subject-Only Scroll Zoom: smoothly zooms the portrait subject (1.0 -> 1.22x) focused on face
+  const subjectScrollScale = useTransform(scrollY, [0, 500], [1.0, 1.22], { clamp: true });
 
   // =========================================================================
   // MULTI-LAYER 3D DEPTH DISPLACEMENT CALCULATIONS
@@ -105,26 +109,23 @@ export const HeroSection: React.FC = () => {
           />
         </motion.div>
 
-        {/* Layer 2: Authentic Portrait with Smooth 3D Parallax & Scroll Depth */}
+        {/* Layer 2: Authentic Portrait with Continuous Wind-Blown Hair & Subject-Only Scroll Zoom */}
         <motion.div
           style={{
             x: isInteractive ? layer2PortraitX : 0,
             y: combinedPortraitY,
             rotateX: isInteractive ? layer2RotateX : 0,
             rotateY: isInteractive ? layer2RotateY : 0,
+            scale: subjectScrollScale,
+            transformOrigin: '53% 32%',
           }}
           className="relative w-full h-full will-change-transform transform-gpu"
         >
-          <picture className="w-full h-full block">
-            <source srcSet="/images/abid-portrait.png" type="image/png" />
-            <img
-              src="/images/abid-portrait.png"
-              alt="Abid Nalakath — Creative Designer"
-              className="w-full h-[50vh] sm:h-[54vh] lg:h-full object-cover object-[53%_25%] sm:object-[53%_28%] lg:object-[53%_35%] xl:object-[53%_35%] filter brightness-[0.98] contrast-[1.04]"
-              loading="eager"
-              fetchPriority="high"
-            />
-          </picture>
+          <AnimatedHeroPortrait
+            src="/images/abid-portrait.png"
+            alt="Abid Nalakath — Creative Designer"
+            className="w-full h-[50vh] sm:h-[54vh] lg:h-full object-cover object-[53%_25%] sm:object-[53%_28%] lg:object-[53%_35%] xl:object-[53%_35%] filter brightness-[0.98] contrast-[1.04]"
+          />
 
           {/* Top Vignette strictly for Navigation Bar legibility */}
           <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#0B0B0B]/80 via-[#0B0B0B]/15 to-transparent pointer-events-none" />
