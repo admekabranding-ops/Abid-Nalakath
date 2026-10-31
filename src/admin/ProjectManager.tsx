@@ -23,7 +23,7 @@ const CATEGORIES: PortfolioCategory[] = [
 ];
 
 export const ProjectManager: React.FC = () => {
-  const { content, updateContent } = usePortfolioContent();
+  const { content, updateContent, saveDraft } = usePortfolioContent();
   const projects = content.portfolioProjects;
 
   const [editingProject, setEditingProject] = useState<ProjectItem | null>(null);
@@ -65,6 +65,7 @@ export const ProjectManager: React.FC = () => {
       return { ...prev, portfolioProjects: updated };
     });
     setEditingProject(null);
+    setTimeout(() => saveDraft(), 100);
   };
 
   const duplicateProject = (proj: ProjectItem) => {
@@ -77,6 +78,7 @@ export const ProjectManager: React.FC = () => {
       ...prev,
       portfolioProjects: [duplicated, ...prev.portfolioProjects],
     }));
+    setTimeout(() => saveDraft(), 100);
   };
 
   const deleteProject = (id: string) => {
@@ -85,6 +87,7 @@ export const ProjectManager: React.FC = () => {
       portfolioProjects: prev.portfolioProjects.filter((p) => p.id !== id),
     }));
     setDeleteConfirmId(null);
+    setTimeout(() => saveDraft(), 100);
   };
 
   const moveProject = (index: number, direction: 'up' | 'down') => {
@@ -98,6 +101,7 @@ export const ProjectManager: React.FC = () => {
       list[targetIndex] = temp;
       return { ...prev, portfolioProjects: list };
     });
+    setTimeout(() => saveDraft(), 100);
   };
 
   return (

@@ -49,6 +49,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   const { user, logout, changePassword } = useAuth();
 
   const [isSaving, setIsSaving] = useState(false);
+  const [saveSuccessTick, setSaveSuccessTick] = useState(false);
   const [isPublishing, setIsPublishing] = useState(false);
   const [publishMessage, setPublishMessage] = useState<string | null>(null);
 
@@ -64,8 +65,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
   const handleSaveDraft = async () => {
     setIsSaving(true);
-    await saveDraft();
+    const res = await saveDraft();
     setIsSaving(false);
+    if (res.success) {
+      setSaveSuccessTick(true);
+      setTimeout(() => setSaveSuccessTick(false), 2500);
+    }
   };
 
   const handlePublish = async () => {
@@ -212,10 +217,23 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               type="button"
               disabled={isSaving}
               onClick={handleSaveDraft}
-              className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-colors"
+              className={`px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all ${
+                saveSuccessTick
+                  ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/30 ring-2 ring-emerald-400'
+                  : 'bg-white/10 hover:bg-white/15 text-white'
+              }`}
             >
-              <Save className="w-4 h-4" />
-              <span>{isSaving ? 'Saving...' : 'Save Draft'}</span>
+              {saveSuccessTick ? (
+                <>
+                  <CheckCircle2 className="w-4 h-4 text-white animate-in zoom-in" />
+                  <span>Draft Saved!</span>
+                </>
+              ) : (
+                <>
+                  <Save className="w-4 h-4" />
+                  <span>{isSaving ? 'Saving...' : 'Save Draft'}</span>
+                </>
+              )}
             </button>
 
             <button
@@ -509,9 +527,19 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 <button
                   type="button"
                   onClick={() => setShowSeoModal(false)}
-                  className="px-5 py-2 rounded-xl bg-[#FF5A1F] hover:bg-[#FF5A1F]/90 text-white font-bold uppercase tracking-wider"
+                  className="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-white font-semibold text-xs"
                 >
-                  Done
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={async () => {
+                    await saveDraft();
+                    setShowSeoModal(false);
+                  }}
+                  className="px-5 py-2 rounded-xl bg-[#FF5A1F] hover:bg-[#FF5A1F]/90 text-white font-bold uppercase tracking-wider text-xs shadow-lg shadow-[#FF5A1F]/20"
+                >
+                  Save SEO Settings
                 </button>
               </div>
             </div>

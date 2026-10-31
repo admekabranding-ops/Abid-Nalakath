@@ -1,6 +1,14 @@
 import React, { createContext, useContext, useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import type { SiteContent, VersionSnapshot, SelectedElement } from '../types/content';
 import { initialSiteContent } from '../data/initialContent';
+import { CheckCircle2, AlertCircle, ExternalLink, X } from 'lucide-react';
+
+export interface ToastNotification {
+  id: number;
+  message: string;
+  type: 'success' | 'error' | 'info';
+  link?: { text: string; url: string };
+}
 
 interface ContentContextType {
   mode: 'published' | 'draft';
@@ -9,8 +17,8 @@ interface ContentContextType {
   updateField: (path: string, value: any) => void;
   updateElementColor: (elementId: string, color: string, propertyPath?: string) => void;
   removeElementColor: (elementId: string, propertyPath?: string) => void;
-  saveDraft: () => Promise<{ success: boolean; error?: string }>;
-  publishContent: () => Promise<{ success: boolean; error?: string }>;
+  saveDraft: (silent?: boolean) => Promise<{ success: boolean; error?: string }>;
+  publishContent: (silent?: boolean) => Promise<{ success: boolean; error?: string }>;
   rollback: (versionId: string) => Promise<{ success: boolean; error?: string }>;
   undo: () => void;
   redo: () => void;
@@ -27,6 +35,9 @@ interface ContentContextType {
   setEditorViewport: (vp: 'desktop' | 'laptop' | 'tablet' | 'mobile') => void;
   previewMode: boolean;
   setPreviewMode: (v: boolean) => void;
+  toast: ToastNotification | null;
+  showToast: (message: string, type?: 'success' | 'error' | 'info', link?: { text: string; url: string }) => void;
+  dismissToast: () => void;
 }
 
 const ContentContext = createContext<ContentContextType | undefined>(undefined);
@@ -71,6 +82,29 @@ export const ContentProvider: React.FC<{
   const [selectedElement, setSelectedElement] = useState<SelectedElement | null>(null);
   const [editorViewport, setEditorViewport] = useState<'desktop' | 'laptop' | 'tablet' | 'mobile'>('desktop');
   const [previewMode, setPreviewMode] = useState<boolean>(false);
+
+  // Global Toast State
+  const [toast, setToast] = useState<ToastNotification | null>(null);
+  const toastTimeoutRef = useRef<any>(null);
+
+  const dismissToast = useCallback(() => {
+    if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
+    setToast(null);
+  }, []);
+
+  const showToast = useCallback((message: string, type: 'success' | 'error' | 'info' = 'success', link?: { text: string; url: string }) => {
+    if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
+    const newToast: ToastNotification = {
+      id: Date.now(),
+      message,
+      type,
+      link,
+    };
+    setToast(newToast);
+    toastTimeoutRef.current = setTimeout(() => {
+      setToast(null);
+    }, 4000);
+  }, []);
 
   // Undo / Redo Stacks
   const historyRef = useRef<SiteContent[]>([initialSiteContent]);
@@ -187,7 +221,7 @@ export const ContentProvider: React.FC<{
     }
   }, []);
 
-  const saveDraft = async () => {
+  const saveDraft = async (silent = false) => {
     try {
       const res = await fetch('/api/admin/save-draft', {
         method: 'POST',
@@ -196,17 +230,24 @@ export const ContentProvider: React.FC<{
       });
       const data = await res.json();
       if (!res.ok || !data.success) {
-        return { success: false, error: data.error || 'Failed to save draft' };
+        const errMsg = data.error || 'Failed to save draft';
+        if (!silent) showToast(errMsg, 'error');
+        return { success: false, error: errMsg };
       }
       setIsDraftDirty(false);
       setLastSaved(data.lastSaved);
+      if (!silent) {
+        showToast('Draft changes saved successfully!', 'success');
+      }
       return { success: true };
     } catch (e: any) {
-      return { success: false, error: e.message || 'Error saving draft' };
+      const errMsg = e.message || 'Error saving draft';
+      if (!silent) showToast(errMsg, 'error');
+      return { success: false, error: errMsg };
     }
   };
 
-  const publishContent = async () => {
+  const publishContent = async (silent = false) => {
     try {
       const res = await fetch('/api/admin/publish', {
         method: 'POST',
@@ -215,14 +256,24 @@ export const ContentProvider: React.FC<{
       });
       const data = await res.json();
       if (!res.ok || !data.success) {
-        return { success: false, error: data.error || 'Failed to publish' };
+        const errMsg = data.error || 'Failed to publish';
+        if (!silent) showToast(errMsg, 'error');
+        return { success: false, error: errMsg };
       }
       setIsDraftDirty(false);
       setLastPublished(data.publishedAt);
       setLastSaved(data.publishedAt);
+      if (!silent) {
+        showToast('Website Published Live! Visitors now see all changes.', 'success', {
+          text: 'View Live Site →',
+          url: '/',
+        });
+      }
       return { success: true };
     } catch (e: any) {
-      return { success: false, error: e.message || 'Error publishing content' };
+      const errMsg = e.message || 'Error publishing content';
+      if (!silent) showToast(errMsg, 'error');
+      return { success: false, error: errMsg };
     }
   };
 
@@ -303,8 +354,50 @@ export const ContentProvider: React.FC<{
         setEditorViewport,
         previewMode,
         setPreviewMode,
+        toast,
+        showToast,
+        dismissToast,
       }}
     >
+      {/* Global Floating Toast for Save/Publish/Feedback */}
+      {toast && (
+        <div className="fixed top-5 left-1/2 -translate-x-1/2 z-[9999] animate-in fade-in slide-in-from-top-4 duration-200 pointer-events-auto">
+          <div className={`px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 border backdrop-blur-xl ${
+            toast.type === 'error'
+              ? 'bg-red-950/95 border-red-500/50 text-red-200 shadow-red-950/50'
+              : 'bg-[#161616]/95 border-emerald-500/50 text-emerald-300 shadow-black/80 ring-1 ring-emerald-500/30'
+          }`}>
+            {toast.type === 'error' ? (
+              <AlertCircle className="w-5 h-5 text-red-400 shrink-0" />
+            ) : (
+              <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+            )}
+            <span className="text-xs sm:text-sm font-semibold text-white">
+              {toast.message}
+            </span>
+            {toast.link && (
+              <a
+                href={toast.link.url}
+                target="_blank"
+                rel="noreferrer"
+                className="ml-2 px-3 py-1.5 rounded-xl bg-[#FF5A1F] hover:bg-[#FF5A1F]/90 text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-md shadow-[#FF5A1F]/20 transition-transform hover:scale-105"
+              >
+                <span>{toast.link.text}</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            )}
+            <button
+              type="button"
+              onClick={dismissToast}
+              className="ml-2 text-white/40 hover:text-white p-1 rounded-lg transition-colors"
+              title="Dismiss"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      )}
+
       {colorStylesCss && (
         <style
           id="admin-custom-colors-style"

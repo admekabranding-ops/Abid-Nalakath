@@ -32,7 +32,7 @@ const ICON_OPTIONS = [
 ];
 
 export const ServiceManager: React.FC = () => {
-  const { content, updateContent } = usePortfolioContent();
+  const { content, updateContent, saveDraft } = usePortfolioContent();
   const services = content.servicesData;
 
   const [editingService, setEditingService] = useState<ServiceItem | null>(null);
@@ -99,6 +99,7 @@ export const ServiceManager: React.FC = () => {
     });
 
     setEditingService(null);
+    setTimeout(() => saveDraft(), 100);
   };
 
   const moveService = (index: number, direction: 'up' | 'down') => {
@@ -112,6 +113,7 @@ export const ServiceManager: React.FC = () => {
       list[targetIndex] = temp;
       return { ...prev, servicesData: list };
     });
+    setTimeout(() => saveDraft(), 100);
   };
 
   const deleteService = (id: string) => {
@@ -120,6 +122,7 @@ export const ServiceManager: React.FC = () => {
       servicesData: prev.servicesData.filter((s) => s.id !== id),
     }));
     setDeleteConfirmId(null);
+    setTimeout(() => saveDraft(), 100);
   };
 
   return (
