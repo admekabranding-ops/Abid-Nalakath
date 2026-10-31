@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useRef, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import type { SiteContent, VersionSnapshot, SelectedElement } from '../types/content';
 import { initialSiteContent } from '../data/initialContent';
 
@@ -7,6 +7,8 @@ interface ContentContextType {
   content: SiteContent;
   updateContent: (updater: (prev: SiteContent) => SiteContent) => void;
   updateField: (path: string, value: any) => void;
+  updateElementColor: (elementId: string, color: string, propertyPath?: string) => void;
+  removeElementColor: (elementId: string, propertyPath?: string) => void;
   saveDraft: () => Promise<{ success: boolean; error?: string }>;
   publishContent: () => Promise<{ success: boolean; error?: string }>;
   rollback: (versionId: string) => Promise<{ success: boolean; error?: string }>;
@@ -134,6 +136,37 @@ export const ContentProvider: React.FC<{
     updateContent((prev) => setByPath(prev, path, value));
   }, [updateContent]);
 
+  const updateElementColor = useCallback((elementId: string, color: string, propertyPath?: string) => {
+    updateContent((prev) => {
+      let updated: SiteContent = {
+        ...prev,
+        customColors: {
+          ...(prev.customColors || {}),
+          [elementId]: color,
+        },
+      };
+      if (propertyPath) {
+        updated = setByPath(updated, propertyPath + 'Color', color);
+      }
+      return updated;
+    });
+  }, [updateContent]);
+
+  const removeElementColor = useCallback((elementId: string, propertyPath?: string) => {
+    updateContent((prev) => {
+      const nextColors = { ...(prev.customColors || {}) };
+      delete nextColors[elementId];
+      let updated: SiteContent = {
+        ...prev,
+        customColors: nextColors,
+      };
+      if (propertyPath) {
+        updated = setByPath(updated, propertyPath + 'Color', undefined);
+      }
+      return updated;
+    });
+  }, [updateContent]);
+
   const undo = useCallback(() => {
     if (historyIndexRef.current > 0) {
       historyIndexRef.current -= 1;
@@ -219,6 +252,30 @@ export const ContentProvider: React.FC<{
   const canUndo = historyIndexRef.current > 0;
   const canRedo = historyIndexRef.current < historyRef.current.length - 1;
 
+  // Scoped dynamic CSS injector for all customized text colors
+  const colorStylesCss = useMemo(() => {
+    const colors = content.customColors || {};
+    const entries = Object.entries(colors).filter(([_, c]) => Boolean(c));
+    if (entries.length === 0) return '';
+
+    return entries
+      .map(([id, color]) => `
+        [data-editable-id="${id}"],
+        [data-editable-id="${id}"] h1,
+        [data-editable-id="${id}"] h2,
+        [data-editable-id="${id}"] h3,
+        [data-editable-id="${id}"] h4,
+        [data-editable-id="${id}"] h5,
+        [data-editable-id="${id}"] h6,
+        [data-editable-id="${id}"] p,
+        [data-editable-id="${id}"] a,
+        [data-editable-id="${id}"] span:not(.indicator-dot):not(.pill-arrow-white *) {
+          color: ${color} !important;
+        }
+      `)
+      .join('\n');
+  }, [content.customColors]);
+
   return (
     <ContentContext.Provider
       value={{
@@ -226,6 +283,8 @@ export const ContentProvider: React.FC<{
         content,
         updateContent,
         updateField,
+        updateElementColor,
+        removeElementColor,
         saveDraft,
         publishContent,
         rollback,
@@ -246,6 +305,12 @@ export const ContentProvider: React.FC<{
         setPreviewMode,
       }}
     >
+      {colorStylesCss && (
+        <style
+          id="admin-custom-colors-style"
+          dangerouslySetInnerHTML={{ __html: colorStylesCss }}
+        />
+      )}
       {children}
     </ContentContext.Provider>
   );

@@ -52,9 +52,13 @@ export const EditableElement: React.FC<EditableElementProps> = ({
     }
   }, [isInlineEditing]);
 
-  // If in published mode or pure preview mode, render child normally with zero extra wrapper overhead
+  // If in published mode or pure preview mode, render child with data-editable-id for color styles
   if (mode === 'published' || previewMode) {
-    return <>{children}</>;
+    return (
+      <div data-editable-id={id} className={`contents ${className}`}>
+        {children}
+      </div>
+    );
   }
 
   const isSelected = selectedElement?.id === id;
@@ -94,6 +98,7 @@ export const EditableElement: React.FC<EditableElementProps> = ({
 
   return (
     <div
+      data-editable-id={id}
       onClick={handleClick}
       onDoubleClick={handleDoubleClick}
       onMouseEnter={() => setIsHovered(true)}

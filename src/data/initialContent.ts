@@ -61,4 +61,5 @@ export const initialSiteContent: SiteContent = {
     contact: { backgroundColor: '#0B0B0B' },
     footer: { backgroundColor: '#080808' },
   },
+  customColors: {},
 };

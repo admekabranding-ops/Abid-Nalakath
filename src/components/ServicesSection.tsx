@@ -47,21 +47,51 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 mb-3">
-              <span className="text-xs font-bold uppercase tracking-widest text-[#FF5A1F] flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5" />
-                WHAT I DO
-              </span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white">
-              Creative Solutions <br className="hidden sm:inline" />
-              <span className="text-white/80">for Modern Brands</span>
-            </h2>
+            <EditableElement
+              id="services-tag"
+              section="services"
+              type="text"
+              label="Services Tag"
+              propertyPath="personalInfo.servicesTag"
+              currentValue="WHAT I DO"
+            >
+              <div className="inline-flex items-center gap-2 mb-3">
+                <span className="text-xs font-bold uppercase tracking-widest text-[#FF5A1F] flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  WHAT I DO
+                </span>
+              </div>
+            </EditableElement>
+
+            <EditableElement
+              id="services-heading"
+              section="services"
+              type="text"
+              label="Services Heading"
+              propertyPath="personalInfo.servicesHeading"
+              currentValue="Creative Solutions for Modern Brands"
+              options={{ multiline: true }}
+            >
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white">
+                Creative Solutions <br className="hidden sm:inline" />
+                <span className="text-white/80">for Modern Brands</span>
+              </h2>
+            </EditableElement>
           </div>
 
-          <p className="text-sm md:text-base text-white/65 max-w-md">
-            From high-concept visual identity systems and generative AI cinema to full-stack digital web, application architectures, and data-driven marketing.
-          </p>
+          <EditableElement
+            id="services-desc"
+            section="services"
+            type="text"
+            label="Services Description"
+            propertyPath="personalInfo.servicesDesc"
+            currentValue="From high-concept visual identity systems and generative AI cinema to full-stack digital web, application architectures, and data-driven marketing."
+            options={{ multiline: true }}
+          >
+            <p className="text-sm md:text-base text-white/65 max-w-md">
+              From high-concept visual identity systems and generative AI cinema to full-stack digital web, application architectures, and data-driven marketing.
+            </p>
+          </EditableElement>
         </div>
 
         {/* Equal-Sized Poster Cards in a 2-Column Desktop Grid */}

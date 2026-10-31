@@ -176,7 +176,7 @@ export const HeroSection: React.FC = () => {
               currentValue={personalInfo.heroIntro}
             >
               <div className="inline-flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#FF5A1F] shadow-[0_0_10px_#FF5A1F] animate-pulse" />
+                <span className="w-2 h-2 rounded-full bg-[#FF5A1F] shadow-[0_0_10px_#FF5A1F] animate-pulse indicator-dot" />
                 <span className="text-[11px] sm:text-xs font-extrabold uppercase tracking-[0.22em] text-[#FF5A1F] drop-shadow-sm">
                   {personalInfo.heroIntro}
                 </span>

@@ -47,6 +47,7 @@ export interface PersonalInfoContent {
   behance: string;
   linkedin: string;
   github: string;
+  [key: string]: any;
 }
 
 export interface SiteSettings {
@@ -94,6 +95,7 @@ export interface SiteContent {
   seoSettings: SeoSettings;
   sectionVisibility: SectionVisibility;
   sectionStyles: Record<string, SectionCustomization>;
+  customColors?: Record<string, string>;
 }
 
 export interface MediaAsset {

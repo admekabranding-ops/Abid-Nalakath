@@ -9,12 +9,25 @@ import {
   Sliders, 
   Upload, 
   Check,
-  ExternalLink 
+  ExternalLink,
+  Palette,
+  RotateCcw
 } from 'lucide-react';
 
 interface PropertiesPanelProps {
   onOpenMediaLibrary: (onSelect: (url: string) => void) => void;
 }
+
+const COLOR_PRESETS = [
+  { name: 'Pure White', color: '#FFFFFF' },
+  { name: 'Signature Orange', color: '#FF5A1F' },
+  { name: 'Warm Amber', color: '#F59E0B' },
+  { name: 'Soft Muted', color: '#9CA3AF' },
+  { name: 'Electric Cyan', color: '#06B6D4' },
+  { name: 'Vivid Rose', color: '#F43F5E' },
+  { name: 'Neon Purple', color: '#A855F7' },
+  { name: 'Emerald Green', color: '#10B981' },
+];
 
 export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({ onOpenMediaLibrary }) => {
   const {
@@ -22,6 +35,8 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({ onOpenMediaLib
     setSelectedElement,
     content,
     updateField,
+    updateElementColor,
+    removeElementColor,
   } = usePortfolioContent();
 
   const [uploadLoading, setUploadLoading] = useState(false);
@@ -56,6 +71,35 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({ onOpenMediaLib
   };
 
   const currentValue = getValue();
+
+  // Helper to read current active custom color
+  const getActiveColor = () => {
+    if (!selectedElement) return '';
+    if (content.customColors?.[selectedElement.id]) {
+      return content.customColors[selectedElement.id];
+    }
+    const parts = (selectedElement.propertyPath + 'Color').split('.');
+    let curr: any = content;
+    for (const p of parts) {
+      if (curr === undefined || curr === null) return '';
+      curr = curr[p];
+    }
+    return typeof curr === 'string' ? curr : '';
+  };
+
+  const activeColor = getActiveColor();
+
+  const handleColorChange = (newColor: string) => {
+    if (!selectedElement) return;
+    updateElementColor(selectedElement.id, newColor, selectedElement.propertyPath);
+    triggerToast();
+  };
+
+  const handleResetColor = () => {
+    if (!selectedElement) return;
+    removeElementColor(selectedElement.id, selectedElement.propertyPath);
+    triggerToast();
+  };
 
   // Handle direct file upload from computer
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -144,29 +188,74 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({ onOpenMediaLib
             </div>
 
             {/* Typography Quick Color */}
-            <div>
-              <label className="block text-[11px] font-mono uppercase tracking-wider text-white/60 mb-2 font-semibold">
-                Text Accent Color
-              </label>
-              <div className="flex items-center gap-2">
-                {[
-                  { name: 'White', color: '#FFFFFF' },
-                  { name: 'Orange', color: '#FF5A1F' },
-                  { name: 'Muted', color: '#9CA3AF' },
-                  { name: 'Amber', color: '#F59E0B' },
-                ].map((item) => (
+            <div className="space-y-3 pt-3 border-t border-white/5">
+              <div className="flex items-center justify-between">
+                <label className="text-[11px] font-mono uppercase tracking-wider text-white/60 font-semibold flex items-center gap-1.5">
+                  <Palette className="w-3.5 h-3.5 text-[#FF5A1F]" />
+                  <span>Text Color</span>
+                </label>
+                {activeColor && (
                   <button
-                    key={item.color}
                     type="button"
-                    onClick={() => {
-                      updateField(selectedElement.propertyPath + 'Color', item.color);
-                      triggerToast();
-                    }}
-                    className="w-7 h-7 rounded-full border border-white/20 flex items-center justify-center transition-transform hover:scale-110"
-                    style={{ backgroundColor: item.color }}
-                    title={item.name}
+                    onClick={handleResetColor}
+                    className="text-[10px] text-white/40 hover:text-white/80 flex items-center gap-1 transition-colors"
+                    title="Reset to default theme color"
+                  >
+                    <RotateCcw className="w-3 h-3" />
+                    <span>Reset</span>
+                  </button>
+                )}
+              </div>
+
+              {/* Color Presets Grid */}
+              <div className="grid grid-cols-4 gap-2">
+                {COLOR_PRESETS.map((item) => {
+                  const isSelected = activeColor?.toUpperCase() === item.color.toUpperCase();
+                  return (
+                    <button
+                      key={item.color}
+                      type="button"
+                      onClick={() => handleColorChange(item.color)}
+                      className={`h-8 rounded-lg border transition-all flex items-center justify-center relative group ${
+                        isSelected
+                          ? 'border-white scale-105 shadow-md shadow-black/50 ring-2 ring-white/30'
+                          : 'border-white/10 hover:border-white/30 hover:scale-105'
+                      }`}
+                      style={{ backgroundColor: item.color }}
+                      title={item.name}
+                    >
+                      {isSelected && (
+                        <Check className={`w-3.5 h-3.5 ${item.color === '#FFFFFF' ? 'text-black' : 'text-white'} drop-shadow`} />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Custom HEX Picker Row */}
+              <div className="flex items-center gap-2 pt-1">
+                <div className="relative w-8 h-8 rounded-lg overflow-hidden border border-white/20 shrink-0 cursor-pointer">
+                  <input
+                    type="color"
+                    value={activeColor || '#FFFFFF'}
+                    onChange={(e) => handleColorChange(e.target.value)}
+                    className="absolute -inset-2 w-12 h-12 cursor-pointer opacity-0"
+                    title="Choose custom color from spectrum"
                   />
-                ))}
+                  <div
+                    className="w-full h-full"
+                    style={{ backgroundColor: activeColor || '#FFFFFF' }}
+                  />
+                </div>
+
+                <input
+                  type="text"
+                  value={activeColor || ''}
+                  onChange={(e) => handleColorChange(e.target.value)}
+                  placeholder="e.g. #FF5A1F"
+                  maxLength={7}
+                  className="flex-1 px-3 py-1.5 rounded-lg bg-black/40 border border-white/10 focus:border-[#FF5A1F] text-xs font-mono text-white placeholder-white/30 focus:outline-none transition-colors uppercase"
+                />
               </div>
             </div>
           </div>
@@ -301,6 +390,78 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({ onOpenMediaLib
                 >
                   <ExternalLink className="w-3.5 h-3.5" />
                 </a>
+              </div>
+            </div>
+
+            {/* Button Color Override */}
+            <div className="space-y-3 pt-3 border-t border-white/5">
+              <div className="flex items-center justify-between">
+                <label className="text-[11px] font-mono uppercase tracking-wider text-white/60 font-semibold flex items-center gap-1.5">
+                  <Palette className="w-3.5 h-3.5 text-[#FF5A1F]" />
+                  <span>Button Text / Accent Color</span>
+                </label>
+                {activeColor && (
+                  <button
+                    type="button"
+                    onClick={handleResetColor}
+                    className="text-[10px] text-white/40 hover:text-white/80 flex items-center gap-1 transition-colors"
+                    title="Reset to default theme color"
+                  >
+                    <RotateCcw className="w-3 h-3" />
+                    <span>Reset</span>
+                  </button>
+                )}
+              </div>
+
+              {/* Color Presets Grid */}
+              <div className="grid grid-cols-4 gap-2">
+                {COLOR_PRESETS.map((item) => {
+                  const isSelected = activeColor?.toUpperCase() === item.color.toUpperCase();
+                  return (
+                    <button
+                      key={item.color}
+                      type="button"
+                      onClick={() => handleColorChange(item.color)}
+                      className={`h-8 rounded-lg border transition-all flex items-center justify-center relative group ${
+                        isSelected
+                          ? 'border-white scale-105 shadow-md shadow-black/50 ring-2 ring-white/30'
+                          : 'border-white/10 hover:border-white/30 hover:scale-105'
+                      }`}
+                      style={{ backgroundColor: item.color }}
+                      title={item.name}
+                    >
+                      {isSelected && (
+                        <Check className={`w-3.5 h-3.5 ${item.color === '#FFFFFF' ? 'text-black' : 'text-white'} drop-shadow`} />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Custom HEX Picker Row */}
+              <div className="flex items-center gap-2 pt-1">
+                <div className="relative w-8 h-8 rounded-lg overflow-hidden border border-white/20 shrink-0 cursor-pointer">
+                  <input
+                    type="color"
+                    value={activeColor || '#FFFFFF'}
+                    onChange={(e) => handleColorChange(e.target.value)}
+                    className="absolute -inset-2 w-12 h-12 cursor-pointer opacity-0"
+                    title="Choose custom color from spectrum"
+                  />
+                  <div
+                    className="w-full h-full"
+                    style={{ backgroundColor: activeColor || '#FFFFFF' }}
+                  />
+                </div>
+
+                <input
+                  type="text"
+                  value={activeColor || ''}
+                  onChange={(e) => handleColorChange(e.target.value)}
+                  placeholder="e.g. #FF5A1F"
+                  maxLength={7}
+                  className="flex-1 px-3 py-1.5 rounded-lg bg-black/40 border border-white/10 focus:border-[#FF5A1F] text-xs font-mono text-white placeholder-white/30 focus:outline-none transition-colors uppercase"
+                />
               </div>
             </div>
           </div>

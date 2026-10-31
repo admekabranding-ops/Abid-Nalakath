@@ -132,13 +132,32 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ onSelectProj
                           <span className="text-xs text-white/50">{project.client}</span>
                         </div>
                         
-                        <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#FF5A1F] transition-colors leading-snug">
-                          {project.title}
-                        </h3>
+                        <EditableElement
+                          id={`project-title-${project.id}`}
+                          section="portfolio"
+                          type="text"
+                          label={`Project Title: ${project.title}`}
+                          propertyPath={`portfolioProjects.${index}.title`}
+                          currentValue={project.title}
+                        >
+                          <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#FF5A1F] transition-colors leading-snug">
+                            {project.title}
+                          </h3>
+                        </EditableElement>
 
-                        <p className="text-xs md:text-sm text-white/70 mt-2 line-clamp-2 leading-relaxed">
-                          {project.shortDescription}
-                        </p>
+                        <EditableElement
+                          id={`project-desc-${project.id}`}
+                          section="portfolio"
+                          type="text"
+                          label={`Project Description: ${project.title}`}
+                          propertyPath={`portfolioProjects.${index}.shortDescription`}
+                          currentValue={project.shortDescription}
+                          options={{ multiline: true }}
+                        >
+                          <p className="text-xs md:text-sm text-white/70 mt-2 line-clamp-2 leading-relaxed">
+                            {project.shortDescription}
+                          </p>
+                        </EditableElement>
                       </div>
 
                       {/* Bottom Details Row */}
