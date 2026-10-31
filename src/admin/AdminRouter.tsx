@@ -32,7 +32,7 @@ const AdminSubHeader: React.FC<AdminSubHeaderProps> = ({ title, onBack, onOpenEd
   const [isPublishing, setIsPublishing] = useState(false);
 
   return (
-    <div className="h-14 bg-[#141414] border-b border-white/10 px-4 sm:px-6 flex items-center justify-between shrink-0 sticky top-0 z-30">
+    <div className="h-14 bg-[#141414] border-b border-white/10 px-4 sm:px-6 flex items-center justify-between shrink-0 sticky top-0 relative z-[100]">
       <div className="flex items-center gap-3">
         <button
           type="button"

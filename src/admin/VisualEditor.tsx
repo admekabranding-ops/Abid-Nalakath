@@ -151,7 +151,7 @@ export const VisualEditor: React.FC<VisualEditorProps> = ({ onBackToDashboard })
   return (
     <div className="flex flex-col h-screen w-screen bg-[#0B0B0B] text-white overflow-hidden select-none">
       {/* 1. TOP TOOLBAR */}
-      <header className="h-14 bg-[#141414] border-b border-white/10 px-4 flex items-center justify-between z-40 shrink-0">
+      <header className="h-14 bg-[#141414] border-b border-white/10 px-4 flex items-center justify-between relative z-[100] shrink-0">
         {/* Left: Back & Breadcrumb */}
         <div className="flex items-center gap-3">
           <button
@@ -348,6 +348,7 @@ export const VisualEditor: React.FC<VisualEditorProps> = ({ onBackToDashboard })
           {/* Viewport Frame */}
           <div
             className={`${viewportWidthClass} transition-all duration-300 min-h-full bg-[#0B0B0B] border border-white/10 rounded-2xl shadow-2xl overflow-hidden relative`}
+            style={{ isolation: 'isolate' }}
             onClick={(e) => {
               e.stopPropagation();
               // Smooth-scroll anchor links clicked inside canvas without changing router hash
@@ -371,7 +372,7 @@ export const VisualEditor: React.FC<VisualEditorProps> = ({ onBackToDashboard })
 
             {/* LIVE WEBSITE COMPONENTS */}
             <div className="relative text-white selection:bg-[#FF5A1F] selection:text-white">
-              {content.sectionVisibility.navigation && <Navbar activeSection="home" />}
+              {content.sectionVisibility.navigation && <Navbar isEditor={true} activeSection="home" />}
 
               <main>
                 {content.sectionVisibility.hero && <HeroSection />}

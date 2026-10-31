@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { personalInfo } from '../data/portfolioData';
+import { useSafePortfolioContent } from '../context/ContentContext';
 import { ArrowUpRight, Menu, X, Sparkles } from 'lucide-react';
 
 interface NavbarProps {
   activeSection: string;
+  isEditor?: boolean;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
+export const Navbar: React.FC<NavbarProps> = ({ activeSection, isEditor = false }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+
+  const contentContext = useSafePortfolioContent();
+  const currentPersonalInfo = contentContext?.content.personalInfo || personalInfo;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,22 +43,28 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
 
   return (
     <>
-      {/* Scroll Progress Bar at very top */}
-      <div 
-        className="fixed top-0 left-0 h-[2px] bg-gradient-to-r from-[#FF5A1F] via-[#FF6A00] to-[#F52E36] z-50 transition-all duration-150"
-        style={{ width: `${scrollProgress}%` }}
-        role="progressbar"
-        aria-valuenow={Math.round(scrollProgress)}
-        aria-valuemin={0}
-        aria-valuemax={100}
-      />
+      {/* Scroll Progress Bar at very top (hidden inside Visual Editor) */}
+      {!isEditor && (
+        <div 
+          className="fixed top-0 left-0 h-[2px] bg-gradient-to-r from-[#FF5A1F] via-[#FF6A00] to-[#F52E36] z-50 transition-all duration-150"
+          style={{ width: `${scrollProgress}%` }}
+          role="progressbar"
+          aria-valuenow={Math.round(scrollProgress)}
+          aria-valuemin={0}
+          aria-valuemax={100}
+        />
+      )}
 
       <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-          isScrolled
-            ? 'py-3 bg-[#0B0B0B]/85 backdrop-blur-md border-b border-white/10 shadow-2xl shadow-black/40'
-            : 'py-6 bg-transparent'
-        }`}
+        className={
+          isEditor
+            ? 'sticky top-0 z-20 w-full py-3.5 bg-[#0B0B0B]/90 backdrop-blur-md border-b border-white/10 transition-colors'
+            : `fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+                isScrolled
+                  ? 'py-3 bg-[#0B0B0B]/85 backdrop-blur-md border-b border-white/10 shadow-2xl shadow-black/40'
+                  : 'py-6 bg-transparent'
+              }`
+        }
       >
         <div className="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between">
           {/* Logo / Brand Name */}
@@ -63,7 +74,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
             aria-label="Abid Nalakath Portfolio Home"
           >
             <span className="w-2.5 h-2.5 rounded-full bg-[#FF5A1F] group-hover:scale-125 transition-transform duration-300" />
-            <span className="tracking-wider uppercase font-black">{personalInfo.name}</span>
+            <span className="tracking-wider uppercase font-black">{currentPersonalInfo.name}</span>
           </a>
 
           {/* Desktop Navigation Links */}
@@ -117,7 +128,9 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
 
       {/* Mobile Drawer Navigation */}
       <div
-        className={`fixed inset-0 z-40 bg-black/90 backdrop-blur-xl md:hidden transition-all duration-300 flex flex-col justify-between p-8 pt-24 ${
+        className={`${
+          isEditor ? 'absolute' : 'fixed'
+        } inset-0 z-40 bg-black/90 backdrop-blur-xl md:hidden transition-all duration-300 flex flex-col justify-between p-8 pt-24 ${
           isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >
@@ -151,7 +164,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
           </a>
 
           <div className="text-center">
-            <p className="text-xs text-white/50">{personalInfo.email}</p>
+            <p className="text-xs text-white/50">{currentPersonalInfo.email}</p>
           </div>
         </div>
       </div>

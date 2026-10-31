@@ -40,7 +40,11 @@ interface ContentContextType {
   dismissToast: () => void;
 }
 
-const ContentContext = createContext<ContentContextType | undefined>(undefined);
+export const ContentContext = createContext<ContentContextType | undefined>(undefined);
+
+export const useSafePortfolioContent = () => {
+  return useContext(ContentContext);
+};
 
 // Helper for deep immutable updates by path ("personalInfo.heroHeading" or "servicesData.0.title")
 function setByPath(obj: any, path: string, value: any): any {
