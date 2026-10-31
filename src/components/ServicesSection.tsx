@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { servicesData } from '../data/portfolioData';
+import { usePortfolioContent } from '../context/ContentContext';
+import { EditableElement } from '../admin/EditableElement';
 import { 
   ArrowUpRight, 
   Palette, 
@@ -9,6 +10,9 @@ import {
   Layers, 
   Globe, 
   TrendingUp,
+  Compass,
+  Lightbulb,
+  Target,
   CheckCircle2, 
   Play
 } from 'lucide-react';
@@ -25,12 +29,18 @@ const serviceIcons: Record<string, React.ReactNode> = {
   Layers: <Layers className="w-5 h-5" />,
   Globe: <Globe className="w-5 h-5" />,
   TrendingUp: <TrendingUp className="w-5 h-5" />,
+  Compass: <Compass className="w-5 h-5" />,
+  Lightbulb: <Lightbulb className="w-5 h-5" />,
+  Target: <Target className="w-5 h-5" />,
 };
 
 export const ServicesSection: React.FC<ServicesSectionProps> = ({ 
   onOpenVideoModal,
   onSelectServiceForContact 
 }) => {
+  const { content } = usePortfolioContent();
+  const servicesData = content.servicesData;
+
   return (
     <section id="services" className="relative w-full py-20 md:py-32 px-4 sm:px-6 md:px-10 bg-[#0B0B0B] text-white">
       <div className="max-w-7xl mx-auto">
@@ -54,7 +64,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
           </p>
         </div>
 
-        {/* 6 Equal-Sized Poster Cards in a 2-Column Desktop Grid */}
+        {/* Equal-Sized Poster Cards in a 2-Column Desktop Grid */}
         <div 
           className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 items-stretch"
           style={{ perspective: 1200 }}
@@ -119,12 +129,32 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
 
                 {/* 2 & 3 & 4. Card Title & Short Description */}
                 <div className="mt-6 relative z-10">
-                  <h3 className="text-2xl sm:text-[26px] font-extrabold text-white tracking-tight group-hover:text-[#FF5A1F] transition-colors leading-tight">
-                    {service.title}
-                  </h3>
-                  <p className="text-sm text-white/70 mt-2.5 leading-relaxed min-h-[64px] sm:min-h-[70px]">
-                    {service.description}
-                  </p>
+                  <EditableElement
+                    id={`svc-title-${service.id}`}
+                    section="services"
+                    type="text"
+                    label={`Service Title: ${service.number}`}
+                    propertyPath={`servicesData.${index}.title`}
+                    currentValue={service.title}
+                  >
+                    <h3 className="text-2xl sm:text-[26px] font-extrabold text-white tracking-tight group-hover:text-[#FF5A1F] transition-colors leading-tight">
+                      {service.title}
+                    </h3>
+                  </EditableElement>
+
+                  <EditableElement
+                    id={`svc-desc-${service.id}`}
+                    section="services"
+                    type="text"
+                    label={`Service Description: ${service.number}`}
+                    propertyPath={`servicesData.${index}.description`}
+                    currentValue={service.description}
+                    options={{ multiline: true }}
+                  >
+                    <p className="text-sm text-white/70 mt-2.5 leading-relaxed min-h-[64px] sm:min-h-[70px]">
+                      {service.description}
+                    </p>
+                  </EditableElement>
                 </div>
 
                 {/* 5. Divider */}

@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 import Lenis from 'lenis';
+import { AuthProvider } from './context/AuthContext';
+import { ContentProvider } from './context/ContentContext';
+import { AdminRouter } from './admin/AdminRouter';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { CapabilitiesSection } from './components/CapabilitiesSection';
@@ -14,7 +17,7 @@ import { VideoModal } from './components/VideoModal';
 import { CustomCursor } from './components/CustomCursor';
 import type { ProjectItem } from './types';
 
-export function App() {
+function PublicWebsite() {
   const [activeSection, setActiveSection] = useState('home');
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
@@ -159,6 +162,55 @@ export function App() {
         onClose={() => setIsVideoModalOpen(false)}
       />
     </div>
+  );
+}
+
+export function App() {
+  const [isAdminPath, setIsAdminPath] = useState(
+    window.location.pathname.startsWith('/admin') || window.location.hash.startsWith('#admin')
+  );
+
+  useEffect(() => {
+    const checkRoute = () => {
+      setIsAdminPath(
+        window.location.pathname.startsWith('/admin') || window.location.hash.startsWith('#admin')
+      );
+    };
+
+    window.addEventListener('popstate', checkRoute);
+    window.addEventListener('hashchange', checkRoute);
+
+    // Keyboard shortcut to toggle Admin Panel (Ctrl + Alt + A)
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.altKey && (e.key === 'a' || e.key === 'A')) {
+        e.preventDefault();
+        window.location.href = isAdminPath ? '/' : '/admin';
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('popstate', checkRoute);
+      window.removeEventListener('hashchange', checkRoute);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isAdminPath]);
+
+  if (isAdminPath) {
+    return (
+      <AuthProvider>
+        <AdminRouter />
+      </AuthProvider>
+    );
+  }
+
+  return (
+    <AuthProvider>
+      <ContentProvider mode="published">
+        <PublicWebsite />
+      </ContentProvider>
+    </AuthProvider>
   );
 }
 

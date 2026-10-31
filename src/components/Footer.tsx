@@ -1,6 +1,6 @@
 import React from 'react';
-import { personalInfo, socialLinks } from '../data/portfolioData';
-import { ArrowUp, Mail, MessageCircle } from 'lucide-react';
+import { usePortfolioContent } from '../context/ContentContext';
+import { ArrowUp, Mail, MessageCircle, Lock } from 'lucide-react';
 import { InstagramIcon, LinkedInIcon, GitHubIcon, BehanceIcon } from './BrandIcons';
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -13,6 +13,9 @@ const iconMap: Record<string, React.ReactNode> = {
 };
 
 export const Footer: React.FC = () => {
+  const { content } = usePortfolioContent();
+  const personalInfo = content.personalInfo;
+  const socialLinks = content.socialLinks;
   const currentYear = new Date().getFullYear();
 
   const scrollToTop = () => {
@@ -98,22 +101,27 @@ export const Footer: React.FC = () => {
             >
               <span>Back to Top</span>
               <span className="w-7 h-7 rounded-full bg-white/5 group-hover:bg-[#FF5A1F] text-white flex items-center justify-center transition-colors">
-                <ArrowUp className="w-3.5 h-3.5 group-hover:-translate-y-0.5 transition-transform" />
+                <ArrowUp className="w-3.5 h-3.5" />
               </span>
             </button>
           </div>
-
         </div>
 
-        {/* Bottom Bar: Copyright & Attribution */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-white/40 gap-4">
-          <p>
-            Designed with creativity by{' '}
-            <span className="text-white/80 font-semibold">{personalInfo.name}</span>.
-          </p>
-          <p className="font-mono">
-            © {currentYear} {personalInfo.name}. All Rights Reserved.
-          </p>
+        {/* Bottom Bar */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-white/40 font-mono gap-4">
+          <p>© {currentYear} {personalInfo.name}. All rights reserved.</p>
+          <div className="flex items-center gap-6">
+            <span>Crafted with Precision & Passion</span>
+            <span>•</span>
+            <a
+              href="/admin"
+              className="text-white/40 hover:text-[#FF5A1F] flex items-center gap-1 transition-colors"
+              title="Admin CMS Portal"
+            >
+              <Lock className="w-3 h-3" />
+              <span>Admin Panel</span>
+            </a>
+          </div>
         </div>
       </div>
     </footer>
