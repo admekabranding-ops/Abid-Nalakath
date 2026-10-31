@@ -19,10 +19,11 @@ interface ContactSectionProps {
 
 const serviceOptions = [
   'Graphic Designing',
-  'Branding',
-  'AI Videos',
-  'Applications',
-  'Websites',
+  'Branding & Identity',
+  'AI Video Creation',
+  'Application Development',
+  'Website Design & Development',
+  'Digital Marketing & SEO',
   'Other',
 ];
 

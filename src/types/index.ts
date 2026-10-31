@@ -3,7 +3,8 @@ export type ServiceCategory =
   | 'Branding & Identity'
   | 'AI Video Creation'
   | 'Application Development'
-  | 'Website Design & Development';
+  | 'Website Design & Development'
+  | 'Digital Marketing & SEO';
 
 export type PortfolioCategory = 
   | 'All'
@@ -11,7 +12,8 @@ export type PortfolioCategory =
   | 'Branding'
   | 'AI Videos'
   | 'Applications'
-  | 'Websites';
+  | 'Websites'
+  | 'Digital Marketing';
 
 export interface ServiceItem {
   id: string;
