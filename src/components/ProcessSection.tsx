@@ -12,7 +12,7 @@ const processIcons: Record<string, React.ReactNode> = {
 
 export const ProcessSection: React.FC = () => {
   return (
-    <section id="process" className="relative w-full py-20 md:py-32 px-4 sm:px-6 md:px-10 bg-[#0B0B0B] text-white overflow-hidden">
+    <section id="process" className="relative w-full py-16 sm:py-20 md:py-32 px-4 sm:px-6 md:px-10 bg-[#0B0B0B] text-white overflow-hidden scroll-mt-20 sm:scroll-mt-24">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">

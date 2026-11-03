@@ -25,7 +25,8 @@
       "viewWorkText": "VIEW MY WORK",
       "viewWorkLink": "#projects",
       "letsTalkText": "LET'S TALK",
-      "letsTalkLink": "#contact"
+      "letsTalkLink": "#contact",
+      "heroIntroColor": "#FFFFFF"
     },
     "heroServiceHighlights": [
       {
@@ -663,8 +664,10 @@
       "footer": {
         "backgroundColor": "#080808"
       }
+    },
+    "customColors": {
+      "hero-intro": "#FFFFFF"
     }
   },
-  "lastSaved": "2026-10-31T11:58:10.741Z",
-  "version": 1793447890741
+  "lastSaved": "2026-10-31T12:01:34.546Z"
 }

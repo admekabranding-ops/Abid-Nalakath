@@ -23,7 +23,7 @@ export const AboutSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="about"
-      className="relative w-full py-20 md:py-32 px-4 sm:px-6 md:px-10 bg-[#0B0B0B] text-white overflow-hidden"
+      className="relative w-full py-16 sm:py-20 md:py-32 px-4 sm:px-6 md:px-10 bg-[#0B0B0B] text-white overflow-hidden scroll-mt-20 sm:scroll-mt-24"
     >
       <div className="max-w-7xl mx-auto">
         {/* Top Two-Column Editorial Intro */}
@@ -183,7 +183,7 @@ export const AboutSection: React.FC = () => {
                 delay: prefersReducedMotion ? 0 : 0.45 + idx * 0.13,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="group relative h-[360px] sm:h-[400px] md:h-[440px] rounded-[24px] sm:rounded-[26px] md:rounded-[28px] lg:rounded-[30px] overflow-hidden bg-[#141414] border border-white/12 shadow-[0_10px_30px_-5px_rgba(0,0,0,0.5)] transition-all duration-500 hover:border-white/25 hover:shadow-[0_20px_40px_-10px_rgba(255,90,31,0.18)]"
+              className="group relative h-[320px] sm:h-[380px] md:h-[440px] rounded-[22px] sm:rounded-[26px] md:rounded-[28px] lg:rounded-[30px] overflow-hidden bg-[#141414] border border-white/12 shadow-[0_10px_30px_-5px_rgba(0,0,0,0.5)] transition-all duration-500 hover:border-white/25 hover:shadow-[0_20px_40px_-10px_rgba(255,90,31,0.18)]"
             >
               <EditableElement
                 id={`about-card-${card.id}`}

@@ -47,19 +47,19 @@ export const CapabilitiesSection: React.FC = () => {
   });
 
   // Stage 1 -> Stage 2 -> Stage 3 Transforms (reactive, GPU-accelerated, zero re-renders)
-  // 1. Massive Scale-Up (2.8x desktop, 2.2x tablet, 1.8x mobile) zooming out to natural 1.0x
+  // 1. Massive Scale-Up (2.8x desktop, 1.8x tablet, subtle 1.02x mobile) zooming out to natural 1.0x
   const scale = useTransform(smoothProgress, (p) => {
     if (reducedMotion) return 1;
     const clamped = Math.max(0, Math.min(1, p));
-    const maxScale = deviceType === 'mobile' ? 1.8 : deviceType === 'tablet' ? 2.2 : 2.8;
+    const maxScale = deviceType === 'mobile' ? 1.02 : deviceType === 'tablet' ? 1.8 : 2.8;
     return maxScale - (maxScale - 1) * clamped;
   });
 
-  // 2. Rising from below viewport (32vh / 24vh / 16vh) upward to natural 0vh
+  // 2. Rising from below viewport (32vh desktop / 18vh tablet / 4vh mobile) upward to natural 0vh
   const y = useTransform(smoothProgress, (p) => {
     if (reducedMotion) return '0vh';
     const clamped = Math.max(0, Math.min(1, p));
-    const startY = deviceType === 'mobile' ? 16 : deviceType === 'tablet' ? 24 : 32;
+    const startY = deviceType === 'mobile' ? 4 : deviceType === 'tablet' ? 18 : 32;
     return `${startY * (1 - clamped)}vh`;
   });
 
@@ -72,11 +72,11 @@ export const CapabilitiesSection: React.FC = () => {
     return clamped / 0.35;
   });
 
-  // 4. Subtle 3D perspective depth tilt (5° / 3.5° / 2° leveling off to 0°)
+  // 4. Subtle 3D perspective depth tilt (5° desktop / 2° tablet / 0° mobile)
   const rotateX = useTransform(smoothProgress, (p) => {
     if (reducedMotion) return 0;
     const clamped = Math.max(0, Math.min(1, p));
-    const maxRot = deviceType === 'mobile' ? 2 : deviceType === 'tablet' ? 3.5 : 5;
+    const maxRot = deviceType === 'mobile' ? 0 : deviceType === 'tablet' ? 2 : 5;
     return maxRot * (1 - clamped);
   });
 
@@ -85,7 +85,7 @@ export const CapabilitiesSection: React.FC = () => {
       ref={containerRef}
       id="capabilities"
       style={{ perspective: 1400 }}
-      className="relative z-20 w-full py-16 md:py-24 px-4 sm:px-6 md:px-10 bg-[#0B0B0B] overflow-hidden"
+      className="relative z-20 w-full py-16 md:py-24 px-4 sm:px-6 md:px-10 bg-[#0B0B0B] overflow-hidden scroll-mt-20 sm:scroll-mt-24"
     >
       {/* Coordinated Composition Wrapper: Scales and zooms out as one unified 3D interface */}
       <motion.div

@@ -29,7 +29,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ onSelectProj
     : portfolioProjects.filter((p) => p.category === selectedCategory);
 
   return (
-    <section id="projects" className="relative w-full py-20 md:py-32 px-4 sm:px-6 md:px-10 bg-[#0B0B0B] text-white">
+    <section id="projects" className="relative w-full py-16 sm:py-20 md:py-32 px-4 sm:px-6 md:px-10 bg-[#0B0B0B] text-white scroll-mt-20 sm:scroll-mt-24">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
@@ -46,14 +46,14 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ onSelectProj
             </h2>
           </div>
 
-          {/* Category Filter Pills */}
-          <div className="flex flex-wrap gap-2">
+          {/* Category Filter Pills (Fluid touch scroll on mobile, wrap on tablet/desktop) */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0 sm:flex-wrap no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
             {categories.map((cat) => (
               <button
                 key={cat}
                 type="button"
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-full text-xs font-bold tracking-wider uppercase transition-all duration-300 ${
+                className={`px-4 py-2.5 rounded-full text-xs font-bold tracking-wider uppercase transition-all duration-300 whitespace-nowrap shrink-0 active:scale-95 ${
                   selectedCategory === cat
                     ? 'bg-[#FF5A1F] text-white shadow-lg shadow-[#FF5A1F]/25 scale-105'
                     : 'bg-white/5 hover:bg-white/10 text-white/70 hover:text-white border border-white/10'

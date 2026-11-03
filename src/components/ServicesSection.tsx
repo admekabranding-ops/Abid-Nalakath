@@ -40,9 +40,19 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
 }) => {
   const { content } = usePortfolioContent();
   const servicesData = content.servicesData;
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024 || window.matchMedia('(pointer: coarse)').matches);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   return (
-    <section id="services" className="relative w-full py-20 md:py-32 px-4 sm:px-6 md:px-10 bg-[#0B0B0B] text-white">
+    <section id="services" className="relative w-full py-16 sm:py-20 md:py-32 px-4 sm:px-6 md:px-10 bg-[#0B0B0B] text-white scroll-mt-20 sm:scroll-mt-24">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
@@ -105,10 +115,10 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                 key={service.id}
                 initial={{ 
                   opacity: 0, 
-                  y: 50, 
-                  scale: 0.86, 
-                  rotateX: 5,
-                  rotateY: index % 2 === 0 ? -2.5 : 2.5 
+                  y: isMobile ? 25 : 50, 
+                  scale: isMobile ? 0.98 : 0.86, 
+                  rotateX: isMobile ? 0 : 5,
+                  rotateY: isMobile ? 0 : (index % 2 === 0 ? -2.5 : 2.5) 
                 }}
                 whileInView={{ 
                   opacity: 1, 
@@ -117,17 +127,17 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                   rotateX: 0,
                   rotateY: 0 
                 }}
-                viewport={{ once: true, amount: 0.15 }}
+                viewport={{ once: true, amount: 0.1 }}
                 transition={{ 
-                  duration: 0.7, 
-                  delay: index * 0.12, 
+                  duration: isMobile ? 0.45 : 0.7, 
+                  delay: isMobile ? 0.05 : index * 0.12, 
                   ease: [0.16, 1, 0.3, 1] 
                 }}
-                whileHover={{
+                whileHover={isMobile ? undefined : {
                   y: -6,
                   transition: { duration: 0.3, ease: 'easeOut' }
                 }}
-                className="group relative rounded-[28px] p-6 sm:p-8 md:p-9 bg-[#141414] border border-white/10 hover:border-[#FF5A1F]/50 transition-colors duration-500 flex flex-col h-full overflow-hidden shadow-xl hover:shadow-[0_24px_48px_-15px_rgba(255,90,31,0.22)]"
+                className="group relative rounded-[24px] sm:rounded-[28px] p-5 sm:p-8 md:p-9 bg-[#141414] border border-white/10 hover:border-[#FF5A1F]/50 transition-colors duration-500 flex flex-col h-full overflow-hidden shadow-xl hover:shadow-[0_24px_48px_-15px_rgba(255,90,31,0.22)]"
               >
                 {/* Background ambient glow on hover */}
                 <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-bl from-[#FF5A1F]/15 via-[#F52E36]/5 to-transparent rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
@@ -150,7 +160,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                         onSelectServiceForContact(service.category);
                       }
                     }}
-                    className="w-10 h-10 rounded-full bg-white/5 group-hover:bg-white text-white group-hover:text-black flex items-center justify-center transition-all duration-300 transform group-hover:rotate-45 group-hover:scale-105 shadow-sm"
+                    className="w-11 h-11 rounded-full bg-white/5 group-hover:bg-white text-white group-hover:text-black flex items-center justify-center transition-all duration-300 transform group-hover:rotate-45 group-hover:scale-105 active:scale-95 shadow-sm"
                     aria-label={`Inquire about ${service.title}`}
                   >
                     <ArrowUpRight className="w-4 h-4" />

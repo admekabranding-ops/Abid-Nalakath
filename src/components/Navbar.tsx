@@ -19,7 +19,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, isEditor = false 
   useEffect(() => {
     const handleScroll = () => {
       // Toggle sticky appearance
-      setIsScrolled(window.scrollY > 40);
+      setIsScrolled(window.scrollY > 30);
 
       // Scroll progress
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -31,6 +31,18 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, isEditor = false 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
 
   const navLinks = [
     { name: 'Home', href: '#home' },
@@ -58,23 +70,25 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, isEditor = false 
       <header
         className={
           isEditor
-            ? 'sticky top-0 z-20 w-full py-3.5 bg-[#0B0B0B]/90 backdrop-blur-md border-b border-white/10 transition-colors'
+            ? 'sticky top-0 z-20 w-full py-3 bg-[#0B0B0B]/90 backdrop-blur-md border-b border-white/10 transition-colors'
             : `fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
                 isScrolled
-                  ? 'py-3 bg-[#0B0B0B]/85 backdrop-blur-md border-b border-white/10 shadow-2xl shadow-black/40'
-                  : 'py-6 bg-transparent'
+                  ? 'py-2.5 sm:py-3 bg-[#0B0B0B]/85 backdrop-blur-md border-b border-white/10 shadow-2xl shadow-black/40'
+                  : 'py-3.5 sm:py-5 lg:py-6 bg-transparent'
               }`
         }
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 flex items-center justify-between">
           {/* Logo / Brand Name */}
           <a
             href="#home"
-            className="group flex items-center gap-2 text-white font-extrabold text-lg md:text-xl tracking-tight transition-transform duration-300 hover:scale-[1.02]"
+            className="group flex items-center gap-2 text-white font-extrabold text-base sm:text-lg md:text-xl tracking-tight transition-transform duration-300 hover:scale-[1.02] shrink-0"
             aria-label="Abid Nalakath Portfolio Home"
           >
-            <span className="w-2.5 h-2.5 rounded-full bg-[#FF5A1F] group-hover:scale-125 transition-transform duration-300" />
-            <span className="tracking-wider uppercase font-black">{currentPersonalInfo.name}</span>
+            <span className="w-2.5 h-2.5 rounded-full bg-[#FF5A1F] group-hover:scale-125 transition-transform duration-300 shrink-0" />
+            <span className="tracking-wider uppercase font-black truncate max-w-[190px] sm:max-w-none">
+              {currentPersonalInfo.name}
+            </span>
           </a>
 
           {/* Desktop Navigation Links */}
@@ -114,11 +128,11 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, isEditor = false 
             </a>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button with 44px min tap target */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden w-10 h-10 rounded-full bg-white/10 border border-white/15 flex items-center justify-center text-white focus:outline-none focus:ring-2 focus:ring-[#FF5A1F]"
-            aria-label={isMobileMenuOpen ? 'Close Menu' : 'Open Menu'}
+            className="md:hidden w-11 h-11 rounded-full bg-white/10 border border-white/15 flex items-center justify-center text-white hover:bg-white/15 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-[#FF5A1F]"
+            aria-label={isMobileMenuOpen ? 'Close Navigation Menu' : 'Open Navigation Menu'}
             aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -126,16 +140,37 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, isEditor = false 
         </div>
       </header>
 
-      {/* Mobile Drawer Navigation */}
+      {/* Mobile Drawer Navigation (Enhanced dedicated full-screen drawer with close button) */}
       <div
         className={`${
           isEditor ? 'absolute' : 'fixed'
-        } inset-0 z-40 bg-black/90 backdrop-blur-xl md:hidden transition-all duration-300 flex flex-col justify-between p-8 pt-24 ${
-          isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        } inset-0 z-50 bg-[#0B0B0B]/98 backdrop-blur-2xl md:hidden transition-all duration-300 flex flex-col justify-between p-6 sm:p-8 overflow-y-auto ${
+          isMobileMenuOpen ? 'opacity-100 pointer-events-auto translate-y-0' : 'opacity-0 pointer-events-none -translate-y-2'
         }`}
       >
-        <div className="flex flex-col gap-5">
-          <p className="text-xs uppercase tracking-widest text-[#FF5A1F] font-semibold flex items-center gap-2">
+        {/* Mobile Drawer Top Bar: Brand Logo + Explicit Close Button */}
+        <div className="flex items-center justify-between pb-6 border-b border-white/10 shrink-0">
+          <a
+            href="#home"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="flex items-center gap-2 text-white font-extrabold text-base tracking-tight"
+          >
+            <span className="w-2.5 h-2.5 rounded-full bg-[#FF5A1F]" />
+            <span className="tracking-wider uppercase font-black">{currentPersonalInfo.name}</span>
+          </a>
+
+          <button
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="w-11 h-11 rounded-full bg-white/10 border border-white/15 flex items-center justify-center text-white hover:text-[#FF5A1F] hover:bg-white/20 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-[#FF5A1F]"
+            aria-label="Close Navigation Menu"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* Navigation Links with large touch targets (min 48px) */}
+        <div className="flex flex-col gap-2 py-6 my-auto">
+          <p className="text-[11px] font-mono uppercase tracking-widest text-[#FF5A1F] font-bold flex items-center gap-2 mb-2">
             <Sparkles className="w-3.5 h-3.5" /> Navigation
           </p>
           {navLinks.map((link) => (
@@ -143,7 +178,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, isEditor = false 
               key={link.name}
               href={link.href}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-2xl font-bold text-white hover:text-[#FF5A1F] transition-colors py-1 flex items-center justify-between border-b border-white/5"
+              className="text-2xl sm:text-3xl font-bold text-white hover:text-[#FF5A1F] transition-colors py-3 flex items-center justify-between border-b border-white/5 active:scale-[0.98]"
             >
               <span>{link.name}</span>
               <ArrowUpRight className="w-5 h-5 text-white/40" />
@@ -151,20 +186,21 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, isEditor = false 
           ))}
         </div>
 
-        <div className="space-y-4 pt-6">
+        {/* Drawer Footer CTA */}
+        <div className="space-y-4 pt-4 border-t border-white/10 shrink-0">
           <a
             href="#contact"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="w-full pill-button justify-center py-3.5 text-base"
+            className="w-full pill-button-orange justify-center py-3.5 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-[#FF5A1F]/25 flex items-center gap-2 text-center"
           >
             <span>Get in touch</span>
-            <span className="pill-arrow-orange">
+            <span className="pill-arrow-white">
               <ArrowUpRight className="w-4 h-4" />
             </span>
           </a>
 
           <div className="text-center">
-            <p className="text-xs text-white/50">{currentPersonalInfo.email}</p>
+            <p className="text-xs text-white/50 font-mono">{currentPersonalInfo.email}</p>
           </div>
         </div>
       </div>

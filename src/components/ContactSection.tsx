@@ -131,7 +131,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialService =
   };
 
   return (
-    <section id="contact" className="relative w-full py-20 md:py-32 px-4 sm:px-6 md:px-10 bg-[#0B0B0B] text-white overflow-hidden">
+    <section id="contact" className="relative w-full py-16 sm:py-20 md:py-32 px-4 sm:px-6 md:px-10 bg-[#0B0B0B] text-white overflow-hidden scroll-mt-20 sm:scroll-mt-24">
       {/* Background Atmospheric Orange-Red Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-tr from-[#FF5A1F]/20 via-[#F52E36]/10 to-transparent rounded-full blur-[120px] pointer-events-none" />
 
@@ -198,7 +198,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialService =
 
           {/* Right Column: Interactive Validated Contact Form */}
           <div className="lg:col-span-7">
-            <div className="p-8 sm:p-10 md:p-12 rounded-[32px] bg-[#141414] border border-white/10 shadow-2xl relative">
+            <div className="p-5 sm:p-8 md:p-12 rounded-2xl sm:rounded-[32px] bg-[#141414] border border-white/10 shadow-2xl relative">
               <h3 className="text-2xl font-bold text-white mb-2">
                 Send a Message
               </h3>
@@ -240,7 +240,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialService =
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="e.g. Sarah Jenkins"
-                      className={`w-full px-4 py-3.5 rounded-xl bg-black/40 border text-sm text-white placeholder-white/30 focus:outline-none transition-colors ${
+                      className={`w-full px-4 py-3.5 rounded-xl bg-black/40 border text-base text-white placeholder-white/30 focus:outline-none transition-colors ${
                         errors.name ? 'border-red-500 focus:border-red-500' : 'border-white/10 focus:border-[#FF5A1F]'
                       }`}
                     />
@@ -259,7 +259,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialService =
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="e.g. sarah@company.com"
-                      className={`w-full px-4 py-3.5 rounded-xl bg-black/40 border text-sm text-white placeholder-white/30 focus:outline-none transition-colors ${
+                      className={`w-full px-4 py-3.5 rounded-xl bg-black/40 border text-base text-white placeholder-white/30 focus:outline-none transition-colors ${
                         errors.email ? 'border-red-500 focus:border-red-500' : 'border-white/10 focus:border-[#FF5A1F]'
                       }`}
                     />
@@ -278,7 +278,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialService =
                     id="service"
                     value={formData.service}
                     onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                    className="w-full px-4 py-3.5 rounded-xl bg-black/40 border border-white/10 text-sm text-white focus:outline-none focus:border-[#FF5A1F] transition-colors"
+                    className="w-full px-4 py-3.5 rounded-xl bg-black/40 border border-white/10 text-base text-white focus:outline-none focus:border-[#FF5A1F] transition-colors"
                   >
                     {serviceOptions.map((opt) => (
                       <option key={opt} value={opt} className="bg-[#141414] text-white">
@@ -299,7 +299,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialService =
                     value={formData.details}
                     onChange={(e) => setFormData({ ...formData, details: e.target.value })}
                     placeholder="Tell me about your project, timeline, scope, and goals..."
-                    className={`w-full px-4 py-3.5 rounded-xl bg-black/40 border text-sm text-white placeholder-white/30 focus:outline-none transition-colors resize-none ${
+                    className={`w-full px-4 py-3.5 rounded-xl bg-black/40 border text-base text-white placeholder-white/30 focus:outline-none transition-colors resize-none ${
                       errors.details ? 'border-red-500 focus:border-red-500' : 'border-white/10 focus:border-[#FF5A1F]'
                     }`}
                   />
