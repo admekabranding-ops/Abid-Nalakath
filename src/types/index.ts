@@ -1,10 +1,17 @@
 export type ServiceCategory = 
+  | 'Brand Identity'
+  | 'Graphic Design'
+  | 'Social Media Design'
+  | 'Advertising Creatives'
+  | 'Logo Design'
+  | 'Promotional Design'
   | 'Graphic Designing'
   | 'Branding & Identity'
   | 'AI Video Creation'
   | 'Application Development'
   | 'Website Design & Development'
-  | 'Digital Marketing & SEO';
+  | 'Digital Marketing & SEO'
+  | string;
 
 export type PortfolioCategory = 
   | 'All'

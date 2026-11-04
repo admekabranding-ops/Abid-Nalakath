@@ -19,6 +19,11 @@
     height: auto;
   }
 
+  html {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
   .lenis.lenis-smooth {
     scroll-behavior: auto !important;
   }
