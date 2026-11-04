@@ -52,6 +52,29 @@ export const capabilitiesList = [
   { name: 'Application Design', icon: 'Layout', tag: 'Intuitive Systems' },
 ];
 
+export const defaultMarqueeSettings = {
+  enabled: true,
+  speedRow1: 34,
+  speedRow2: 42,
+  row1Items: [
+    { id: 'mq1-1', text: 'BRAND IDENTITY', style: 'bold' as const, color: '#F4510B' },
+    { id: 'mq1-2', text: 'CREATIVE DIRECTION', style: 'italic' as const, color: '#FF9D00' },
+    { id: 'mq1-3', text: 'GRAPHIC DESIGN', style: 'outline' as const, color: '#F4510B' },
+    { id: 'mq1-4', text: 'VISUAL STORYTELLING', style: 'bold' as const, color: '#F4510B' },
+    { id: 'mq1-5', text: 'ADVERTISING CREATIVES', style: 'italic' as const, color: '#C63D08' },
+    { id: 'mq1-6', text: 'BRAND COMMUNICATION', style: 'outline' as const, color: '#FF9D00' },
+  ],
+  row2Items: [
+    { id: 'mq2-1', text: 'DIGITAL MARKETING VISUALS', style: 'italic' as const, color: '#FF9D00' },
+    { id: 'mq2-2', text: 'LOGO DESIGN', style: 'bold' as const, color: '#F4510B' },
+    { id: 'mq2-3', text: 'POSTER DESIGN', style: 'outline' as const, color: '#FF9D00' },
+    { id: 'mq2-4', text: 'SOCIAL MEDIA DESIGN', style: 'italic' as const, color: '#C63D08' },
+    { id: 'mq2-5', text: 'CREATIVE CONTENT', style: 'bold' as const, color: '#F4510B' },
+    { id: 'mq2-6', text: 'PROMOTIONAL DESIGN', style: 'outline' as const, color: '#C63D08' },
+  ],
+};
+
+
 export const aboutShowcaseCards = [
   {
     id: 'editorial-1',

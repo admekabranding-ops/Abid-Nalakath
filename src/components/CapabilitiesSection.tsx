@@ -1,3 +1,4 @@
+import { AnimatedTypographyMarquee } from './AnimatedTypographyMarquee';
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { capabilitiesList } from '../data/portfolioData';
@@ -84,11 +85,14 @@ export const CapabilitiesSection: React.FC = () => {
     <section
       ref={containerRef}
       id="capabilities"
-      style={{ perspective: 1400 }}
-      className="relative z-20 w-full py-16 md:py-24 px-4 sm:px-6 md:px-10 bg-[#0B0B0B] overflow-hidden scroll-mt-20 sm:scroll-mt-24"
+      className="relative z-20 w-full bg-[#0B0B0B] overflow-hidden scroll-mt-20 sm:scroll-mt-24"
     >
+      {/* Beginning of Page 2: Premium Dual-Row Typography Marquee */}
+      <AnimatedTypographyMarquee />
+
       {/* Coordinated Composition Wrapper: Scales and zooms out as one unified 3D interface */}
-      <motion.div
+      <div style={{ perspective: 1400 }} className="py-16 md:py-24 px-4 sm:px-6 md:px-10">
+        <motion.div
         style={{
           scale,
           y,
@@ -146,25 +150,8 @@ export const CapabilitiesSection: React.FC = () => {
             </div>
           ))}
         </div>
-
-        {/* Horizontal Continuous Expertise Marquee */}
-        <div className="mt-12 py-4 px-6 rounded-2xl bg-white/[0.02] border border-white/5 overflow-hidden flex items-center">
-          <div className="flex shrink-0 items-center gap-8 animate-marquee whitespace-nowrap text-xs md:text-sm uppercase tracking-widest text-white/40 font-mono">
-            <span>• Graphic Designing</span>
-            <span>• Brand Architecture</span>
-            <span>• AI Cinematic Direction</span>
-            <span>• Full-Stack Web Development</span>
-            <span>• Application UI/UX</span>
-            <span>• Motion Storytelling</span>
-            <span>• Graphic Designing</span>
-            <span>• Brand Architecture</span>
-            <span>• AI Cinematic Direction</span>
-            <span>• Full-Stack Web Development</span>
-            <span>• Application UI/UX</span>
-            <span>• Motion Storytelling</span>
-          </div>
-        </div>
       </motion.div>
+      </div>
     </section>
   );
 };

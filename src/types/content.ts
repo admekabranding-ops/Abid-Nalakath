@@ -12,6 +12,21 @@ export interface CapabilityItem {
   tag: string;
 }
 
+export interface MarqueeItem {
+  id: string;
+  text: string;
+  style: 'bold' | 'italic' | 'outline';
+  color?: string;
+}
+
+export interface MarqueeSettings {
+  enabled: boolean;
+  speedRow1: number;
+  speedRow2: number;
+  row1Items: MarqueeItem[];
+  row2Items: MarqueeItem[];
+}
+
 export interface AboutCard {
   id: string;
   category: string;
@@ -96,6 +111,7 @@ export interface SiteContent {
   sectionVisibility: SectionVisibility;
   sectionStyles: Record<string, SectionCustomization>;
   customColors?: Record<string, string>;
+  marqueeSettings?: MarqueeSettings;
 }
 
 export interface MediaAsset {

@@ -176,3 +176,73 @@
   background-color: #FF5A1F;
   color: #FFFFFF;
 }
+
+
+/* Dual Animated Typography Marquee (Opposing Directions) */
+@keyframes marquee-flow-left {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes marquee-flow-right {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.marquee-row-left {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marquee-flow-left var(--speed-left, 34s) linear infinite;
+}
+
+.marquee-row-right {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marquee-flow-right var(--speed-right, 42s) linear infinite;
+}
+
+.marquee-row-left:hover,
+.marquee-row-right:hover {
+  animation-play-state: paused;
+}
+
+/* Outlined Typography Styles (Style C) */
+.stroke-orange-vibrant {
+  -webkit-text-stroke: 1.5px #F4510B;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.stroke-orange-gold {
+  -webkit-text-stroke: 1.5px #FF9D00;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.stroke-orange-burnt {
+  -webkit-text-stroke: 1.5px #C63D08;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+@media (min-width: 768px) {
+  .stroke-orange-vibrant {
+    -webkit-text-stroke: 2px #F4510B;
+  }
+  .stroke-orange-gold {
+    -webkit-text-stroke: 2px #FF9D00;
+  }
+  .stroke-orange-burnt {
+    -webkit-text-stroke: 2px #C63D08;
+  }
+}
