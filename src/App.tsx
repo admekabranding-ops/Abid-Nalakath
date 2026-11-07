@@ -5,7 +5,7 @@ import { ContentProvider } from './context/ContentContext';
 import { AdminRouter } from './admin/AdminRouter';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
-import { CapabilitiesSection } from './components/CapabilitiesSection';
+import { AnimatedTypographyMarquee } from './components/AnimatedTypographyMarquee';
 import { AboutSection } from './components/AboutSection';
 import { ServicesSection } from './components/ServicesSection';
 import { PortfolioSection } from './components/PortfolioSection';
@@ -121,29 +121,29 @@ function PublicWebsite() {
 
       {/* Main Content Sections */}
       <main>
-        {/* Section 01: Hero Landing Page */}
+        {/* 1. HOME HERO SECTION */}
         <HeroSection />
 
-        {/* Section 02: Services */}
+        {/* 2. ANIMATED TYPOGRAPHY MARQUEE */}
+        <AnimatedTypographyMarquee />
+
+        {/* 3. SERVICES SECTION */}
         <ServicesSection 
           onOpenVideoModal={handleOpenVideoModal}
           onSelectServiceForContact={handleSelectServiceForContact}
         />
 
-        {/* Section 03: Selected Projects / Portfolio */}
+        {/* 4. PROJECTS SECTION */}
         <PortfolioSection onSelectProject={setSelectedProject} />
 
-        {/* Section 04: Creative Process */}
+        {/* 5. PROCESS SECTION */}
         <ProcessSection />
 
-        {/* Section 05: Contact / Let's Work Together */}
+        {/* 6. CONTACT SECTION */}
         <ContactSection initialService={contactInitialService} />
 
-        {/* Section 06: About Me / "Behind the Creative" */}
+        {/* 7. ABOUT SECTION */}
         <AboutSection />
-
-        {/* Section 07: Creative Core & Animated Typography Marquee */}
-        <CapabilitiesSection />
       </main>
 
       {/* Section 08: Minimal Premium Footer */}

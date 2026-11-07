@@ -99,11 +99,15 @@ export const AnimatedTypographyMarquee: React.FC = () => {
   const speedRow2 = marquee.speedRow2 || 42;
 
   return (
-    <div
+    <section
+      id="marquee"
       aria-label="Creative specialties typography marquee"
-      className="relative w-full overflow-hidden bg-[#0B0B0B] py-6 sm:py-8 md:py-10 border-y border-white/[0.06] select-none"
+      className="relative z-10 w-full overflow-hidden bg-[#0B0B0B] py-6 sm:py-8 md:py-10 border-y border-white/[0.06] select-none"
     >
-      {/* Subtle edge fade overlays for cinematic transition */}
+      {/* Smooth glowing ambient top aura from the hero gradient */}
+      <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-[700px] h-24 bg-gradient-to-b from-[#F4510B]/12 via-[#F4510B]/5 to-transparent blur-2xl pointer-events-none" />
+
+      {/* Edge fade overlays for smooth cinematic clipping */}
       <div className="absolute top-0 bottom-0 left-0 w-12 sm:w-24 md:w-36 bg-gradient-to-r from-[#0B0B0B] to-transparent z-10 pointer-events-none" />
       <div className="absolute top-0 bottom-0 right-0 w-12 sm:w-24 md:w-36 bg-gradient-to-l from-[#0B0B0B] to-transparent z-10 pointer-events-none" />
 
@@ -112,6 +116,6 @@ export const AnimatedTypographyMarquee: React.FC = () => {
 
       {/* Row 2: Left-to-Right Continuous Flow (Opposing direction, tight vertical spacing) */}
       <MarqueeRow items={row2} direction="right" speed={speedRow2} rowNumber={2} />
-    </div>
+    </section>
   );
 };

@@ -1,4 +1,3 @@
-import { AnimatedTypographyMarquee } from './AnimatedTypographyMarquee';
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { capabilitiesList } from '../data/portfolioData';
@@ -48,7 +47,6 @@ export const CapabilitiesSection: React.FC = () => {
   });
 
   // Stage 1 -> Stage 2 -> Stage 3 Transforms (reactive, GPU-accelerated, zero re-renders)
-  // 1. Massive Scale-Up (2.8x desktop, 1.8x tablet, subtle 1.02x mobile) zooming out to natural 1.0x
   const scale = useTransform(smoothProgress, (p) => {
     if (reducedMotion) return 1;
     const clamped = Math.max(0, Math.min(1, p));
@@ -56,7 +54,6 @@ export const CapabilitiesSection: React.FC = () => {
     return maxScale - (maxScale - 1) * clamped;
   });
 
-  // 2. Rising from below viewport (32vh desktop / 18vh tablet / 4vh mobile) upward to natural 0vh
   const y = useTransform(smoothProgress, (p) => {
     if (reducedMotion) return '0vh';
     const clamped = Math.max(0, Math.min(1, p));
@@ -64,7 +61,6 @@ export const CapabilitiesSection: React.FC = () => {
     return `${startY * (1 - clamped)}vh`;
   });
 
-  // 3. Smooth opacity interpolation (0 -> 1 between scroll progress 0 and 0.35)
   const opacity = useTransform(smoothProgress, (p) => {
     if (reducedMotion) return 1;
     const clamped = Math.max(0, Math.min(1, p));
@@ -73,7 +69,6 @@ export const CapabilitiesSection: React.FC = () => {
     return clamped / 0.35;
   });
 
-  // 4. Subtle 3D perspective depth tilt (5° desktop / 2° tablet / 0° mobile)
   const rotateX = useTransform(smoothProgress, (p) => {
     if (reducedMotion) return 0;
     const clamped = Math.max(0, Math.min(1, p));
@@ -87,70 +82,67 @@ export const CapabilitiesSection: React.FC = () => {
       id="capabilities"
       className="relative z-20 w-full bg-[#0B0B0B] overflow-hidden scroll-mt-20 sm:scroll-mt-24"
     >
-      {/* Beginning of Page 2: Premium Dual-Row Typography Marquee */}
-      <AnimatedTypographyMarquee />
-
       {/* Coordinated Composition Wrapper: Scales and zooms out as one unified 3D interface */}
       <div style={{ perspective: 1400 }} className="py-16 md:py-24 px-4 sm:px-6 md:px-10">
         <motion.div
-        style={{
-          scale,
-          y,
-          opacity,
-          rotateX,
-          transformOrigin: 'center 35%',
-        }}
-        className="max-w-7xl mx-auto will-change-transform transform-gpu"
-      >
-        {/* Intro Label & Headline */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between pb-6 gap-4">
-          <div>
-            <span className="text-xs uppercase tracking-widest text-[#FF5A1F] font-bold block">
-              Creative Core
-            </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mt-1">
-              Creative Thinking. Meaningful Results.
-            </h2>
-          </div>
-          <p className="text-sm md:text-base text-white/60 max-w-md">
-            Specialized multi-disciplinary expertise engineered to deliver distinctive visual identity, motion narrative, and digital excellence.
-          </p>
-        </div>
-
-        {/* Horizontal Divider */}
-        <div className="w-full h-px bg-white/10 mb-12" />
-
-        {/* 5 Service Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-          {capabilitiesList.map((item, index) => (
-            <div
-              key={item.name}
-              className="group relative p-6 rounded-2xl bg-[#141414] border border-white/10 hover:border-[#FF5A1F]/40 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_12px_32px_-8px_rgba(255,90,31,0.25)] flex flex-col justify-between min-h-[170px] h-full cursor-pointer"
-            >
-              {/* Subtle hover gradient */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-[#FF5A1F]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-
-              <div className="relative z-10 flex items-center justify-between">
-                <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/80 group-hover:text-[#FF5A1F] group-hover:border-[#FF5A1F]/30 transition-colors">
-                  {iconMap[item.icon] || <Sparkles className="w-5 h-5" />}
-                </div>
-                <span className="text-xs font-mono text-white/40 group-hover:text-white/70 transition-colors">
-                  0{index + 1}
-                </span>
-              </div>
-
-              <div className="relative z-10 mt-6">
-                <span className="text-[11px] uppercase tracking-wider text-[#FF5A1F]/90 font-semibold block mb-1">
-                  {item.tag}
-                </span>
-                <h3 className="text-lg font-bold text-white group-hover:text-white transition-colors">
-                  {item.name}
-                </h3>
-              </div>
+          style={{
+            scale,
+            y,
+            opacity,
+            rotateX,
+            transformOrigin: 'center 35%',
+          }}
+          className="max-w-7xl mx-auto will-change-transform transform-gpu"
+        >
+          {/* Intro Label & Headline */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between pb-6 gap-4">
+            <div>
+              <span className="text-xs uppercase tracking-widest text-[#FF5A1F] font-bold block">
+                Creative Core
+              </span>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mt-1">
+                Creative Thinking. Meaningful Results.
+              </h2>
             </div>
-          ))}
-        </div>
-      </motion.div>
+            <p className="text-sm md:text-base text-white/60 max-w-md">
+              Specialized multi-disciplinary expertise engineered to deliver distinctive visual identity, motion narrative, and digital excellence.
+            </p>
+          </div>
+
+          {/* Horizontal Divider */}
+          <div className="w-full h-px bg-white/10 mb-12" />
+
+          {/* 5 Service Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            {capabilitiesList.map((item, index) => (
+              <div
+                key={item.name}
+                className="group relative p-6 rounded-2xl bg-[#141414] border border-white/10 hover:border-[#FF5A1F]/40 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_12px_32px_-8px_rgba(255,90,31,0.25)] flex flex-col justify-between min-h-[170px] h-full cursor-pointer"
+              >
+                {/* Subtle hover gradient */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-[#FF5A1F]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
+                <div className="relative z-10 flex items-center justify-between">
+                  <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/80 group-hover:text-[#FF5A1F] group-hover:border-[#FF5A1F]/30 transition-colors">
+                    {iconMap[item.icon] || <Sparkles className="w-5 h-5" />}
+                  </div>
+                  <span className="text-xs font-mono text-white/40 group-hover:text-white/70 transition-colors">
+                    0{index + 1}
+                  </span>
+                </div>
+
+                <div className="relative z-10 mt-6">
+                  <span className="text-[11px] uppercase tracking-wider text-[#FF5A1F]/90 font-semibold block mb-1">
+                    {item.tag}
+                  </span>
+                  <h3 className="text-lg font-bold text-white group-hover:text-white transition-colors">
+                    {item.name}
+                  </h3>
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

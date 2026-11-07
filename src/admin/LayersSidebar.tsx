@@ -23,12 +23,12 @@ export const LayersSidebar: React.FC = () => {
 
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
     hero: true,
+    marquee: false,
     services: false,
     portfolio: false,
     process: false,
     contact: false,
     about: false,
-    capabilities: false,
   });
 
   const toggleExpand = (sec: string) => {
@@ -250,7 +250,88 @@ export const LayersSidebar: React.FC = () => {
           )}
         </div>
 
-        {/* 2. SERVICES */}
+        {/* 2. ANIMATED TYPOGRAPHY MARQUEE */}
+        <div className="rounded-xl overflow-hidden bg-white/[0.02]">
+          <div
+            onClick={() => {
+              toggleExpand('marquee');
+              scrollToSection('marquee');
+            }}
+            className="flex items-center justify-between p-2.5 rounded-lg hover:bg-white/5 cursor-pointer text-white/80 group"
+          >
+            <div className="flex items-center gap-2">
+              {expandedSections.marquee ? (
+                <FolderOpen className="w-3.5 h-3.5 text-[#FF5A1F]" />
+              ) : (
+                <Folder className="w-3.5 h-3.5 text-white/40 group-hover:text-[#FF5A1F]" />
+              )}
+              <span className="font-semibold text-white">Typography Marquee</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <button
+                type="button"
+                onClick={(e) => toggleVisibility('capabilities', e)}
+                className="text-white/30 hover:text-white"
+                title="Toggle Marquee Visibility"
+              >
+                {content.sectionVisibility.capabilities ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5 text-red-400" />}
+              </button>
+              {expandedSections.marquee ? <ChevronDown className="w-3 h-3 text-white/40" /> : <ChevronRight className="w-3 h-3 text-white/40" />}
+            </div>
+          </div>
+
+          {expandedSections.marquee && (
+            <div className="pl-6 pr-2 py-1 space-y-0.5 border-l border-white/5 ml-4 mb-1">
+              {/* Marquee Row 1 */}
+              <div
+                onClick={() => {
+                  setSelectedElement({
+                    id: 'marquee-row1-0',
+                    section: 'capabilities',
+                    type: 'text',
+                    label: 'Marquee Row 1 Phrase 1',
+                    propertyPath: 'marqueeSettings.row1Items.0.text',
+                    currentValue: content.marqueeSettings?.row1Items?.[0]?.text || 'BRAND IDENTITY',
+                  });
+                  scrollToSection('marquee');
+                }}
+                className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors ${
+                  selectedElement?.id?.startsWith('marquee-row1')
+                    ? 'bg-[#FF5A1F]/20 text-[#FF5A1F] font-semibold'
+                    : 'text-white/60 hover:bg-white/5 hover:text-white'
+                }`}
+              >
+                <Type className="w-3 h-3 shrink-0 text-[#F4510B]" />
+                <span className="truncate">Marquee Row 1 (R→L Flow)</span>
+              </div>
+
+              {/* Marquee Row 2 */}
+              <div
+                onClick={() => {
+                  setSelectedElement({
+                    id: 'marquee-row2-0',
+                    section: 'capabilities',
+                    type: 'text',
+                    label: 'Marquee Row 2 Phrase 1',
+                    propertyPath: 'marqueeSettings.row2Items.0.text',
+                    currentValue: content.marqueeSettings?.row2Items?.[0]?.text || 'DIGITAL MARKETING VISUALS',
+                  });
+                  scrollToSection('marquee');
+                }}
+                className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors ${
+                  selectedElement?.id?.startsWith('marquee-row2')
+                    ? 'bg-[#FF5A1F]/20 text-[#FF5A1F] font-semibold'
+                    : 'text-white/60 hover:bg-white/5 hover:text-white'
+                }`}
+              >
+                <Type className="w-3 h-3 shrink-0 text-[#FF9D00]" />
+                <span className="truncate">Marquee Row 2 (L→R Flow)</span>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* 3. SERVICES */}
         <div
           onClick={() => scrollToSection('services')}
           className="flex items-center justify-between p-2.5 rounded-lg hover:bg-white/5 cursor-pointer text-white/80 group"
@@ -268,7 +349,7 @@ export const LayersSidebar: React.FC = () => {
           </button>
         </div>
 
-        {/* 3. PORTFOLIO */}
+        {/* 4. PORTFOLIO */}
         <div
           onClick={() => scrollToSection('projects')}
           className="flex items-center justify-between p-2.5 rounded-lg hover:bg-white/5 cursor-pointer text-white/80 group"
@@ -286,7 +367,7 @@ export const LayersSidebar: React.FC = () => {
           </button>
         </div>
 
-        {/* 4. PROCESS */}
+        {/* 5. PROCESS */}
         <div
           onClick={() => scrollToSection('process')}
           className="flex items-center justify-between p-2.5 rounded-lg hover:bg-white/5 cursor-pointer text-white/80 group"
@@ -304,7 +385,7 @@ export const LayersSidebar: React.FC = () => {
           </button>
         </div>
 
-        {/* 5. CONTACT */}
+        {/* 6. CONTACT */}
         <div className="rounded-xl overflow-hidden bg-white/[0.02]">
           <div
             onClick={() => {
@@ -359,7 +440,7 @@ export const LayersSidebar: React.FC = () => {
           )}
         </div>
 
-        {/* 6. ABOUT SECTION */}
+        {/* 7. ABOUT SECTION */}
         <div className="rounded-xl overflow-hidden bg-white/[0.02]">
           <div
             onClick={() => {
@@ -430,85 +511,7 @@ export const LayersSidebar: React.FC = () => {
           )}
         </div>
 
-        {/* 7. CREATIVE CORE & TYPOGRAPHY MARQUEE */}
-        <div className="rounded-xl overflow-hidden bg-white/[0.02]">
-          <div
-            onClick={() => {
-              toggleExpand('capabilities');
-              scrollToSection('capabilities');
-            }}
-            className="flex items-center justify-between p-2.5 rounded-lg hover:bg-white/5 cursor-pointer text-white/80 group"
-          >
-            <div className="flex items-center gap-2">
-              {expandedSections.capabilities ? (
-                <FolderOpen className="w-3.5 h-3.5 text-[#FF5A1F]" />
-              ) : (
-                <Folder className="w-3.5 h-3.5 text-white/40 group-hover:text-[#FF5A1F]" />
-              )}
-              <span className="font-semibold text-white">Creative Core</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <button
-                type="button"
-                onClick={(e) => toggleVisibility('capabilities', e)}
-                className="text-white/30 hover:text-white"
-              >
-                {content.sectionVisibility.capabilities ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5 text-red-400" />}
-              </button>
-              {expandedSections.capabilities ? <ChevronDown className="w-3 h-3 text-white/40" /> : <ChevronRight className="w-3 h-3 text-white/40" />}
-            </div>
-          </div>
 
-          {expandedSections.capabilities && (
-            <div className="pl-6 pr-2 py-1 space-y-0.5 border-l border-white/5 ml-4 mb-1">
-              {/* Marquee Row 1 */}
-              <div
-                onClick={() => {
-                  setSelectedElement({
-                    id: 'marquee-row1-0',
-                    section: 'capabilities',
-                    type: 'text',
-                    label: 'Marquee Row 1 Phrase 1',
-                    propertyPath: 'marqueeSettings.row1Items.0.text',
-                    currentValue: content.marqueeSettings?.row1Items?.[0]?.text || 'BRAND IDENTITY',
-                  });
-                  scrollToSection('capabilities');
-                }}
-                className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors ${
-                  selectedElement?.id?.startsWith('marquee-row1')
-                    ? 'bg-[#FF5A1F]/20 text-[#FF5A1F] font-semibold'
-                    : 'text-white/60 hover:bg-white/5 hover:text-white'
-                }`}
-              >
-                <Type className="w-3 h-3 shrink-0 text-[#F4510B]" />
-                <span className="truncate">Marquee Row 1 (R→L Flow)</span>
-              </div>
-
-              {/* Marquee Row 2 */}
-              <div
-                onClick={() => {
-                  setSelectedElement({
-                    id: 'marquee-row2-0',
-                    section: 'capabilities',
-                    type: 'text',
-                    label: 'Marquee Row 2 Phrase 1',
-                    propertyPath: 'marqueeSettings.row2Items.0.text',
-                    currentValue: content.marqueeSettings?.row2Items?.[0]?.text || 'DIGITAL MARKETING VISUALS',
-                  });
-                  scrollToSection('capabilities');
-                }}
-                className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors ${
-                  selectedElement?.id?.startsWith('marquee-row2')
-                    ? 'bg-[#FF5A1F]/20 text-[#FF5A1F] font-semibold'
-                    : 'text-white/60 hover:bg-white/5 hover:text-white'
-                }`}
-              >
-                <Type className="w-3 h-3 shrink-0 text-[#FF9D00]" />
-                <span className="truncate">Marquee Row 2 (L→R Flow)</span>
-              </div>
-            </div>
-          )}
-        </div>
       </div>
     </aside>
   );

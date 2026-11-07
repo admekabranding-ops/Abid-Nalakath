@@ -25,7 +25,7 @@ import {
 // Import the real website components
 import { Navbar } from '../components/Navbar';
 import { HeroSection } from '../components/HeroSection';
-import { CapabilitiesSection } from '../components/CapabilitiesSection';
+import { AnimatedTypographyMarquee } from '../components/AnimatedTypographyMarquee';
 import { AboutSection } from '../components/AboutSection';
 import { ServicesSection } from '../components/ServicesSection';
 import { PortfolioSection } from '../components/PortfolioSection';
@@ -409,6 +409,7 @@ export const VisualEditor: React.FC<VisualEditorProps> = ({ onBackToDashboard })
 
               <main>
                 {content.sectionVisibility.hero && <HeroSection />}
+                {content.marqueeSettings?.enabled !== false && <AnimatedTypographyMarquee />}
                 {content.sectionVisibility.services && (
                   <ServicesSection
                     onOpenVideoModal={(title) => {
@@ -423,7 +424,6 @@ export const VisualEditor: React.FC<VisualEditorProps> = ({ onBackToDashboard })
                 {content.sectionVisibility.process && <ProcessSection />}
                 {content.sectionVisibility.contact && <ContactSection />}
                 {content.sectionVisibility.about && <AboutSection />}
-                {content.sectionVisibility.capabilities && <CapabilitiesSection />}
               </main>
 
               {content.sectionVisibility.footer && <Footer />}
