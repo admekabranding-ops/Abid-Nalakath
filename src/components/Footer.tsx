@@ -1,15 +1,14 @@
 import React from 'react';
 import { usePortfolioContent } from '../context/ContentContext';
-import { ArrowUp, Mail, MessageCircle, Lock } from 'lucide-react';
-import { InstagramIcon, LinkedInIcon, GitHubIcon, BehanceIcon } from './BrandIcons';
+import { ArrowUp, Mail, Lock } from 'lucide-react';
+import { InstagramIcon, GitHubIcon, WhatsAppIcon } from './BrandIcons';
 
 const iconMap: Record<string, React.ReactNode> = {
   Mail: <Mail className="w-4 h-4" />,
+  Email: <Mail className="w-4 h-4" />,
   Instagram: <InstagramIcon className="w-4 h-4" />,
-  Behance: <BehanceIcon className="w-4 h-4" />,
-  LinkedIn: <LinkedInIcon className="w-4 h-4" />,
   GitHub: <GitHubIcon className="w-4 h-4" />,
-  MessageCircle: <MessageCircle className="w-4 h-4" />,
+  WhatsApp: <WhatsAppIcon className="w-4 h-4" />,
 };
 
 export const Footer: React.FC = () => {
@@ -80,18 +79,21 @@ export const Footer: React.FC = () => {
                 Connect
               </p>
               <div className="flex items-center gap-3">
-                {socialLinks.map((s) => (
-                  <a
-                    key={s.name}
-                    href={s.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#FF5A1F] hover:text-white border border-white/10 flex items-center justify-center text-white/70 transition-all duration-300"
-                    aria-label={s.name}
-                  >
-                    {iconMap[s.name] || <span>{s.name[0]}</span>}
-                  </a>
-                ))}
+                {socialLinks.map((s) => {
+                  const isEmail = s.name.toLowerCase() === 'email' || s.url.startsWith('mailto:');
+                  return (
+                    <a
+                      key={s.name}
+                      href={s.url}
+                      target={isEmail ? undefined : '_blank'}
+                      rel={isEmail ? undefined : 'noopener noreferrer'}
+                      className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#FF5A1F] hover:text-white border border-white/10 flex items-center justify-center text-white/70 transition-all duration-300"
+                      aria-label={s.name}
+                    >
+                      {iconMap[s.name] || iconMap[s.icon] || <span>{s.name[0]}</span>}
+                    </a>
+                  );
+                })}
               </div>
             </div>
 

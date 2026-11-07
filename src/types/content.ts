@@ -59,8 +59,8 @@ export interface PersonalInfoContent {
   email: string;
   whatsapp: string;
   instagram: string;
-  behance: string;
-  linkedin: string;
+  behance?: string;
+  linkedin?: string;
   github: string;
   [key: string]: any;
 }

@@ -305,21 +305,58 @@ export const LayersSidebar: React.FC = () => {
         </div>
 
         {/* 5. CONTACT */}
-        <div
-          onClick={() => scrollToSection('contact')}
-          className="flex items-center justify-between p-2.5 rounded-lg hover:bg-white/5 cursor-pointer text-white/80 group"
-        >
-          <div className="flex items-center gap-2">
-            <Folder className="w-3.5 h-3.5 text-white/40 group-hover:text-[#FF5A1F]" />
-            <span className="font-semibold text-white">Contact & Social</span>
-          </div>
-          <button
-            type="button"
-            onClick={(e) => toggleVisibility('contact', e)}
-            className="text-white/30 hover:text-white"
+        <div className="rounded-xl overflow-hidden bg-white/[0.02]">
+          <div
+            onClick={() => {
+              toggleExpand('contact');
+              scrollToSection('contact');
+            }}
+            className="flex items-center justify-between p-2.5 rounded-lg hover:bg-white/5 cursor-pointer text-white/80 group"
           >
-            {content.sectionVisibility.contact ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5 text-red-400" />}
-          </button>
+            <div className="flex items-center gap-2">
+              {expandedSections.contact ? (
+                <FolderOpen className="w-3.5 h-3.5 text-[#FF5A1F]" />
+              ) : (
+                <Folder className="w-3.5 h-3.5 text-white/40 group-hover:text-[#FF5A1F]" />
+              )}
+              <span className="font-semibold text-white">Contact & Social ({content.socialLinks.length})</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <button
+                type="button"
+                onClick={(e) => toggleVisibility('contact', e)}
+                className="text-white/30 hover:text-white"
+              >
+                {content.sectionVisibility.contact ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5 text-red-400" />}
+              </button>
+              {expandedSections.contact ? <ChevronDown className="w-3 h-3 text-white/40" /> : <ChevronRight className="w-3 h-3 text-white/40" />}
+            </div>
+          </div>
+
+          {expandedSections.contact && (
+            <div className="pl-6 pr-2 py-1 space-y-0.5 border-l border-white/5 ml-4 mb-1">
+              {content.socialLinks.map((link, idx) => (
+                <div
+                  key={link.name}
+                  onClick={() => {
+                    setSelectedElement({
+                      id: `contact-${link.name.toLowerCase()}`,
+                      section: 'contact',
+                      type: 'button',
+                      label: `${link.name} Channel`,
+                      propertyPath: `socialLinks.${idx}.url`,
+                      currentValue: link.url,
+                    });
+                    scrollToSection('contact');
+                  }}
+                  className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg cursor-pointer text-white/60 hover:bg-white/5 hover:text-white"
+                >
+                  <Type className="w-3 h-3 shrink-0 text-[#FF5A1F]" />
+                  <span className="truncate">{link.name}: {link.displayValue}</span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* 6. ABOUT SECTION */}

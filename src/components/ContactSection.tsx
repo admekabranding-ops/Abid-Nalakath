@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { personalInfo, socialLinks } from '../data/portfolioData';
+import { useSafePortfolioContent } from '../context/ContentContext';
 import { 
   ArrowUpRight, 
   Mail, 
@@ -7,10 +8,9 @@ import {
   CheckCircle2, 
   AlertCircle, 
   Loader2, 
-  MessageCircle, 
   Sparkles 
 } from 'lucide-react';
-import { InstagramIcon, LinkedInIcon, GitHubIcon, BehanceIcon } from './BrandIcons';
+import { InstagramIcon, GitHubIcon, WhatsAppIcon } from './BrandIcons';
 import confetti from 'canvas-confetti';
 
 interface ContactSectionProps {
@@ -29,14 +29,17 @@ const serviceOptions = [
 
 const iconMap: Record<string, React.ReactNode> = {
   Mail: <Mail className="w-5 h-5" />,
+  Email: <Mail className="w-5 h-5" />,
   Instagram: <InstagramIcon className="w-5 h-5" />,
-  Behance: <BehanceIcon className="w-5 h-5" />,
-  LinkedIn: <LinkedInIcon className="w-5 h-5" />,
   GitHub: <GitHubIcon className="w-5 h-5" />,
-  MessageCircle: <MessageCircle className="w-5 h-5" />,
+  WhatsApp: <WhatsAppIcon className="w-5 h-5" />,
 };
 
 export const ContactSection: React.FC<ContactSectionProps> = ({ initialService = 'Graphic Designing' }) => {
+  const contentContext = useSafePortfolioContent();
+  const activePersonalInfo = contentContext?.content.personalInfo || personalInfo;
+  const activeSocialLinks = contentContext?.content.socialLinks || socialLinks;
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -92,7 +95,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialService =
       const body = encodeURIComponent(
         `Hi Abid,\n\nName: ${formData.name}\nEmail: ${formData.email}\nService Required: ${formData.service}\n\nProject Details:\n${formData.details}\n\nSent from your portfolio website.`
       );
-      const mailtoUrl = `mailto:${personalInfo.email}?subject=${subject}&body=${body}`;
+      const recipientEmail = activePersonalInfo.email || 'admekabranding@gmail.com';
+      const mailtoUrl = `mailto:${recipientEmail}?subject=${subject}&body=${body}`;
 
       // Trigger confetti celebration
       try {
@@ -111,7 +115,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialService =
 
       setSubmitStatus('success');
       setStatusMessage(
-        `Thank you, ${formData.name}! Your message details are ready. We also launched your email client to send directly to ${personalInfo.email}.`
+        `Thank you, ${formData.name}! Your message details are ready. We also launched your email client to send directly to ${recipientEmail}.`
       );
 
       // Reset form
@@ -124,7 +128,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialService =
       setErrors({});
     } catch (err) {
       setSubmitStatus('error');
-      setStatusMessage('Something went wrong. Please email directly at ' + personalInfo.email);
+      const recipientEmail = activePersonalInfo.email || 'admekabranding@gmail.com';
+      setStatusMessage('Something went wrong. Please email directly at ' + recipientEmail);
     } finally {
       setIsSubmitting(false);
     }
@@ -171,27 +176,31 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialService =
                 Direct Channels & Social
               </p>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {socialLinks.map((link) => (
-                  <a
-                    key={link.name}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-center justify-between p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[#FF5A1F]/30 transition-all duration-300"
-                  >
-                    <div className="flex items-center gap-3">
-                      <span className="text-white/70 group-hover:text-[#FF5A1F] transition-colors">
-                        {iconMap[link.name] || <Sparkles className="w-4 h-4" />}
-                      </span>
-                      <div>
-                        <p className="text-xs font-bold text-white">{link.name}</p>
-                        <p className="text-[11px] text-white/50">{link.displayValue}</p>
+              {/* Exactly 4 Contact Cards: 2-column grid on desktop, 1-column on mobile */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                {activeSocialLinks.map((link) => {
+                  const isEmail = link.name.toLowerCase() === 'email' || link.url.startsWith('mailto:');
+                  return (
+                    <a
+                      key={link.name}
+                      href={link.url}
+                      target={isEmail ? undefined : '_blank'}
+                      rel={isEmail ? undefined : 'noopener noreferrer'}
+                      className="group flex items-center justify-between p-3.5 sm:p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[#FF5A1F]/40 transition-all duration-300 hover:shadow-[0_8px_24px_-6px_rgba(255,90,31,0.2)] hover:-translate-y-0.5 cursor-pointer"
+                    >
+                      <div className="flex items-center gap-3.5 min-w-0">
+                        <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/70 group-hover:text-[#FF5A1F] group-hover:border-[#FF5A1F]/30 group-hover:bg-[#FF5A1F]/10 transition-all duration-300 shrink-0">
+                          {iconMap[link.name] || iconMap[link.icon] || <Mail className="w-5 h-5" />}
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-xs font-bold text-white group-hover:text-white transition-colors">{link.name}</p>
+                          <p className="text-[11px] text-white/50 group-hover:text-white/80 transition-colors truncate">{link.displayValue}</p>
+                        </div>
                       </div>
-                    </div>
-                    <ArrowUpRight className="w-4 h-4 text-white/40 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
-                  </a>
-                ))}
+                      <ArrowUpRight className="w-4 h-4 text-white/40 group-hover:text-[#FF5A1F] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0 ml-2" />
+                    </a>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -334,10 +343,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialService =
                 <p className="text-center text-[11px] text-white/40 pt-2">
                   Prefer direct email? Reach out directly at{' '}
                   <a
-                    href={`mailto:${personalInfo.email}`}
+                    href={`mailto:${activePersonalInfo.email || 'admekabranding@gmail.com'}`}
                     className="text-[#FF5A1F] hover:underline font-medium"
                   >
-                    {personalInfo.email}
+                    {activePersonalInfo.email || 'admekabranding@gmail.com'}
                   </a>
                 </p>
               </form>

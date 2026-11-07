@@ -13,12 +13,10 @@ export const personalInfo = {
   aboutBio: "I'm Abid Nalakath, a creative designer passionate about transforming ideas into powerful visual experiences. I work across graphic design, branding, AI video production, application development, and websites to create meaningful digital experiences.",
   aboutSupporting: 'Combining creativity, visual storytelling, and technology to turn concepts into compelling results.',
   location: 'Available Worldwide · Remote & On-Site',
-  email: 'abidnalakath.design@gmail.com',
-  whatsapp: '+919876543210',
-  instagram: 'https://instagram.com/abidnalakath',
-  behance: 'https://behance.net/abidnalakath',
-  linkedin: 'https://linkedin.com/in/abidnalakath',
-  github: 'https://github.com/abidnalakath',
+  email: 'admekabranding@gmail.com',
+  whatsapp: '+91 62382 24949',
+  instagram: 'https://www.instagram.com/abid_nalakath/',
+  github: 'https://github.com/admekabranding-ops',
 };
 
 export const heroServiceHighlights = [
@@ -515,10 +513,28 @@ export const processSteps: ProcessStep[] = [
 ];
 
 export const socialLinks: SocialLink[] = [
-  { name: 'Email', url: `mailto:${personalInfo.email}`, icon: 'Mail', displayValue: personalInfo.email },
-  { name: 'Instagram', url: personalInfo.instagram, icon: 'Instagram', displayValue: '@abidnalakath' },
-  { name: 'Behance', url: personalInfo.behance, icon: 'Behance', displayValue: 'abidnalakath' },
-  { name: 'LinkedIn', url: personalInfo.linkedin, icon: 'LinkedIn', displayValue: 'in/abidnalakath' },
-  { name: 'GitHub', url: personalInfo.github, icon: 'GitHub', displayValue: 'abidnalakath' },
-  { name: 'WhatsApp', url: `https://wa.me/${personalInfo.whatsapp.replace(/\+/g, '')}`, icon: 'MessageCircle', displayValue: 'Direct WhatsApp' },
+  {
+    name: 'Email',
+    url: 'mailto:admekabranding@gmail.com',
+    icon: 'Mail',
+    displayValue: 'admekabranding@gmail.com',
+  },
+  {
+    name: 'Instagram',
+    url: 'https://www.instagram.com/abid_nalakath/',
+    icon: 'Instagram',
+    displayValue: '@abid_nalakath',
+  },
+  {
+    name: 'GitHub',
+    url: 'https://github.com/admekabranding-ops',
+    icon: 'GitHub',
+    displayValue: 'admekabranding-ops',
+  },
+  {
+    name: 'WhatsApp',
+    url: 'https://wa.me/916238224949',
+    icon: 'WhatsApp',
+    displayValue: '+91 62382 24949',
+  },
 ];
