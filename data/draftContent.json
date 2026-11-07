@@ -26,7 +26,8 @@
       "viewWorkLink": "#projects",
       "letsTalkText": "LET'S TALK",
       "letsTalkLink": "#contact",
-      "heroIntroColor": "#FFFFFF"
+      "heroIntroColor": "#FFFFFF",
+      "aboutLabelColor": "#06B6D4"
     },
     "heroServiceHighlights": [
       {
@@ -105,12 +106,50 @@
     ],
     "servicesData": [
       {
-        "id": "brand-identity",
+        "id": "graphic-design",
         "number": "#01",
+        "title": "Graphic Design",
+        "shortTitle": "Graphic Design",
+        "category": "Graphic Design",
+        "description": "Bespoke visual communication crafted to turn complex concepts into striking graphic expressions, capturing audience attention across print and digital media.",
+        "centralWord": {
+          "first": "GRAPHIC",
+          "second": "DESIGN",
+          "full": "GRAPHIC DESIGN"
+        },
+        "bgImage": "https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=2000&q=85",
+        "overlayOpacity": 0.72,
+        "deliverables": [
+          "High-Impact Editorial & Publication Design",
+          "Exhibition, Poster & Billboard Creatives",
+          "Promotional Collateral & Marketing Suites",
+          "Custom Vector Illustration & Art Direction",
+          "Digital Campaign Visual Kits",
+          "Pre-press Precision & Print Production"
+        ],
+        "visualDirection": "Professional graphic design workspace, premium posters, creative compositions and editorial artwork.",
+        "iconName": "Palette",
+        "accentGradient": "from-[#F4510B] to-[#FF9D00]",
+        "featuredMockup": {
+          "title": "Editorial Poster Architecture",
+          "subtitle": "Multichannel campaign key visuals",
+          "badge": "Visual Arts"
+        }
+      },
+      {
+        "id": "brand-identity",
+        "number": "#02",
         "title": "Brand Identity",
         "shortTitle": "Brand Identity",
         "category": "Brand Identity",
         "description": "Distinctive brand identity systems engineered to communicate personality, establish instant recognition, and build enduring trust across every digital and tactile touchpoint.",
+        "centralWord": {
+          "first": "BRAND",
+          "second": "IDENTITY",
+          "full": "BRAND IDENTITY"
+        },
+        "bgImage": "https://images.unsplash.com/photo-1634942537034-2531766767d1?auto=format&fit=crop&w=2000&q=85",
+        "overlayOpacity": 0.72,
         "deliverables": [
           "Comprehensive Brand Strategy & Positioning",
           "Visual Architecture & Identity Systems",
@@ -119,133 +158,138 @@
           "Stationery, Packaging & Physical Collateral",
           "Multi-touchpoint Brand Consistency Rules"
         ],
-        "visualDirection": "Refined brand identity mockups with bespoke typography, curated color palettes, stationery, and packaging.",
+        "visualDirection": "Brand identity presentations, logo systems, packaging, typography and brand guidelines.",
         "iconName": "Sparkles",
-        "accentGradient": "from-[#F4510B] to-[#FF9D00]",
+        "accentGradient": "from-[#FF9D00] to-[#F4510B]",
         "featuredMockup": {
-          "title": "Brand Architecture",
+          "title": "Brand Architecture System",
           "subtitle": "Cohesive design systems for scaling companies",
           "badge": "Identity System"
         }
       },
       {
-        "id": "graphic-design",
-        "number": "#02",
-        "title": "Graphic Design",
-        "shortTitle": "Graphic Design",
-        "category": "Graphic Design",
-        "description": "Bespoke visual communication crafted to turn complex concepts into striking graphic expressions, capturing audience attention across print and digital media.",
-        "deliverables": [
-          "High-Impact Editorial & Layout Design",
-          "Exhibition, Poster & Billboard Creatives",
-          "Publication & Magazine Formatting",
-          "Marketing & Sales Enablement Collateral",
-          "Vector Illustrations & Custom Art Direction",
-          "Pre-press Precision & Print Production"
-        ],
-        "visualDirection": "Visual collage of graphic design mockups, sharp typographic hierarchy, and bold art direction.",
-        "iconName": "Palette",
-        "accentGradient": "from-[#FF9D00] to-[#F4510B]",
-        "featuredMockup": {
-          "title": "Campaign Key Visuals",
-          "subtitle": "Multichannel brand launch collateral",
-          "badge": "Visual Arts"
-        }
-      },
-      {
-        "id": "social-media-design",
+        "id": "ai-video-production",
         "number": "#03",
-        "title": "Social Media Design",
-        "shortTitle": "Social Media",
-        "category": "Social Media Design",
-        "description": "Scroll-stopping social media visual campaigns and cohesive feed aesthetics tailored to maximize engagement, build communities, and amplify brand presence.",
+        "title": "AI Video Production",
+        "shortTitle": "AI Video",
+        "category": "AI Video Production",
+        "description": "Creative AI-powered videos that transform concepts into cinematic visual stories, pushing the frontier of digital motion design and commercial storytelling.",
+        "centralWord": {
+          "first": "AI VIDEO",
+          "second": "PRODUCTION",
+          "full": "AI VIDEO PRODUCTION"
+        },
+        "bgImage": "https://images.unsplash.com/photo-1579632652768-6cb9dcf85912?auto=format&fit=crop&w=2000&q=85",
+        "bgVideo": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+        "overlayOpacity": 0.72,
         "deliverables": [
-          "Multi-Format Campaign Carousel Systems",
-          "Instagram, LinkedIn & X Feed Aesthetics",
-          "Story & Reel Visual Architecture",
-          "High-Converting Paid Social Ad Visuals",
-          "Custom Iconography & Highlight Covers",
-          "Content Strategy & Visual Calendar Kits"
+          "AI-Generated Cinematic Commercials",
+          "High-Concept Narrative Brand Stories",
+          "Virtual Product Demos & Surreal Visuals",
+          "Social Motion Reels & Micro-Ads",
+          "Generative Motion VFX & Color Grading",
+          "Creative Screenplays & Art Direction"
         ],
-        "visualDirection": "Multi-ratio social feed previews, carousel breakdowns, and high-engagement visual hooks.",
-        "iconName": "Layers",
-        "accentGradient": "from-[#C63D08] to-[#F4510B]",
+        "visualDirection": "Cinematic video production, creative filmmaking, professional camera movements and visual storytelling.",
+        "iconName": "Video",
+        "accentGradient": "from-[#F4510B] to-[#C63D08]",
         "featuredMockup": {
-          "title": "Social Feed Architecture",
-          "subtitle": "Harmonious multichannel social presence",
-          "badge": "Social Systems"
+          "title": "Cinematic AI Motion Reel",
+          "subtitle": "Photorealistic generative motion sequences",
+          "badge": "Next-Gen Motion"
         }
       },
       {
-        "id": "advertising-creatives",
+        "id": "web-experiences",
         "number": "#04",
-        "title": "Advertising Creatives",
-        "shortTitle": "Advertising",
-        "category": "Advertising Creatives",
-        "description": "Performance-focused advertising designs that merge artistic direction with consumer psychology to generate high click-through rates and measurable conversions.",
+        "title": "Web Experiences",
+        "shortTitle": "Web Experiences",
+        "category": "Web Experiences",
+        "description": "Beautiful, responsive websites and digital platforms that combine strong aesthetic design, intuitive navigation, fast loading speeds, and fluid interactive choreography.",
+        "centralWord": {
+          "first": "WEB",
+          "second": "EXPERIENCES",
+          "full": "WEB EXPERIENCES"
+        },
+        "bgImage": "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=2000&q=85",
+        "overlayOpacity": 0.72,
         "deliverables": [
-          "Digital Display & Performance Ad Suites",
-          "Large-Scale Out-of-Home (OOH) Billboards",
-          "Product Launch Visual Concept Campaigns",
-          "A/B Creative Testing Asset Variations",
-          "Interactive Rich-Media Ad Banners",
-          "Conversion Rate Focused Visual Hooks"
+          "High-Converting Portfolio & Brand Portals",
+          "Interactive Campaign Landing Pages",
+          "Bespoke E-commerce Experiences",
+          "Full-Stack Custom Web Architectures",
+          "Fluid Motion & Micro-Interactions",
+          "SEO Performance & Core Web Vitals Optimization"
         ],
-        "visualDirection": "Cinematic ad banners, billboard previews, and conversion-optimized promotional layouts.",
-        "iconName": "Target",
-        "accentGradient": "from-[#F4510B] to-[#651B0D]",
-        "featuredMockup": {
-          "title": "High-Impact Ad Campaigns",
-          "subtitle": "Conversion-driven advertising visuals",
-          "badge": "Performance Creatives"
-        }
-      },
-      {
-        "id": "logo-design",
-        "number": "#05",
-        "title": "Logo Design",
-        "shortTitle": "Logo Design",
-        "category": "Logo Design",
-        "description": "Memorable, timeless, and scalable brand marks crafted with mathematical precision, negative space mastery, and iconic visual resonance.",
-        "deliverables": [
-          "Primary Brand Mark & Monogram Systems",
-          "Secondary & Responsive Variant Badges",
-          "Golden Ratio Construction & Vector Grids",
-          "Monochrome, Inverted & Color Lockups",
-          "Favicon & App Icon Adaptations",
-          "Full Vector Master Files (SVG, AI, EPS, PDF)"
-        ],
-        "visualDirection": "Geometric blueprint grids, golden ratio circles, and versatile logo lockup presentations.",
-        "iconName": "Compass",
+        "visualDirection": "Premium website interfaces, modern web design, interactive digital experiences and screen visuals.",
+        "iconName": "Globe",
         "accentGradient": "from-[#FF9D00] to-[#C63D08]",
         "featuredMockup": {
-          "title": "Iconic Mark Systems",
-          "subtitle": "Timeless symbols engineered for longevity",
-          "badge": "Mark & Monogram"
+          "title": "Digital Experience Portals",
+          "subtitle": "Fluid transitions & responsive aesthetics",
+          "badge": "Web Architecture"
         }
       },
       {
-        "id": "promotional-design",
-        "number": "#06",
-        "title": "Promotional Design",
-        "shortTitle": "Promotional",
-        "category": "Promotional Design",
-        "description": "Strategic event, product, and launch collateral engineered to generate buzz, elevate anticipation, and drive customer action across physical and digital spaces.",
+        "id": "application-design",
+        "number": "#05",
+        "title": "Application Design",
+        "shortTitle": "App Design",
+        "category": "Application Design",
+        "description": "Modern digital application interfaces designed to simplify workflows, elevate usability, and solve real-world problems with elegant, human-centered UI/UX.",
+        "centralWord": {
+          "first": "APPLICATION",
+          "second": "DESIGN",
+          "full": "APPLICATION DESIGN"
+        },
+        "bgImage": "https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=2000&q=85",
+        "overlayOpacity": 0.72,
         "deliverables": [
-          "Event Stage, Booth & Exhibition Backdrops",
-          "Product Launch Collateral & Lookbooks",
-          "Limited-Edition Merchandise & Swag",
-          "Promotional Flyers, Brochures & Menus",
-          "Roll-up Banners & Point-of-Sale Displays",
-          "Digital Promotional Banners & Invites"
+          "Mobile iOS & Android App Systems",
+          "SaaS Platform Dashboards & Workspaces",
+          "Component Design Systems & Tokens",
+          "Complex Data Visualizations & Analytics",
+          "Interactive Figma Prototypes & User Testing",
+          "Developer Handoff & Technical Documentation"
         ],
-        "visualDirection": "Dimensional packaging, VIP invitations, event stage backdrops, and promotional print suites.",
-        "iconName": "Lightbulb",
-        "accentGradient": "from-[#F4510B] to-[#FF9D00]",
+        "visualDirection": "Modern application interfaces, mobile app screens, UI/UX design and digital product experiences.",
+        "iconName": "Layers",
+        "accentGradient": "from-[#F4510B] to-[#651B0D]",
         "featuredMockup": {
-          "title": "Launch & Promo Suites",
-          "subtitle": "Tangible branded experiences and event collateral",
-          "badge": "Promo Architecture"
+          "title": "Enterprise Workflow Systems",
+          "subtitle": "Intuitive product interface architecture",
+          "badge": "Product Design"
+        }
+      },
+      {
+        "id": "performance-marketing",
+        "number": "#06",
+        "title": "Performance Marketing",
+        "shortTitle": "Marketing",
+        "category": "Performance Marketing",
+        "description": "Data-backed creative marketing campaigns and performance visuals engineered to capture intent, optimize click-through rates, and drive sustainable growth.",
+        "centralWord": {
+          "first": "PERFORMANCE",
+          "second": "MARKETING",
+          "full": "PERFORMANCE MARKETING"
+        },
+        "bgImage": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=2000&q=85",
+        "overlayOpacity": 0.72,
+        "deliverables": [
+          "Multi-Channel Digital Advertising Campaigns",
+          "High-CTR Paid Social Creatives",
+          "Conversion Rate Optimization (CRO)",
+          "Search Engine Optimization (SEO) & Analytics",
+          "A/B Creative Visual Testing Matrix",
+          "Customer Acquisition Funnel Architecture"
+        ],
+        "visualDirection": "Digital advertising campaigns, creative advertising visuals, social media campaigns and marketing dashboards.",
+        "iconName": "Target",
+        "accentGradient": "from-[#FF9D00] to-[#F4510B]",
+        "featuredMockup": {
+          "title": "Growth Campaign Engine",
+          "subtitle": "High-performance visual acquisition systems",
+          "badge": "Growth Creatives"
         }
       }
     ],
@@ -666,8 +710,10 @@
       }
     },
     "customColors": {
-      "hero-intro": "#FFFFFF"
+      "hero-intro": "#FFFFFF",
+      "about-label": "#06B6D4"
     }
   },
-  "lastSaved": "2026-10-31T12:01:34.546Z"
+  "lastSaved": "2026-11-07T03:58:12.077Z",
+  "version": 1794023892077
 }

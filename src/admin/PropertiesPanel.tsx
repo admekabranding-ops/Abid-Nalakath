@@ -41,36 +41,7 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({ onOpenMediaLib
 
   const [uploadLoading, setUploadLoading] = useState(false);
   const [saveToast, setSaveToast] = useState(false);
-
-  if (!selectedElement) {
-    return (
-      <aside className="w-80 h-full bg-[#121212] border-l border-white/10 flex flex-col items-center justify-center p-6 text-center text-white/40">
-        <Sliders className="w-10 h-10 mb-3 text-white/20" />
-        <p className="text-sm font-semibold text-white/60">No Element Selected</p>
-        <p className="text-xs mt-1 text-white/40 leading-relaxed max-w-[200px]">
-          Click on any text, image, card, or button on the live canvas to edit its properties.
-        </p>
-      </aside>
-    );
-  }
-
-  const triggerToast = () => {
-    setSaveToast(true);
-    setTimeout(() => setSaveToast(false), 1200);
-  };
-
-  // Helper to read current value from content
-  const getValue = () => {
-    const parts = selectedElement.propertyPath.split('.');
-    let curr: any = content;
-    for (const p of parts) {
-      if (curr === undefined || curr === null) return '';
-      curr = curr[p];
-    }
-    return curr !== undefined ? curr : '';
-  };
-
-  const currentValue = getValue();
+  const [hexInput, setHexInput] = useState('');
 
   // Helper to read current active custom color
   const getActiveColor = () => {
@@ -89,17 +60,67 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({ onOpenMediaLib
 
   const activeColor = getActiveColor();
 
+  React.useEffect(() => {
+    setHexInput(activeColor || '');
+  }, [activeColor, selectedElement?.id]);
+
+  const triggerToast = () => {
+    setSaveToast(true);
+    setTimeout(() => setSaveToast(false), 1200);
+  };
+
   const handleColorChange = (newColor: string) => {
     if (!selectedElement) return;
+    setHexInput(newColor);
     updateElementColor(selectedElement.id, newColor, selectedElement.propertyPath);
     triggerToast();
   };
 
+  const handleHexInputChange = (val: string) => {
+    setHexInput(val);
+    let cleaned = val.trim();
+    if (!cleaned.startsWith('#') && cleaned.length > 0) {
+      cleaned = '#' + cleaned;
+    }
+    if (/^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$/.test(cleaned)) {
+      if (selectedElement) {
+        updateElementColor(selectedElement.id, cleaned.toUpperCase(), selectedElement.propertyPath);
+        triggerToast();
+      }
+    }
+  };
+
   const handleResetColor = () => {
     if (!selectedElement) return;
+    setHexInput('');
     removeElementColor(selectedElement.id, selectedElement.propertyPath);
     triggerToast();
   };
+
+  if (!selectedElement) {
+    return (
+      <aside className="w-80 h-full bg-[#121212] border-l border-white/10 flex flex-col items-center justify-center p-6 text-center text-white/40">
+        <Sliders className="w-10 h-10 mb-3 text-white/20" />
+        <p className="text-sm font-semibold text-white/60">No Element Selected</p>
+        <p className="text-xs mt-1 text-white/40 leading-relaxed max-w-[200px]">
+          Click on any text, image, card, or button on the live canvas to edit its properties.
+        </p>
+      </aside>
+    );
+  }
+
+  // Helper to read current value from content
+  const getValue = () => {
+    const parts = selectedElement.propertyPath.split('.');
+    let curr: any = content;
+    for (const p of parts) {
+      if (curr === undefined || curr === null) return '';
+      curr = curr[p];
+    }
+    return curr !== undefined ? curr : '';
+  };
+
+  const currentValue = getValue();
 
   // Handle direct file upload from computer
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -237,22 +258,22 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({ onOpenMediaLib
                 <div className="relative w-8 h-8 rounded-lg overflow-hidden border border-white/20 shrink-0 cursor-pointer">
                   <input
                     type="color"
-                    value={activeColor || '#FFFFFF'}
+                    value={activeColor || '#FF5A1F'}
                     onChange={(e) => handleColorChange(e.target.value)}
                     className="absolute -inset-2 w-12 h-12 cursor-pointer opacity-0"
                     title="Choose custom color from spectrum"
                   />
                   <div
-                    className="w-full h-full"
-                    style={{ backgroundColor: activeColor || '#FFFFFF' }}
+                    className="w-full h-full transition-colors"
+                    style={{ backgroundColor: activeColor || '#FF5A1F' }}
                   />
                 </div>
 
                 <input
                   type="text"
-                  value={activeColor || ''}
-                  onChange={(e) => handleColorChange(e.target.value)}
-                  placeholder="e.g. #FF5A1F"
+                  value={hexInput}
+                  onChange={(e) => handleHexInputChange(e.target.value)}
+                  placeholder="#FF5A1F"
                   maxLength={7}
                   className="flex-1 px-3 py-1.5 rounded-lg bg-black/40 border border-white/10 focus:border-[#FF5A1F] text-xs font-mono text-white placeholder-white/30 focus:outline-none transition-colors uppercase"
                 />
@@ -443,22 +464,22 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({ onOpenMediaLib
                 <div className="relative w-8 h-8 rounded-lg overflow-hidden border border-white/20 shrink-0 cursor-pointer">
                   <input
                     type="color"
-                    value={activeColor || '#FFFFFF'}
+                    value={activeColor || '#FF5A1F'}
                     onChange={(e) => handleColorChange(e.target.value)}
                     className="absolute -inset-2 w-12 h-12 cursor-pointer opacity-0"
                     title="Choose custom color from spectrum"
                   />
                   <div
-                    className="w-full h-full"
-                    style={{ backgroundColor: activeColor || '#FFFFFF' }}
+                    className="w-full h-full transition-colors"
+                    style={{ backgroundColor: activeColor || '#FF5A1F' }}
                   />
                 </div>
 
                 <input
                   type="text"
-                  value={activeColor || ''}
-                  onChange={(e) => handleColorChange(e.target.value)}
-                  placeholder="e.g. #FF5A1F"
+                  value={hexInput}
+                  onChange={(e) => handleHexInputChange(e.target.value)}
+                  placeholder="#FF5A1F"
                   maxLength={7}
                   className="flex-1 px-3 py-1.5 rounded-lg bg-black/40 border border-white/10 focus:border-[#FF5A1F] text-xs font-mono text-white placeholder-white/30 focus:outline-none transition-colors uppercase"
                 />

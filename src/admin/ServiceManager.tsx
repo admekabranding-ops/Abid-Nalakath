@@ -366,6 +366,56 @@ export const ServiceManager: React.FC = () => {
                   className="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 focus:border-[#FF5A1F] text-white text-xs focus:outline-none"
                 />
               </div>
+
+              {/* Fullscreen Background Media Settings */}
+              <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10 space-y-3">
+                <span className="text-[11px] font-mono uppercase tracking-wider text-[#FF5A1F] font-bold block">
+                  Fullscreen Background Media & Overlays
+                </span>
+                <div>
+                  <label className="block text-white/60 mb-1 font-semibold font-mono uppercase tracking-wider">
+                    Background Image URL
+                  </label>
+                  <input
+                    type="text"
+                    value={editingService.bgImage || ''}
+                    onChange={(e) => setEditingService({ ...editingService, bgImage: e.target.value })}
+                    className="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 focus:border-[#FF5A1F] text-white text-xs focus:outline-none"
+                    placeholder="https://images.unsplash.com/... or /images/..."
+                  />
+                </div>
+                <div>
+                  <label className="block text-white/60 mb-1 font-semibold font-mono uppercase tracking-wider">
+                    Background Video URL (Optional)
+                  </label>
+                  <input
+                    type="text"
+                    value={editingService.bgVideo || ''}
+                    onChange={(e) => setEditingService({ ...editingService, bgVideo: e.target.value })}
+                    className="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 focus:border-[#FF5A1F] text-white text-xs focus:outline-none"
+                    placeholder="https://.../video.mp4"
+                  />
+                </div>
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="text-white/60 font-semibold font-mono uppercase tracking-wider">
+                      Dark Overlay Strength
+                    </label>
+                    <span className="text-white/80 font-mono text-xs">
+                      {Math.round((editingService.overlayOpacity ?? 0.7) * 100)}%
+                    </span>
+                  </div>
+                  <input
+                    type="range"
+                    min="0.3"
+                    max="0.95"
+                    step="0.05"
+                    value={editingService.overlayOpacity ?? 0.7}
+                    onChange={(e) => setEditingService({ ...editingService, overlayOpacity: parseFloat(e.target.value) })}
+                    className="w-full accent-[#FF5A1F]"
+                  />
+                </div>
+              </div>
             </div>
 
             <div className="p-4 border-t border-white/10 flex items-center justify-end gap-2.5 bg-black/20">

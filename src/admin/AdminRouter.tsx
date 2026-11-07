@@ -101,9 +101,10 @@ export const AdminRouter: React.FC = () => {
 
   const navigate = (view: 'dashboard' | 'editor' | 'media' | 'projects' | 'services' | 'preview') => {
     setCurrentView(view);
-    const targetHash = view === 'dashboard' ? '' : `#${view}`;
-    if (window.location.hash !== targetHash) {
-      window.location.hash = targetHash;
+    if (view === 'dashboard') {
+      window.history.replaceState(null, '', '/admin');
+    } else {
+      window.location.hash = `#${view}`;
     }
   };
 
@@ -112,16 +113,32 @@ export const AdminRouter: React.FC = () => {
       const hash = window.location.hash.toLowerCase();
       const path = window.location.pathname.toLowerCase();
 
-      if (hash === '#editor' || path === '/admin/editor') {
+      if (hash === '#editor') {
         setCurrentView('editor');
-      } else if (hash === '#media' || path === '/admin/media') {
+      } else if (hash === '#media') {
         setCurrentView('media');
-      } else if (hash === '#projects' || hash === '#projects-mgr' || path === '/admin/projects') {
+      } else if (hash === '#projects' || hash === '#projects-mgr') {
         setCurrentView('projects');
-      } else if (hash === '#services' || hash === '#services-mgr' || path === '/admin/services') {
+      } else if (hash === '#services' || hash === '#services-mgr') {
         setCurrentView('services');
-      } else if (hash === '#preview' || path === '/admin/preview') {
+      } else if (hash === '#preview') {
         setCurrentView('preview');
+      } else if (hash === '' || hash === '#' || hash === '#dashboard') {
+        if (path === '/admin' || path === '/admin/') {
+          setCurrentView('dashboard');
+        } else if (path === '/admin/editor') {
+          setCurrentView('editor');
+        } else if (path === '/admin/media') {
+          setCurrentView('media');
+        } else if (path === '/admin/projects') {
+          setCurrentView('projects');
+        } else if (path === '/admin/services') {
+          setCurrentView('services');
+        } else if (path === '/admin/preview') {
+          setCurrentView('preview');
+        } else {
+          setCurrentView('dashboard');
+        }
       } else {
         setCurrentView('dashboard');
       }

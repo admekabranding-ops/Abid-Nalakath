@@ -34,7 +34,10 @@ export const EditableElement: React.FC<EditableElementProps> = ({
     selectedElement,
     setSelectedElement,
     updateField,
+    content,
   } = usePortfolioContent();
+
+  const customColor = content?.customColors?.[id];
 
   const [isHovered, setIsHovered] = useState(false);
   const [isInlineEditing, setIsInlineEditing] = useState(false);
@@ -55,7 +58,11 @@ export const EditableElement: React.FC<EditableElementProps> = ({
   // If in published mode or pure preview mode, render child with data-editable-id for color styles
   if (mode === 'published' || previewMode) {
     return (
-      <div data-editable-id={id} className={`contents ${className}`}>
+      <div
+        data-editable-id={id}
+        style={customColor ? { color: customColor } : undefined}
+        className={`contents ${className}`}
+      >
         {children}
       </div>
     );
@@ -103,6 +110,7 @@ export const EditableElement: React.FC<EditableElementProps> = ({
       onDoubleClick={handleDoubleClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      style={customColor ? { color: customColor } : undefined}
       className={`relative group/editable transition-all duration-200 cursor-pointer ${className} ${
         isSelected
           ? 'ring-2 ring-[#FF5A1F] ring-offset-2 ring-offset-black z-30 shadow-[0_0_15px_rgba(255,90,31,0.35)]'

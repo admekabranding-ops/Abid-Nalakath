@@ -6,9 +6,10 @@ import { usePortfolioContent } from '../context/ContentContext';
 import { EditableElement } from '../admin/EditableElement';
 
 export const HeroSection: React.FC = () => {
-  const { content } = usePortfolioContent();
+  const { content, editorViewport } = usePortfolioContent();
   const personalInfo = content.personalInfo;
   const heroServiceHighlights = content.heroServiceHighlights;
+  const isMobileEditor = editorViewport === 'mobile' || editorViewport === 'tablet';
 
   const heroRef = useRef<HTMLElement>(null);
   const [isInteractive, setIsInteractive] = useState(false);
@@ -105,7 +106,7 @@ export const HeroSection: React.FC = () => {
       {/* 1. MOBILE & TABLET HERO COMPOSITION (< 1024px)                 */}
       {/* Strict focal hierarchy: Face 100% visible, zero overlap        */}
       {/* ============================================================== */}
-      <div className="lg:hidden relative z-10 w-full px-4 sm:px-6 pt-24 sm:pt-28 pb-12 flex flex-col items-center text-center max-w-lg sm:max-w-xl mx-auto my-auto">
+      <div className={`${isMobileEditor ? 'flex' : 'lg:hidden flex'} relative z-10 w-full px-4 sm:px-6 pt-24 sm:pt-28 pb-12 flex-col items-center text-center max-w-lg sm:max-w-xl mx-auto my-auto`}>
         {/* 1. Intro Badge */}
         <motion.div
           initial={{ opacity: 0, y: -10 }}
@@ -291,7 +292,7 @@ export const HeroSection: React.FC = () => {
       {/* 2. DESKTOP HERO COMPOSITION (>= 1024px)                        */}
       {/* Exact 3-column desktop composition with parallax preserved    */}
       {/* ============================================================== */}
-      <div className="hidden lg:block">
+      <div className={`${isMobileEditor ? 'hidden' : 'hidden lg:flex'} flex-col justify-between flex-1 h-full w-full relative`}>
         {/* Full-Screen Desktop Background Portrait */}
         <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-auto">
           <motion.div

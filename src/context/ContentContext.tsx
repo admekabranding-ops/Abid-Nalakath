@@ -310,24 +310,23 @@ export const ContentProvider: React.FC<{
   // Scoped dynamic CSS injector for all customized text colors
   const colorStylesCss = useMemo(() => {
     const colors = content.customColors || {};
-    const entries = Object.entries(colors).filter(([_, c]) => Boolean(c));
+    const entries = Object.entries(colors).filter(([_, c]) => Boolean(c) && typeof c === 'string');
     if (entries.length === 0) return '';
 
     return entries
-      .map(([id, color]) => `
-        [data-editable-id="${id}"],
-        [data-editable-id="${id}"] h1,
-        [data-editable-id="${id}"] h2,
-        [data-editable-id="${id}"] h3,
-        [data-editable-id="${id}"] h4,
-        [data-editable-id="${id}"] h5,
-        [data-editable-id="${id}"] h6,
-        [data-editable-id="${id}"] p,
-        [data-editable-id="${id}"] a,
-        [data-editable-id="${id}"] span:not(.indicator-dot):not(.pill-arrow-white *) {
-          color: ${color} !important;
-        }
-      `)
+      .map(([id, rawColor]) => {
+        const color = rawColor.trim();
+        // Validate color syntax
+        if (!color.startsWith('#') && !color.startsWith('rgb') && !color.startsWith('hsl')) return '';
+
+        return `
+          [data-editable-id="${id}"],
+          [data-editable-id="${id}"] *:not(svg):not(path):not(.indicator-dot):not(.indicator-dot *):not(.pill-arrow-white):not(.pill-arrow-white *) {
+            color: ${color} !important;
+          }
+        `;
+      })
+      .filter(Boolean)
       .join('\n');
   }, [content.customColors]);
 

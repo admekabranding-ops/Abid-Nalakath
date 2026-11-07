@@ -33,6 +33,14 @@ export interface ServiceItem {
   visualDirection: string;
   iconName: string;
   accentGradient: string;
+  bgImage?: string;
+  bgVideo?: string;
+  overlayOpacity?: number;
+  centralWord?: {
+    first: string;
+    second: string;
+    full: string;
+  };
   featuredMockup: {
     title: string;
     subtitle: string;

@@ -59,6 +59,7 @@ export const VisualEditor: React.FC<VisualEditorProps> = ({ onBackToDashboard })
 
   const [isSavingDraft, setIsSavingDraft] = useState(false);
   const [saveSuccessTick, setSaveSuccessTick] = useState(false);
+  const [saveErrorTick, setSaveErrorTick] = useState(false);
   const [isPublishing, setIsPublishing] = useState(false);
   const [showPublishModal, setShowPublishModal] = useState(false);
   const [publishSuccessMsg, setPublishSuccessMsg] = useState<string | null>(null);
@@ -74,11 +75,15 @@ export const VisualEditor: React.FC<VisualEditorProps> = ({ onBackToDashboard })
 
   const handleSaveDraft = useCallback(async () => {
     setIsSavingDraft(true);
+    setSaveErrorTick(false);
     const res = await saveDraft();
     setIsSavingDraft(false);
     if (res.success) {
       setSaveSuccessTick(true);
       setTimeout(() => setSaveSuccessTick(false), 2500);
+    } else {
+      setSaveErrorTick(true);
+      setTimeout(() => setSaveErrorTick(false), 3000);
     }
   }, [saveDraft]);
 
@@ -156,8 +161,16 @@ export const VisualEditor: React.FC<VisualEditorProps> = ({ onBackToDashboard })
         <div className="flex items-center gap-3">
           <button
             type="button"
-            onClick={onBackToDashboard}
-            className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-white/80 hover:text-white text-xs font-semibold flex items-center gap-2 transition-all hover:-translate-x-0.5"
+            onClick={() => {
+              if (onBackToDashboard) onBackToDashboard();
+              try {
+                window.history.pushState(null, '', '/admin');
+                window.dispatchEvent(new PopStateEvent('popstate'));
+              } catch {
+                window.location.href = '/admin';
+              }
+            }}
+            className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-white/80 hover:text-white text-xs font-semibold flex items-center gap-2 transition-all hover:-translate-x-0.5 cursor-pointer active:scale-95"
             title="Return to Admin Dashboard (Esc)"
           >
             <ArrowLeft className="w-4 h-4 text-[#FF5A1F]" />
@@ -167,8 +180,16 @@ export const VisualEditor: React.FC<VisualEditorProps> = ({ onBackToDashboard })
           <div className="h-4 w-px bg-white/10 hidden sm:block" />
 
           <div
-            onClick={onBackToDashboard}
-            className="hidden sm:flex items-center gap-2 cursor-pointer group"
+            onClick={() => {
+              if (onBackToDashboard) onBackToDashboard();
+              try {
+                window.history.pushState(null, '', '/admin');
+                window.dispatchEvent(new PopStateEvent('popstate'));
+              } catch {
+                window.location.href = '/admin';
+              }
+            }}
+            className="hidden sm:flex items-center gap-2 cursor-pointer group active:scale-95 select-none"
             title="Return to Admin Dashboard"
           >
             <span className="text-xs font-black text-white group-hover:text-[#FF5A1F] tracking-wide transition-colors">
@@ -296,22 +317,34 @@ export const VisualEditor: React.FC<VisualEditorProps> = ({ onBackToDashboard })
             type="button"
             disabled={isSavingDraft}
             onClick={handleSaveDraft}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all ${
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer active:scale-95 ${
               saveSuccessTick
                 ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/30 ring-2 ring-emerald-400'
+                : saveErrorTick
+                ? 'bg-red-600 text-white ring-2 ring-red-400'
                 : 'bg-white/10 hover:bg-white/20 text-white'
             }`}
             title="Save changes to draft file (Ctrl+S)"
           >
-            {saveSuccessTick ? (
+            {isSavingDraft ? (
+              <>
+                <span className="w-3.5 h-3.5 rounded-full border-2 border-white border-t-transparent animate-spin" />
+                <span>Saving...</span>
+              </>
+            ) : saveSuccessTick ? (
               <>
                 <CheckCircle2 className="w-3.5 h-3.5 text-white animate-in zoom-in" />
                 <span>Draft Saved!</span>
               </>
+            ) : saveErrorTick ? (
+              <>
+                <AlertCircle className="w-3.5 h-3.5 text-white animate-in zoom-in" />
+                <span>Save Failed</span>
+              </>
             ) : (
               <>
                 <Save className="w-3.5 h-3.5" />
-                <span>{isSavingDraft ? 'Saving...' : 'Save Draft'}</span>
+                <span>Save Draft</span>
               </>
             )}
           </button>
@@ -431,7 +464,12 @@ export const VisualEditor: React.FC<VisualEditorProps> = ({ onBackToDashboard })
 
       {/* Publish Confirmation Dialog */}
       {showPublishModal && (
-        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
+        <div
+          className="fixed inset-0 z-[99999] bg-black/85 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setShowPublishModal(false);
+          }}
+        >
           <div className="w-full max-w-md bg-[#141414] border border-white/10 rounded-3xl p-6 shadow-2xl relative text-center">
             <button
               type="button"
