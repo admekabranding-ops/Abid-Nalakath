@@ -517,8 +517,8 @@ export const HeroSection: React.FC = () => {
           transition={{ delay: 0.5, duration: 0.5 }}
           className="flex absolute bottom-8 right-[4.5%] xl:right-[5.5%] 2xl:right-[6.5%] z-20 items-center gap-2 text-[11px] font-mono tracking-widest uppercase text-white/40 hover:text-[#FF5A1F] transition-colors cursor-pointer select-none"
           onClick={() => {
-            const capSection = document.getElementById('capabilities');
-            if (capSection) capSection.scrollIntoView({ behavior: 'smooth' });
+            const servicesSection = document.getElementById('services');
+            if (servicesSection) servicesSection.scrollIntoView({ behavior: 'smooth' });
           }}
         >
           <span>SCROLL TO EXPLORE</span>

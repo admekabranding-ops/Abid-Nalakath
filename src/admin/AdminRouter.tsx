@@ -240,12 +240,12 @@ export const AdminRouter: React.FC = () => {
           <Navbar activeSection="home" />
           <main>
             <HeroSection />
-            <CapabilitiesSection />
-            <AboutSection />
             <ServicesSection />
             <PortfolioSection />
             <ProcessSection />
             <ContactSection />
+            <AboutSection />
+            <CapabilitiesSection />
           </main>
           <Footer />
         </div>

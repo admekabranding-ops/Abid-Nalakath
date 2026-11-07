@@ -23,12 +23,12 @@ export const LayersSidebar: React.FC = () => {
 
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
     hero: true,
-    capabilities: false,
-    about: true,
     services: false,
     portfolio: false,
     process: false,
     contact: false,
+    about: false,
+    capabilities: false,
   });
 
   const toggleExpand = (sec: string) => {
@@ -250,7 +250,150 @@ export const LayersSidebar: React.FC = () => {
           )}
         </div>
 
-        {/* 2. CREATIVE CORE & TYPOGRAPHY MARQUEE */}
+        {/* 2. SERVICES */}
+        <div
+          onClick={() => scrollToSection('services')}
+          className="flex items-center justify-between p-2.5 rounded-lg hover:bg-white/5 cursor-pointer text-white/80 group"
+        >
+          <div className="flex items-center gap-2">
+            <Folder className="w-3.5 h-3.5 text-white/40 group-hover:text-[#FF5A1F]" />
+            <span className="font-semibold text-white">Services ({content.servicesData.length})</span>
+          </div>
+          <button
+            type="button"
+            onClick={(e) => toggleVisibility('services', e)}
+            className="text-white/30 hover:text-white"
+          >
+            {content.sectionVisibility.services ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5 text-red-400" />}
+          </button>
+        </div>
+
+        {/* 3. PORTFOLIO */}
+        <div
+          onClick={() => scrollToSection('projects')}
+          className="flex items-center justify-between p-2.5 rounded-lg hover:bg-white/5 cursor-pointer text-white/80 group"
+        >
+          <div className="flex items-center gap-2">
+            <Folder className="w-3.5 h-3.5 text-white/40 group-hover:text-[#FF5A1F]" />
+            <span className="font-semibold text-white">Portfolio ({content.portfolioProjects.length})</span>
+          </div>
+          <button
+            type="button"
+            onClick={(e) => toggleVisibility('portfolio', e)}
+            className="text-white/30 hover:text-white"
+          >
+            {content.sectionVisibility.portfolio ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5 text-red-400" />}
+          </button>
+        </div>
+
+        {/* 4. PROCESS */}
+        <div
+          onClick={() => scrollToSection('process')}
+          className="flex items-center justify-between p-2.5 rounded-lg hover:bg-white/5 cursor-pointer text-white/80 group"
+        >
+          <div className="flex items-center gap-2">
+            <Folder className="w-3.5 h-3.5 text-white/40 group-hover:text-[#FF5A1F]" />
+            <span className="font-semibold text-white">Process</span>
+          </div>
+          <button
+            type="button"
+            onClick={(e) => toggleVisibility('process', e)}
+            className="text-white/30 hover:text-white"
+          >
+            {content.sectionVisibility.process ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5 text-red-400" />}
+          </button>
+        </div>
+
+        {/* 5. CONTACT */}
+        <div
+          onClick={() => scrollToSection('contact')}
+          className="flex items-center justify-between p-2.5 rounded-lg hover:bg-white/5 cursor-pointer text-white/80 group"
+        >
+          <div className="flex items-center gap-2">
+            <Folder className="w-3.5 h-3.5 text-white/40 group-hover:text-[#FF5A1F]" />
+            <span className="font-semibold text-white">Contact & Social</span>
+          </div>
+          <button
+            type="button"
+            onClick={(e) => toggleVisibility('contact', e)}
+            className="text-white/30 hover:text-white"
+          >
+            {content.sectionVisibility.contact ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5 text-red-400" />}
+          </button>
+        </div>
+
+        {/* 6. ABOUT SECTION */}
+        <div className="rounded-xl overflow-hidden bg-white/[0.02]">
+          <div
+            onClick={() => {
+              toggleExpand('about');
+              scrollToSection('about');
+            }}
+            className="flex items-center justify-between p-2.5 rounded-lg hover:bg-white/5 cursor-pointer text-white/80 group"
+          >
+            <div className="flex items-center gap-2">
+              {expandedSections.about ? (
+                <FolderOpen className="w-3.5 h-3.5 text-[#FF5A1F]" />
+              ) : (
+                <Folder className="w-3.5 h-3.5 text-white/40 group-hover:text-[#FF5A1F]" />
+              )}
+              <span className="font-semibold text-white">About Me</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <button
+                type="button"
+                onClick={(e) => toggleVisibility('about', e)}
+                className="text-white/30 hover:text-white"
+              >
+                {content.sectionVisibility.about ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5 text-red-400" />}
+              </button>
+              {expandedSections.about ? <ChevronDown className="w-3 h-3 text-white/40" /> : <ChevronRight className="w-3 h-3 text-white/40" />}
+            </div>
+          </div>
+
+          {expandedSections.about && (
+            <div className="pl-6 pr-2 py-1 space-y-0.5 border-l border-white/5 ml-4 mb-1">
+              <div
+                onClick={() => {
+                  setSelectedElement({
+                    id: 'about-headline',
+                    section: 'about',
+                    type: 'text',
+                    label: 'About Main Headline',
+                    propertyPath: 'personalInfo.aboutHeadline',
+                    currentValue: content.personalInfo.aboutHeadline,
+                    options: { multiline: true },
+                  });
+                  scrollToSection('about');
+                }}
+                className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg cursor-pointer text-white/60 hover:bg-white/5 hover:text-white"
+              >
+                <Type className="w-3 h-3 shrink-0" />
+                <span className="truncate">Headline</span>
+              </div>
+              <div
+                onClick={() => {
+                  setSelectedElement({
+                    id: 'about-bio',
+                    section: 'about',
+                    type: 'text',
+                    label: 'About Bio Paragraph',
+                    propertyPath: 'personalInfo.aboutBio',
+                    currentValue: content.personalInfo.aboutBio,
+                    options: { multiline: true },
+                  });
+                  scrollToSection('about');
+                }}
+                className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg cursor-pointer text-white/60 hover:bg-white/5 hover:text-white"
+              >
+                <Type className="w-3 h-3 shrink-0" />
+                <span className="truncate">Bio Paragraph</span>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* 7. CREATIVE CORE & TYPOGRAPHY MARQUEE */}
         <div className="rounded-xl overflow-hidden bg-white/[0.02]">
           <div
             onClick={() => {
@@ -328,149 +471,6 @@ export const LayersSidebar: React.FC = () => {
               </div>
             </div>
           )}
-        </div>
-
-        {/* 3. ABOUT SECTION */}
-        <div className="rounded-xl overflow-hidden bg-white/[0.02]">
-          <div
-            onClick={() => {
-              toggleExpand('about');
-              scrollToSection('about');
-            }}
-            className="flex items-center justify-between p-2.5 rounded-lg hover:bg-white/5 cursor-pointer text-white/80 group"
-          >
-            <div className="flex items-center gap-2">
-              {expandedSections.about ? (
-                <FolderOpen className="w-3.5 h-3.5 text-[#FF5A1F]" />
-              ) : (
-                <Folder className="w-3.5 h-3.5 text-white/40 group-hover:text-[#FF5A1F]" />
-              )}
-              <span className="font-semibold text-white">About Me</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <button
-                type="button"
-                onClick={(e) => toggleVisibility('about', e)}
-                className="text-white/30 hover:text-white"
-              >
-                {content.sectionVisibility.about ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5 text-red-400" />}
-              </button>
-              {expandedSections.about ? <ChevronDown className="w-3 h-3 text-white/40" /> : <ChevronRight className="w-3 h-3 text-white/40" />}
-            </div>
-          </div>
-
-          {expandedSections.about && (
-            <div className="pl-6 pr-2 py-1 space-y-0.5 border-l border-white/5 ml-4 mb-1">
-              <div
-                onClick={() => {
-                  setSelectedElement({
-                    id: 'about-headline',
-                    section: 'about',
-                    type: 'text',
-                    label: 'About Main Headline',
-                    propertyPath: 'personalInfo.aboutHeadline',
-                    currentValue: content.personalInfo.aboutHeadline,
-                    options: { multiline: true },
-                  });
-                  scrollToSection('about');
-                }}
-                className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg cursor-pointer text-white/60 hover:bg-white/5 hover:text-white"
-              >
-                <Type className="w-3 h-3 shrink-0" />
-                <span className="truncate">Headline</span>
-              </div>
-              <div
-                onClick={() => {
-                  setSelectedElement({
-                    id: 'about-bio',
-                    section: 'about',
-                    type: 'text',
-                    label: 'About Bio Paragraph',
-                    propertyPath: 'personalInfo.aboutBio',
-                    currentValue: content.personalInfo.aboutBio,
-                    options: { multiline: true },
-                  });
-                  scrollToSection('about');
-                }}
-                className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg cursor-pointer text-white/60 hover:bg-white/5 hover:text-white"
-              >
-                <Type className="w-3 h-3 shrink-0" />
-                <span className="truncate">Bio Paragraph</span>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* 4. SERVICES */}
-        <div
-          onClick={() => scrollToSection('services')}
-          className="flex items-center justify-between p-2.5 rounded-lg hover:bg-white/5 cursor-pointer text-white/80 group"
-        >
-          <div className="flex items-center gap-2">
-            <Folder className="w-3.5 h-3.5 text-white/40 group-hover:text-[#FF5A1F]" />
-            <span className="font-semibold text-white">Services ({content.servicesData.length})</span>
-          </div>
-          <button
-            type="button"
-            onClick={(e) => toggleVisibility('services', e)}
-            className="text-white/30 hover:text-white"
-          >
-            {content.sectionVisibility.services ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5 text-red-400" />}
-          </button>
-        </div>
-
-        {/* 5. PORTFOLIO */}
-        <div
-          onClick={() => scrollToSection('projects')}
-          className="flex items-center justify-between p-2.5 rounded-lg hover:bg-white/5 cursor-pointer text-white/80 group"
-        >
-          <div className="flex items-center gap-2">
-            <Folder className="w-3.5 h-3.5 text-white/40 group-hover:text-[#FF5A1F]" />
-            <span className="font-semibold text-white">Portfolio ({content.portfolioProjects.length})</span>
-          </div>
-          <button
-            type="button"
-            onClick={(e) => toggleVisibility('portfolio', e)}
-            className="text-white/30 hover:text-white"
-          >
-            {content.sectionVisibility.portfolio ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5 text-red-400" />}
-          </button>
-        </div>
-
-        {/* 6. PROCESS */}
-        <div
-          onClick={() => scrollToSection('process')}
-          className="flex items-center justify-between p-2.5 rounded-lg hover:bg-white/5 cursor-pointer text-white/80 group"
-        >
-          <div className="flex items-center gap-2">
-            <Folder className="w-3.5 h-3.5 text-white/40 group-hover:text-[#FF5A1F]" />
-            <span className="font-semibold text-white">Process</span>
-          </div>
-          <button
-            type="button"
-            onClick={(e) => toggleVisibility('process', e)}
-            className="text-white/30 hover:text-white"
-          >
-            {content.sectionVisibility.process ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5 text-red-400" />}
-          </button>
-        </div>
-
-        {/* 7. CONTACT */}
-        <div
-          onClick={() => scrollToSection('contact')}
-          className="flex items-center justify-between p-2.5 rounded-lg hover:bg-white/5 cursor-pointer text-white/80 group"
-        >
-          <div className="flex items-center gap-2">
-            <Folder className="w-3.5 h-3.5 text-white/40 group-hover:text-[#FF5A1F]" />
-            <span className="font-semibold text-white">Contact & Social</span>
-          </div>
-          <button
-            type="button"
-            onClick={(e) => toggleVisibility('contact', e)}
-            className="text-white/30 hover:text-white"
-          >
-            {content.sectionVisibility.contact ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5 text-red-400" />}
-          </button>
         </div>
       </div>
     </aside>

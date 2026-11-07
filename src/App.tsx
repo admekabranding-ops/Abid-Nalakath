@@ -77,7 +77,7 @@ function PublicWebsite() {
 
   // Section Tracking for Navbar
   useEffect(() => {
-    const sectionIds = ['home', 'about', 'services', 'projects', 'process', 'contact'];
+    const sectionIds = ['home', 'services', 'projects', 'process', 'contact', 'about'];
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 200;
 
@@ -124,26 +124,26 @@ function PublicWebsite() {
         {/* Section 01: Hero Landing Page */}
         <HeroSection />
 
-        {/* Section 02: Trust & Creative Capabilities */}
-        <CapabilitiesSection />
-
-        {/* Section 03: About Me / "Behind the Creative" */}
-        <AboutSection />
-
-        {/* Section 04: Services */}
+        {/* Section 02: Services */}
         <ServicesSection 
           onOpenVideoModal={handleOpenVideoModal}
           onSelectServiceForContact={handleSelectServiceForContact}
         />
 
-        {/* Section 05: Selected Projects / Portfolio */}
+        {/* Section 03: Selected Projects / Portfolio */}
         <PortfolioSection onSelectProject={setSelectedProject} />
 
-        {/* Section 06: Creative Process */}
+        {/* Section 04: Creative Process */}
         <ProcessSection />
 
-        {/* Section 07: Contact / Let's Work Together */}
+        {/* Section 05: Contact / Let's Work Together */}
         <ContactSection initialService={contactInitialService} />
+
+        {/* Section 06: About Me / "Behind the Creative" */}
+        <AboutSection />
+
+        {/* Section 07: Creative Core & Animated Typography Marquee */}
+        <CapabilitiesSection />
       </main>
 
       {/* Section 08: Minimal Premium Footer */}

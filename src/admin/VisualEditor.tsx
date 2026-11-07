@@ -409,8 +409,6 @@ export const VisualEditor: React.FC<VisualEditorProps> = ({ onBackToDashboard })
 
               <main>
                 {content.sectionVisibility.hero && <HeroSection />}
-                {content.sectionVisibility.capabilities && <CapabilitiesSection />}
-                {content.sectionVisibility.about && <AboutSection />}
                 {content.sectionVisibility.services && (
                   <ServicesSection
                     onOpenVideoModal={(title) => {
@@ -424,6 +422,8 @@ export const VisualEditor: React.FC<VisualEditorProps> = ({ onBackToDashboard })
                 )}
                 {content.sectionVisibility.process && <ProcessSection />}
                 {content.sectionVisibility.contact && <ContactSection />}
+                {content.sectionVisibility.about && <AboutSection />}
+                {content.sectionVisibility.capabilities && <CapabilitiesSection />}
               </main>
 
               {content.sectionVisibility.footer && <Footer />}
