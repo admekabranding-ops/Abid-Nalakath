@@ -82,13 +82,14 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, isEditor = false 
           {/* Logo / Brand Name */}
           <a
             href="#home"
-            className="group flex items-center gap-2 text-white font-extrabold text-base sm:text-lg md:text-xl tracking-tight transition-transform duration-300 hover:scale-[1.02] shrink-0"
+            className="group flex items-center transition-transform duration-300 hover:scale-[1.03] shrink-0"
             aria-label="Abid Nalakath Portfolio Home"
           >
-            <span className="w-2.5 h-2.5 rounded-full bg-[#FF5A1F] group-hover:scale-125 transition-transform duration-300 shrink-0" />
-            <span className="tracking-wider uppercase font-black truncate max-w-[190px] sm:max-w-none">
-              {currentPersonalInfo.name}
-            </span>
+            <img
+              src="/images/logo.png"
+              alt="Abid Nalakath Logo"
+              className="h-8 sm:h-9 md:h-10 w-auto object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
+            />
           </a>
 
           {/* Desktop Navigation Links */}
@@ -153,10 +154,14 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, isEditor = false 
           <a
             href="#home"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="flex items-center gap-2 text-white font-extrabold text-base tracking-tight"
+            className="flex items-center transition-transform duration-300 hover:scale-[1.03]"
+            aria-label="Abid Nalakath Portfolio Home"
           >
-            <span className="w-2.5 h-2.5 rounded-full bg-[#FF5A1F]" />
-            <span className="tracking-wider uppercase font-black">{currentPersonalInfo.name}</span>
+            <img
+              src="/images/logo.png"
+              alt="Abid Nalakath Logo"
+              className="h-8 sm:h-9 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]"
+            />
           </a>
 
           <button

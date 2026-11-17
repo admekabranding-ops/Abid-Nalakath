@@ -55,9 +55,11 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess }) => {
       <div className="w-full max-w-md mx-auto my-auto z-10">
         <div className="p-8 sm:p-10 rounded-[32px] bg-[#121212] border border-white/10 shadow-2xl relative overflow-hidden backdrop-blur-xl">
           <div className="text-center mb-8">
-            <div className="w-14 h-14 rounded-2xl bg-[#FF5A1F]/15 border border-[#FF5A1F]/30 flex items-center justify-center text-[#FF5A1F] mx-auto mb-4 shadow-lg shadow-[#FF5A1F]/20">
-              <Lock className="w-7 h-7" />
-            </div>
+            <img
+              src="/images/logo.png"
+              alt="Abid Nalakath Logo"
+              className="h-10 mx-auto mb-4 object-contain drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]"
+            />
             <h2 className="text-2xl font-black text-white tracking-tight">Admin Sign In</h2>
             <p className="text-xs text-white/50 mt-1.5 leading-relaxed">
               Enter your credentials to manage and visually edit your portfolio.

@@ -106,17 +106,14 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       {/* Top Navbar */}
       <header className="h-16 bg-[#121212] border-b border-white/10 px-6 sm:px-10 flex items-center justify-between sticky top-0 z-30">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#FF5A1F] to-[#EA580C] flex items-center justify-center font-black text-white text-sm shadow-md shadow-[#FF5A1F]/30">
-            A
-          </div>
-          <div>
-            <h1 className="text-sm font-extrabold text-white tracking-wide flex items-center gap-2">
-              <span>ABID NALAKATH</span>
-              <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-[#FF5A1F]/20 text-[#FF5A1F]">
-                ADMIN
-              </span>
-            </h1>
-          </div>
+          <img
+            src="/images/logo.png"
+            alt="Abid Nalakath Logo"
+            className="h-7 sm:h-8 w-auto object-contain"
+          />
+          <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-[#FF5A1F]/20 text-[#FF5A1F]">
+            ADMIN
+          </span>
         </div>
 
         <div className="flex items-center gap-3">

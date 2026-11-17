@@ -39,12 +39,16 @@ export const Footer: React.FC = () => {
           <div className="md:col-span-4">
             <a
               href="#home"
-              className="group flex items-center gap-2 text-white font-extrabold text-xl tracking-tight"
+              className="group inline-flex items-center transition-transform duration-300 hover:scale-[1.03] mb-3"
+              aria-label="Abid Nalakath Portfolio Home"
             >
-              <span className="w-3 h-3 rounded-full bg-[#FF5A1F]" />
-              <span className="tracking-wider uppercase font-black">{personalInfo.name}</span>
+              <img
+                src="/images/logo.png"
+                alt="Abid Nalakath Logo"
+                className="h-9 sm:h-11 w-auto object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
+              />
             </a>
-            <p className="text-sm text-white/50 mt-1 font-mono">
+            <p className="text-sm text-white/50 font-mono">
               {personalInfo.title}
             </p>
             <p className="text-xs text-white/60 mt-4 max-w-xs leading-relaxed">
