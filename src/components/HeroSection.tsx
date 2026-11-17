@@ -408,9 +408,9 @@ export const HeroSection: React.FC = () => {
                   propertyPath="personalInfo.heroIntro"
                   currentValue={personalInfo.heroIntro}
                 >
-                  <div className="inline-flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#FF5A1F] shadow-[0_0_10px_#FF5A1F] animate-pulse indicator-dot" />
-                    <span className="text-xs font-extrabold uppercase tracking-[0.22em] text-[#FF5A1F] drop-shadow-sm">
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/35 backdrop-blur-md border border-white/10 shadow-[0_2px_10px_rgba(0,0,0,0.3)]">
+                    <span className="w-2 h-2 rounded-full bg-[#FF5A1F] shadow-[0_0_8px_#FF5A1F] shrink-0 indicator-dot" />
+                    <span className="text-[12px] font-bold uppercase tracking-[0.14em] text-white select-none">
                       {personalInfo.heroIntro}
                     </span>
                   </div>
