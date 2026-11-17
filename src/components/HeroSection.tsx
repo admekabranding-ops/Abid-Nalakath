@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import { ScrollVideoHeroCanvas } from './ScrollVideoHeroCanvas';
+import { AnimatedTypographyMarquee } from './AnimatedTypographyMarquee';
 import { ArrowUpRight, ArrowDown } from 'lucide-react';
 import { usePortfolioContent } from '../context/ContentContext';
 import { EditableElement } from '../admin/EditableElement';
@@ -50,17 +51,37 @@ export const HeroSection: React.FC = () => {
     };
   }, [heroScrollProgress]);
 
-  // Hero UI elements smoothly fade and elevate as video frame scrubbing initiates
-  const heroUiOpacity = useTransform(heroScrollProgress, [0, 0.04, 0.32], [1, 1, 0]);
-  const heroUiY = useTransform(heroScrollProgress, [0, 0.04, 0.32], [0, 0, -36]);
-  const heroPointerEvents = useTransform(heroScrollProgress, (v) => (v > 0.3 ? 'none' : 'auto'));
+  // 1. Hero UI elements smoothly fade and elevate as video frame scrubbing initiates
+  // 0% - 18%: fully visible
+  // 18% - 38%: smoothly fades out and translates up
+  // > 38%: completely hidden
+  const heroUiOpacity = useTransform(heroScrollProgress, [0, 0.18, 0.38], [1, 1, 0]);
+  const heroUiY = useTransform(heroScrollProgress, [0, 0.18, 0.38], [0, 0, -36]);
+  const heroPointerEvents = useTransform(heroScrollProgress, (v) => (v > 0.25 ? 'none' : 'auto'));
 
-  // Transition cue emerges as the head reaches its lowered pose at Frame 65
-  const transitionCueOpacity = useTransform(heroScrollProgress, [0.55, 0.78, 1], [0, 1, 1]);
+  // 2. Rising Animated Typography Marquee (Synchronized Transition Timeline)
+  // 0% - 20%: Below viewport (y: '100%'), invisible (opacity: 0)
+  // 20% - 45%: Starts rising into view from bottom, typography gradually visible
+  // 45% - 75%: Moves further upward, overlapping lower hero / chest, fully prominent
+  // 75% - 100%: Anchored in its main prominent position while head is held at Frame 65
+  const marqueeY = useTransform(
+    heroScrollProgress,
+    [0, 0.20, 0.45, 0.75, 1.0],
+    ['100%', '100%', '35%', '0%', '0%']
+  );
+  const marqueeOpacity = useTransform(
+    heroScrollProgress,
+    [0, 0.20, 0.35, 0.65, 1.0],
+    [0, 0, 0.85, 1.0, 1.0]
+  );
+  const marqueePointerEvents = useTransform(heroScrollProgress, (v) => (v >= 0.30 ? 'auto' : 'none'));
+
+  // 3. Continuation cue emerges during 75% - 100% to guide user into Services section
+  const transitionCueOpacity = useTransform(heroScrollProgress, [0.72, 0.86, 1.0], [0, 1.0, 1.0]);
 
   // Subject-Only Scroll Zoom & depth transforms (Desktop)
-  const subjectScrollScale = useTransform(heroScrollProgress, [0, 0.72], [1.0, 1.08], { clamp: true });
-  const scrollPortraitY = useTransform(heroScrollProgress, [0, 0.72], [0, 30]);
+  const subjectScrollScale = useTransform(heroScrollProgress, [0, 0.75], [1.0, 1.08], { clamp: true });
+  const scrollPortraitY = useTransform(heroScrollProgress, [0, 0.75], [0, 25]);
 
   // Depth displacement transforms (Desktop)
   const layer1BgX = useTransform(smoothX, [-1, 1], [-6, 6]);
@@ -547,19 +568,43 @@ export const HeroSection: React.FC = () => {
         </motion.div>
 
         {/* ============================================================== */}
-        {/* 4. CINEMATIC TRANSITION CUE TOWARDS FRAME 65                   */}
-        {/* Emerges as the head reaches its locked lowered position        */}
+        {/* 4. RISING ANIMATED TYPOGRAPHY MARQUEE (SYNCHRONIZED TRANSITION) */}
+        {/* Progressively enters viewport from bottom as head lowers        */}
         {/* ============================================================== */}
         <motion.div
-          style={{ opacity: transitionCueOpacity }}
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center pointer-events-none text-center select-none"
+          style={{
+            y: marqueeY,
+            opacity: marqueeOpacity,
+            pointerEvents: marqueePointerEvents as any,
+          }}
+          className="absolute inset-x-0 bottom-0 z-20 flex flex-col justify-end w-full will-change-transform"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/60 border border-white/15 backdrop-blur-md shadow-xl">
-            <span className="w-2 h-2 rounded-full bg-[#FF5A1F] animate-pulse" />
-            <span className="text-[11px] font-mono font-bold tracking-widest text-white/90 uppercase">
-              CONTINUE SCROLLING
-            </span>
-            <ArrowDown className="w-3.5 h-3.5 text-[#FF5A1F] animate-bounce" />
+          {/* Seamless Dark Gradient Vignette for smooth contrast over hero */}
+          <div className="absolute inset-x-0 -top-28 h-28 bg-gradient-to-t from-[#0B0B0B] via-[#0B0B0B]/70 to-transparent pointer-events-none" />
+
+          {/* Marquee Content Wrapper */}
+          <div className="relative w-full bg-[#0B0B0B]/85 backdrop-blur-md pt-2 pb-5 sm:pb-7 border-t border-white/[0.08] shadow-[0_-25px_60px_rgba(0,0,0,0.85)]">
+            <AnimatedTypographyMarquee transparentBg={true} />
+
+            {/* Subtle continue to services cue during 75%-100% */}
+            <motion.div
+              style={{ opacity: transitionCueOpacity }}
+              className="w-full flex items-center justify-center pt-2 sm:pt-3 pb-1 text-center pointer-events-auto"
+            >
+              <div
+                onClick={() => {
+                  const services = document.getElementById('services');
+                  if (services) services.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/60 hover:bg-black/80 border border-white/10 hover:border-[#FF5A1F]/30 backdrop-blur-md transition-all cursor-pointer select-none group"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-[#FF5A1F] animate-pulse" />
+                <span className="text-[10px] sm:text-[11px] font-mono font-bold tracking-widest text-white/70 group-hover:text-white uppercase transition-colors">
+                  EXPLORE SERVICES
+                </span>
+                <ArrowDown className="w-3 h-3 text-[#FF5A1F] group-hover:translate-y-0.5 transition-transform" />
+              </div>
+            </motion.div>
           </div>
         </motion.div>
       </div>

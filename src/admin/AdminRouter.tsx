@@ -12,7 +12,6 @@ import { ArrowLeft, Edit3, Save, Send } from 'lucide-react';
 // Live Components for Preview Mode
 import { Navbar } from '../components/Navbar';
 import { HeroSection } from '../components/HeroSection';
-import { AnimatedTypographyMarquee } from '../components/AnimatedTypographyMarquee';
 import { AboutSection } from '../components/AboutSection';
 import { ServicesSection } from '../components/ServicesSection';
 import { PortfolioSection } from '../components/PortfolioSection';
@@ -240,7 +239,6 @@ export const AdminRouter: React.FC = () => {
           <Navbar activeSection="home" />
           <main>
             <HeroSection />
-            <AnimatedTypographyMarquee />
             <ServicesSection />
             <PortfolioSection />
             <ProcessSection />

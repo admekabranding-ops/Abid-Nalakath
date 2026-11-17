@@ -8,7 +8,8 @@ interface ScrollVideoHeroCanvasProps {
 }
 
 const TOTAL_ANIM_FRAMES = 66; // Frames 0 to 65 inclusive
-const SCRUB_END_PROGRESS = 0.72; // Scrubbing finishes at 72% scroll, locking Frame 65 from 72% to 100%
+const SCRUB_START_PROGRESS = 0.18; // 0% - 20%: Frame 0 looking upward; head begins lowering at ~18%
+const SCRUB_END_PROGRESS = 0.75; // 75% - 100%: Reaches Frame 65 and locks permanently in lowered pose
 
 const getFramePath = (index: number): string => {
   const clamped = Math.max(0, Math.min(65, index));
@@ -189,12 +190,19 @@ export const ScrollVideoHeroCanvas: React.FC<ScrollVideoHeroCanvasProps> = ({
     }
 
     const unsubscribe = scrollYProgress.on('change', (latest: number) => {
-      // Calculate active frame strictly between 0 and 65
-      // 0.0 -> Frame 0 (head upward)
-      // 0.0 to SCRUB_END_PROGRESS -> Progressive head lowering (Frames 0 to 65)
-      // >= SCRUB_END_PROGRESS -> Stays strictly locked at Frame 65
-      const animProgress = Math.max(0, Math.min(1, latest / SCRUB_END_PROGRESS));
-      const calculatedFrame = Math.min(65, Math.floor(animProgress * 65.999));
+      // Calculate active frame strictly between 0 and 65:
+      // 0.0 to SCRUB_START_PROGRESS (0% - 20%) -> Frame 0 (head upward pose)
+      // SCRUB_START_PROGRESS to SCRUB_END_PROGRESS (20% - 75%) -> Progressive head lowering (Frames 0 to 65)
+      // >= SCRUB_END_PROGRESS (75% - 100%) -> Strictly locked at Frame 65 (lowered pose)
+      let calculatedFrame = 0;
+      if (latest <= SCRUB_START_PROGRESS) {
+        calculatedFrame = 0;
+      } else if (latest >= SCRUB_END_PROGRESS) {
+        calculatedFrame = 65;
+      } else {
+        const animProgress = (latest - SCRUB_START_PROGRESS) / (SCRUB_END_PROGRESS - SCRUB_START_PROGRESS);
+        calculatedFrame = Math.min(65, Math.floor(animProgress * 65.999));
+      }
 
       if (calculatedFrame !== targetFrameRef.current) {
         targetFrameRef.current = calculatedFrame;

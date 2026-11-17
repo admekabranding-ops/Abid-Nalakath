@@ -87,7 +87,17 @@ const MarqueeRow: React.FC<MarqueeRowProps> = ({ items, direction, speed, rowNum
   );
 };
 
-export const AnimatedTypographyMarquee: React.FC = () => {
+interface AnimatedTypographyMarqueeProps {
+  className?: string;
+  style?: React.CSSProperties;
+  transparentBg?: boolean;
+}
+
+export const AnimatedTypographyMarquee: React.FC<AnimatedTypographyMarqueeProps> = ({
+  className = '',
+  style,
+  transparentBg = false,
+}) => {
   const { content } = usePortfolioContent();
   const marquee = content.marqueeSettings || defaultMarqueeSettings;
 
@@ -98,11 +108,14 @@ export const AnimatedTypographyMarquee: React.FC = () => {
   const speedRow1 = marquee.speedRow1 || 34;
   const speedRow2 = marquee.speedRow2 || 42;
 
+  const bgClass = transparentBg ? 'bg-transparent' : 'bg-[#0B0B0B] border-y border-white/[0.06]';
+
   return (
     <section
       id="marquee"
       aria-label="Creative specialties typography marquee"
-      className="relative z-10 w-full overflow-hidden bg-[#0B0B0B] py-6 sm:py-8 md:py-10 border-y border-white/[0.06] select-none"
+      style={style}
+      className={`relative z-10 w-full overflow-hidden py-3 sm:py-5 md:py-6 select-none ${bgClass} ${className}`}
     >
       {/* Smooth glowing ambient top aura from the hero gradient */}
       <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-[700px] h-24 bg-gradient-to-b from-[#F4510B]/12 via-[#F4510B]/5 to-transparent blur-2xl pointer-events-none" />

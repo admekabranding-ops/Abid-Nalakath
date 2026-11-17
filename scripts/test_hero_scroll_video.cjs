@@ -7,7 +7,7 @@ const EDGE_PATH = 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge
 const URL = 'http://127.0.0.1:5173/';
 
 async function runTest() {
-  console.log('Starting Scroll-Driven Video Hero Automated Test...');
+  console.log('Starting Synchronized Hero & Rising Typography Automated Test...');
   const browser = await puppeteer.launch({
     executablePath: EDGE_PATH,
     headless: true,
@@ -20,8 +20,7 @@ async function runTest() {
     desktop: {},
     mobile390: {},
     mobile375: {},
-    mobile430: {},
-    frameLockVerification: {}
+    mobile430: {}
   };
 
   // ==========================================
@@ -32,25 +31,26 @@ async function runTest() {
   await page.goto(URL, { waitUntil: 'networkidle2' });
   await new Promise(r => setTimeout(r, 1200));
 
-  // Check initial state (Frame 0)
+  // Check initial state (0% scroll)
   const initialDesktop = await page.evaluate(() => {
     const canvas = document.querySelector('section#home canvas');
     const hero = document.getElementById('home');
     const desktopUi = document.querySelector('#home .sticky > div.hidden.lg\\:flex');
-    const cue = document.querySelector('#home .sticky > div.absolute.bottom-6');
+    const marqueeSec = document.querySelector('#home #marquee');
+    const marqueeContainer = marqueeSec ? marqueeSec.closest('.absolute.inset-x-0.bottom-0') : null;
     const h1 = desktopUi ? desktopUi.querySelector('h1') : null;
     return {
       canvasFound: !!canvas,
-      canvasWidth: canvas ? canvas.width : 0,
-      canvasHeight: canvas ? canvas.height : 0,
       heroTotalHeight: hero ? hero.offsetHeight : 0,
       headingText: h1 ? h1.innerText : '',
       desktopUiOpacity: desktopUi ? window.getComputedStyle(desktopUi).opacity : null,
-      cueOpacity: cue ? window.getComputedStyle(cue).opacity : null
+      marqueeFound: !!marqueeSec,
+      marqueeOpacity: marqueeContainer ? window.getComputedStyle(marqueeContainer).opacity : null,
+      marqueeTransform: marqueeContainer ? window.getComputedStyle(marqueeContainer).transform : null
     };
   });
   results.desktop.initial = initialDesktop;
-  await page.screenshot({ path: path.join(ARTIFACT_DIR, 'test_desktop_hero_frame0.png') });
+  await page.screenshot({ path: path.join(ARTIFACT_DIR, 'test_desktop_timeline_00_initial.png') });
 
   // Get Hero scroll track dimensions
   const heroDimensions = await page.evaluate(() => {
@@ -61,42 +61,73 @@ async function runTest() {
     return { scrollTop, scrollTrack };
   });
 
-  // Test Intermediate Frames by scrolling to exact progress points
-  // Frame 20 is around progress = 20/65 * 0.72 = 0.22
-  // Frame 45 is around progress = 45/65 * 0.72 = 0.50
-  // Frame 60 is around progress = 60/65 * 0.72 = 0.66
-  // Frame 65 is around progress = 65/65 * 0.72 = 0.72
-  // Beyond 0.72 (e.g. 0.85, 0.95), frame MUST remain 65!
-
-  // Frame 20
-  await page.evaluate((pos) => window.scrollTo({ top: pos.scrollTop + pos.scrollTrack * 0.22, behavior: 'instant' }), heroDimensions);
+  // Stage 1: 30% scroll (Timeline 20% - 45%)
+  // Head begins lowering, hero UI fading, marquee starts rising
+  console.log('Testing Desktop 30% scroll...');
+  await page.evaluate((pos) => window.scrollTo({ top: pos.scrollTop + pos.scrollTrack * 0.30, behavior: 'instant' }), heroDimensions);
   await new Promise(r => setTimeout(r, 600));
-  await page.screenshot({ path: path.join(ARTIFACT_DIR, 'test_desktop_hero_frame20.png') });
+  const stage1State = await page.evaluate(() => {
+    const desktopUi = document.querySelector('#home .sticky > div.hidden.lg\\:flex');
+    const marqueeSec = document.querySelector('#home #marquee');
+    const marqueeContainer = marqueeSec ? marqueeSec.closest('.absolute.inset-x-0.bottom-0') : null;
+    return {
+      desktopUiOpacity: desktopUi ? window.getComputedStyle(desktopUi).opacity : null,
+      marqueeOpacity: marqueeContainer ? window.getComputedStyle(marqueeContainer).opacity : null,
+      marqueeTransform: marqueeContainer ? window.getComputedStyle(marqueeContainer).transform : null
+    };
+  });
+  results.desktop.stage1_30 = stage1State;
+  await page.screenshot({ path: path.join(ARTIFACT_DIR, 'test_desktop_timeline_30_rising.png') });
 
-  // Frame 45
-  await page.evaluate((pos) => window.scrollTo({ top: pos.scrollTop + pos.scrollTrack * 0.50, behavior: 'instant' }), heroDimensions);
+  // Stage 2: 55% scroll (Timeline 45% - 75%)
+  // Head lowering further, marquee moving further upward, typography increasingly prominent
+  console.log('Testing Desktop 55% scroll...');
+  await page.evaluate((pos) => window.scrollTo({ top: pos.scrollTop + pos.scrollTrack * 0.55, behavior: 'instant' }), heroDimensions);
   await new Promise(r => setTimeout(r, 600));
-  await page.screenshot({ path: path.join(ARTIFACT_DIR, 'test_desktop_hero_frame45.png') });
+  const stage2State = await page.evaluate(() => {
+    const marqueeSec = document.querySelector('#home #marquee');
+    const marqueeContainer = marqueeSec ? marqueeSec.closest('.absolute.inset-x-0.bottom-0') : null;
+    return {
+      marqueeOpacity: marqueeContainer ? window.getComputedStyle(marqueeContainer).opacity : null,
+      marqueeTransform: marqueeContainer ? window.getComputedStyle(marqueeContainer).transform : null
+    };
+  });
+  results.desktop.stage2_55 = stage2State;
+  await page.screenshot({ path: path.join(ARTIFACT_DIR, 'test_desktop_timeline_55_prominent.png') });
 
-  // Frame 60
-  await page.evaluate((pos) => window.scrollTo({ top: pos.scrollTop + pos.scrollTrack * 0.66, behavior: 'instant' }), heroDimensions);
+  // Stage 3: 80% scroll (Timeline 75% - 100%)
+  // Head reached Frame 65, frozen in lowered pose, marquee in main visible area with lowered head
+  console.log('Testing Desktop 80% scroll (Frame 65 + Marquee)...');
+  await page.evaluate((pos) => window.scrollTo({ top: pos.scrollTop + pos.scrollTrack * 0.80, behavior: 'instant' }), heroDimensions);
   await new Promise(r => setTimeout(r, 600));
-  await page.screenshot({ path: path.join(ARTIFACT_DIR, 'test_desktop_hero_frame60.png') });
+  const stage3State = await page.evaluate(() => {
+    const marqueeSec = document.querySelector('#home #marquee');
+    const marqueeContainer = marqueeSec ? marqueeSec.closest('.absolute.inset-x-0.bottom-0') : null;
+    return {
+      marqueeOpacity: marqueeContainer ? window.getComputedStyle(marqueeContainer).opacity : null,
+      marqueeTransform: marqueeContainer ? window.getComputedStyle(marqueeContainer).transform : null
+    };
+  });
+  results.desktop.stage3_80 = stage3State;
+  await page.screenshot({ path: path.join(ARTIFACT_DIR, 'test_desktop_timeline_80_frame65_marquee.png') });
 
-  // Frame 65
-  await page.evaluate((pos) => window.scrollTo({ top: pos.scrollTop + pos.scrollTrack * 0.75, behavior: 'instant' }), heroDimensions);
+  // Stage 4: 95% scroll (Verify Frame 65 Lock)
+  console.log('Testing Desktop 95% scroll (Locked Frame 65)...');
+  await page.evaluate((pos) => window.scrollTo({ top: pos.scrollTop + pos.scrollTrack * 0.95, behavior: 'instant' }), heroDimensions);
   await new Promise(r => setTimeout(r, 600));
-  await page.screenshot({ path: path.join(ARTIFACT_DIR, 'test_desktop_hero_frame65.png') });
+  await page.screenshot({ path: path.join(ARTIFACT_DIR, 'test_desktop_timeline_95_locked.png') });
 
-  // Verify Frame 65 Lock at 90% scroll (Must never advance beyond Frame 65)
-  await page.evaluate((pos) => window.scrollTo({ top: pos.scrollTop + pos.scrollTrack * 0.90, behavior: 'instant' }), heroDimensions);
-  await new Promise(r => setTimeout(r, 600));
-  await page.screenshot({ path: path.join(ARTIFACT_DIR, 'test_desktop_hero_frame65_locked.png') });
+  // Stage 5: Scroll Past 100% (Transition directly into Services)
+  console.log('Testing Desktop transition into Services section...');
+  await page.evaluate((pos) => window.scrollTo({ top: pos.scrollTop + pos.scrollTrack + 200, behavior: 'instant' }), heroDimensions);
+  await new Promise(r => setTimeout(r, 800));
+  await page.screenshot({ path: path.join(ARTIFACT_DIR, 'test_desktop_transition_to_services.png') });
 
-  // Test Backward Scrolling (Scroll back to Top -> Frame 0)
+  // Reverse Scroll back to Top
+  console.log('Testing Desktop reverse scroll to 0%...');
   await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
   await new Promise(r => setTimeout(r, 800));
-  await page.screenshot({ path: path.join(ARTIFACT_DIR, 'test_desktop_hero_reversed_frame0.png') });
+  await page.screenshot({ path: path.join(ARTIFACT_DIR, 'test_desktop_reversed_to_top.png') });
 
   // ==========================================
   // 2. MOBILE TEST: 390 x 844 (iPhone 14 / 15)
@@ -107,25 +138,14 @@ async function runTest() {
   await new Promise(r => setTimeout(r, 1200));
 
   // Initial mobile Frame 0
-  const mobileInitial = await page.evaluate(() => {
-    const canvas = document.querySelector('section#home canvas');
-    const mobileUi = document.querySelector('#home .sticky > div.lg\\:hidden.flex');
-    const cue = document.querySelector('#home .sticky > div.absolute.bottom-6');
-    const h1 = mobileUi ? mobileUi.querySelector('h1') : null;
-    return {
-      canvasFound: !!canvas,
-      windowWidth: window.innerWidth,
-      scrollWidth: document.documentElement.scrollWidth,
-      hasHorizontalOverflow: document.documentElement.scrollWidth > window.innerWidth,
-      headingText: h1 ? h1.innerText : '',
-      mobileUiOpacity: mobileUi ? window.getComputedStyle(mobileUi).opacity : null,
-      cueOpacity: cue ? window.getComputedStyle(cue).opacity : null
-    };
-  });
+  const mobileInitial = await page.evaluate(() => ({
+    scrollWidth: document.documentElement.scrollWidth,
+    windowWidth: window.innerWidth,
+    hasHorizontalOverflow: document.documentElement.scrollWidth > window.innerWidth
+  }));
   results.mobile390.initial = mobileInitial;
-  await page.screenshot({ path: path.join(ARTIFACT_DIR, 'test_mobile_hero_frame0.png') });
+  await page.screenshot({ path: path.join(ARTIFACT_DIR, 'test_mobile_timeline_00_initial.png') });
 
-  // Mobile Intermediate Frame 45
   const mobileHeroDims = await page.evaluate(() => {
     const hero = document.getElementById('home');
     const rect = hero.getBoundingClientRect();
@@ -134,19 +154,20 @@ async function runTest() {
     return { scrollTop, scrollTrack };
   });
 
-  await page.evaluate((pos) => window.scrollTo({ top: pos.scrollTop + pos.scrollTrack * 0.50, behavior: 'instant' }), mobileHeroDims);
+  // Mobile 35% scroll (Rising Marquee)
+  await page.evaluate((pos) => window.scrollTo({ top: pos.scrollTop + pos.scrollTrack * 0.35, behavior: 'instant' }), mobileHeroDims);
   await new Promise(r => setTimeout(r, 600));
-  await page.screenshot({ path: path.join(ARTIFACT_DIR, 'test_mobile_hero_frame45.png') });
+  await page.screenshot({ path: path.join(ARTIFACT_DIR, 'test_mobile_timeline_35_rising.png') });
 
-  // Mobile Final Frame 65
+  // Mobile 75% scroll (Frame 65 + Marquee prominent)
   await page.evaluate((pos) => window.scrollTo({ top: pos.scrollTop + pos.scrollTrack * 0.78, behavior: 'instant' }), mobileHeroDims);
   await new Promise(r => setTimeout(r, 600));
-  await page.screenshot({ path: path.join(ARTIFACT_DIR, 'test_mobile_hero_frame65.png') });
+  await page.screenshot({ path: path.join(ARTIFACT_DIR, 'test_mobile_timeline_78_frame65_marquee.png') });
 
-  // Transition into Next Section (Marquee and Services)
-  await page.evaluate((pos) => window.scrollTo({ top: pos.scrollTop + pos.scrollTrack + 120, behavior: 'instant' }), mobileHeroDims);
+  // Mobile Transition into Services
+  await page.evaluate((pos) => window.scrollTo({ top: pos.scrollTop + pos.scrollTrack + 150, behavior: 'instant' }), mobileHeroDims);
   await new Promise(r => setTimeout(r, 800));
-  await page.screenshot({ path: path.join(ARTIFACT_DIR, 'test_mobile_transition_to_marquee.png') });
+  await page.screenshot({ path: path.join(ARTIFACT_DIR, 'test_mobile_transition_to_services.png') });
 
   // ==========================================
   // 3. MOBILE TEST: 375 x 667 (iPhone SE)
@@ -161,7 +182,7 @@ async function runTest() {
     innerWidth: window.innerWidth
   }));
   results.mobile375 = mobile375Overflow;
-  await page.screenshot({ path: path.join(ARTIFACT_DIR, 'test_mobile_375_frame0.png') });
+  await page.screenshot({ path: path.join(ARTIFACT_DIR, 'test_mobile_375_layout.png') });
 
   // ==========================================
   // 4. MOBILE TEST: 430 x 932 (iPhone Pro Max)
@@ -176,10 +197,10 @@ async function runTest() {
     innerWidth: window.innerWidth
   }));
   results.mobile430 = mobile430Overflow;
-  await page.screenshot({ path: path.join(ARTIFACT_DIR, 'test_mobile_430_frame0.png') });
+  await page.screenshot({ path: path.join(ARTIFACT_DIR, 'test_mobile_430_layout.png') });
 
   await browser.close();
-  console.log('All automated tests completed successfully!');
+  console.log('All synchronized tests completed successfully!');
   console.log(JSON.stringify(results, null, 2));
 }
 

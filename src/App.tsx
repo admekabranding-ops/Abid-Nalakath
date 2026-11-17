@@ -5,7 +5,6 @@ import { ContentProvider } from './context/ContentContext';
 import { AdminRouter } from './admin/AdminRouter';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
-import { AnimatedTypographyMarquee } from './components/AnimatedTypographyMarquee';
 import { AboutSection } from './components/AboutSection';
 import { ServicesSection } from './components/ServicesSection';
 import { PortfolioSection } from './components/PortfolioSection';
@@ -121,13 +120,10 @@ function PublicWebsite() {
 
       {/* Main Content Sections */}
       <main>
-        {/* 1. HOME HERO SECTION */}
+        {/* 1. HOME HERO SECTION (Includes Synchronized Rising Typography Marquee Transition) */}
         <HeroSection />
 
-        {/* 2. ANIMATED TYPOGRAPHY MARQUEE */}
-        <AnimatedTypographyMarquee />
-
-        {/* 3. SERVICES SECTION */}
+        {/* 2. SERVICES SECTION */}
         <ServicesSection 
           onOpenVideoModal={handleOpenVideoModal}
           onSelectServiceForContact={handleSelectServiceForContact}
